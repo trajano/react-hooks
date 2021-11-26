@@ -1,13 +1,14 @@
 import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
 import { useRef } from 'react';
-import { RenderingContext, RerenderingProvider } from "./RerenderingContext";
+import { RerenderingProvider, useRerendering } from "./RerenderingContext";
 describe('useRef with context', () => {
-  it("should get the same object when the parent rerenders using component, but the component will not rerender as there is no state change", async () => {
+  it("should get the same object when the parent rerenders using component, but the component will rerender as context has changed", async () => {
     jest.useFakeTimers();
     const callback = jest.fn();
     let x = 0;
-    function MyComponent({ value }: { value: number }) {
+    function MyComponent() {
+      const _ignored = useRerendering();
       const random = Math.random();
       const myRef = useRef({ random })
       if (x === 0) {
@@ -20,7 +21,7 @@ describe('useRef with context', () => {
       </>);
     }
 
-    const { getByTestId } = render(<RerenderingProvider><RenderingContext.Consumer >{value => (<MyComponent value={value.value} />)}</RenderingContext.Consumer></RerenderingProvider>)
+    const { getByTestId } = render(<RerenderingProvider><MyComponent /></RerenderingProvider>)
     expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
     expect(callback).toBeCalledTimes(1);
     jest.runAllTimers();

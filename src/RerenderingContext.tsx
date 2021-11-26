@@ -2,7 +2,7 @@ import { createContext, PropsWithChildren, useContext, useEffect, useState } fro
 import { delay } from "./delay";
 
 type IRendering = { value: number }
-export const RenderingContext = createContext<IRendering>({ value: 0 })
+const RenderingContext = createContext<IRendering>({ value: 0 })
 /**
  * This is a component that rerenders after a short delay
  */
