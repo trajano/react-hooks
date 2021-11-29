@@ -1,15 +1,15 @@
 import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
-import { usePolling } from './usePolling';
+import { usePollingIf } from './usePollingIf';
 
 
-describe("usePolling", () => {
+describe("usePollingIf", () => {
 
   it("should work with a real clock", async () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePolling(callback, 500, true);
+      usePollingIf(() => true, callback, 500, true);
       ++renderCount;
       return (<div data-testid="test">{renderCount}</div>);
     }
@@ -35,7 +35,7 @@ describe("usePolling", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePolling(callback);
+      usePollingIf(() => true, callback);
       ++renderCount;
       return (<div data-testid="test">{renderCount}</div>);
     }
@@ -63,7 +63,7 @@ describe("usePolling", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePolling(callback, 1000, false);
+      usePollingIf(() => true, callback, 1000, false);
       ++renderCount;
       return (<div data-testid="test">{renderCount}</div>);
     }
