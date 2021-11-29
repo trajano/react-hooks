@@ -12,17 +12,22 @@ const renderCallback = jest.fn();
 const PollingDataContext = createContext<PollingData>({} as PollingData);
 
 function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
-  const dataRef = useRef<number[]>([]);
   const { subscribe, notify } = useSubscription();
+
+  const dataRef = useRef<number[]>([]);
+
   function pollingCallback() {
     dataRef.current.push(Math.random());
     notify();
   }
+
   async function fetchData(): Promise<number[]> {
     return Promise.resolve([...dataRef.current]);
   }
+
   usePolling(pollingCallback);
   renderCallback();
+
   return <PollingDataContext.Provider value={{ fetchData, subscribe }}>{children}</PollingDataContext.Provider>
 }
 
