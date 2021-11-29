@@ -1,7 +1,7 @@
 import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
 import { useRef } from 'react';
-import { RerenderingProvider, useRerendering } from "./RerenderingContext";
+import { RerenderingProvider, useRerendering } from "../RerenderingContext";
 describe('useRef with context', () => {
   it("should get the same object when the parent rerenders using component, but the component will rerender as context has changed", async () => {
     jest.useFakeTimers();

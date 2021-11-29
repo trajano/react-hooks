@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { useEffect, useState } from 'react';
 import { waitFor } from "@testing-library/dom";
-import { delay } from './delay';
+import { delay } from '../delay';
 describe('useState', () => {
   it("should set initial state", () => {
     function MyComponent() {
