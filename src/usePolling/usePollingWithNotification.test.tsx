@@ -1,30 +1,27 @@
 import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
 import { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
+import { useSubscription, SubscriptionManager } from "../useSubscription";
 import { usePolling } from './usePolling';
 
 interface PollingData {
-  subscribe(fn: () => void): () => void;
+  subscribe: SubscriptionManager["subscribe"];
   fetchData(): Promise<number[]>;
 }
 const renderCallback = jest.fn();
 const PollingDataContext = createContext<PollingData>({} as PollingData);
 
 function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
-  const subscribersRef = useRef<(() => void)[]>([]);
   const dataRef = useRef<number[]>([]);
-  function subscribe(fn: () => void) {
-    subscribersRef.current.push(fn);
-    return () => { subscribersRef.current = subscribersRef.current.filter(subscription => !Object.is(subscription, fn)); }
-  }
-  function callback() {
+  const { subscribe, notify } = useSubscription();
+  function pollingCallback() {
     dataRef.current.push(Math.random());
-    subscribersRef.current.forEach(fn => fn());
+    notify();
   }
   async function fetchData(): Promise<number[]> {
     return Promise.resolve([...dataRef.current]);
   }
-  usePolling(callback);
+  usePolling(pollingCallback);
   renderCallback();
   return <PollingDataContext.Provider value={{ fetchData, subscribe }}>{children}</PollingDataContext.Provider>
 }
