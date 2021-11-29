@@ -9,5 +9,5 @@ export function usePolling(
   interval = 60000,
   immediate = true
 ) {
-  return usePollingIf(() => true, asyncFunction, interval, immediate);
+  usePollingIf(() => true, asyncFunction, interval, immediate);
 }
