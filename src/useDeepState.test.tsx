@@ -1,55 +1,33 @@
 import { render } from '@testing-library/react';
-import { useEffect, useState } from 'react';
 import { waitFor } from "@testing-library/dom";
-import { delay } from '../delay';
-describe('useState', () => {
+import { useEffect } from 'react';
+import { delay } from './delay';
+import { useDeepState } from './useDeepState';
+
+describe("useDeepState", () => {
   it("should set initial state", () => {
     function MyComponent() {
-      const [foo] = useState("bar");
+      const [foo] = useDeepState("bar");
       return (<div data-testid="test">{foo}</div>);
     }
     const { getByTestId } = render(<MyComponent />)
     expect(getByTestId("test").textContent).toEqual("bar");
-  })
-
-  it("should set rerender when setting state", async () => {
-    jest.useFakeTimers();
-    let renderCount = 0;
-    function MyComponent() {
-      const [foo, setFoo] = useState("bar");
-      ++renderCount;
-      useEffect(() => {
-        (async function asyncEffect() {
-          await delay(10000);
-          setFoo("mew")
-        })()
-      }, [])
-      return (<div data-testid="test">{foo}</div>);
-    }
-
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
-    expect(renderCount).toEqual(1);
-    jest.runAllTimers();
-    await waitFor(() => {
-      expect(getByTestId("test").textContent).toEqual("mew");
-      expect(renderCount).toEqual(2);
-    });
   })
 
   it("should not rerender when setting state to the same value", async () => {
     jest.useFakeTimers();
     let renderCount = 0;
+    const val = { foo: "bar" };
     function MyComponent() {
-      const [foo, setFoo] = useState("bar");
+      const [foo, setFoo] = useDeepState(val);
       ++renderCount;
       useEffect(() => {
         (async function asyncEffect() {
           await delay(10000);
-          setFoo("bar")
+          setFoo(val)
         })()
       }, [])
-      return (<div data-testid="test">{foo}</div>);
+      return (<div data-testid="test">{foo.foo}</div>);
     }
 
     const { getByTestId } = render(<MyComponent />)
@@ -62,11 +40,11 @@ describe('useState', () => {
     });
   })
 
-  it("should rerender when setting state to the same value, but still different objects", async () => {
+  it("should not rerender when setting state to the same value, even if different objects", async () => {
     jest.useFakeTimers();
     let renderCount = 0;
     function MyComponent() {
-      const [foo, setFoo] = useState({ foo: "bar" });
+      const [foo, setFoo] = useDeepState({ foo: "bar" });
       ++renderCount;
       useEffect(() => {
         (async function asyncEffect() {
@@ -83,11 +61,8 @@ describe('useState', () => {
     jest.runAllTimers();
     await waitFor(() => {
       expect(getByTestId("test").textContent).toEqual("bar");
-      expect(renderCount).toEqual(2);
+      expect(renderCount).toEqual(1);
     });
   })
 
-  afterEach(() => {
-    jest.useRealTimers();
-  })
 })

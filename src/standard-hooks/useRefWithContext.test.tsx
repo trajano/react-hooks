@@ -31,7 +31,7 @@ describe('useRef with context', () => {
     });
   })
 
-  afterEach(() => {
+  afterAll(() => {
     jest.useRealTimers();
   })
 })

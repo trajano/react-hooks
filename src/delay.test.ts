@@ -29,7 +29,6 @@ describe("delay", () => {
     await waitFor(() => expect(callback).toBeCalledTimes(1));
   });
 
-
   it("polls the callback after 10 seconds mocked", async () => {
     jest.useFakeTimers();
     const callback = jest.fn();
