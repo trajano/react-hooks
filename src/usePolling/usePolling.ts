@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { usePollingIf } from "./usePollingIf";
 /**
  * @param asyncFunction
  * @param interval milliseconds between calls to the asyncFunction, defaults to a minute
@@ -9,38 +9,5 @@ export function usePolling(
   interval = 60000,
   immediate = true
 ) {
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const mountedRef = useRef(false);
-  const activeRef = useRef(false);
-
-  const wrappedAsyncFunction = useCallback(async () => {
-    if (!mountedRef.current || activeRef.current) {
-      // don't process if currently active or the component is unmounted
-      return;
-    }
-    activeRef.current = true;
-    try {
-      await asyncFunction();
-    } catch (e) {
-      console.error("Error while polling", e);
-    }
-    activeRef.current = false;
-    timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
-  }, [mountedRef.current, activeRef.current, asyncFunction, interval]);
-
-  useEffect(() => {
-    mountedRef.current = true;
-    if (immediate) {
-      wrappedAsyncFunction();
-    } else {
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
-    }
-    return () => {
-      clearTimeout(timeoutRef.current!);
-      mountedRef.current = false;
-      activeRef.current = false;
-    };
-  }, []);
-
-  return { activeRef };
+  return usePollingIf(() => true, asyncFunction, interval, immediate);
 }

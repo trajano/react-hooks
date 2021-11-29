@@ -86,6 +86,36 @@ describe("usePollingIf", () => {
     });
 
   })
+
+  it("should never call callback as predicate is always false", async () => {
+    jest.useFakeTimers();
+    const callback = jest.fn();
+    let renderCount = 0;
+    function MyComponent() {
+      usePollingIf(() => false, callback);
+      ++renderCount;
+      return (<div data-testid="test">{renderCount}</div>);
+    }
+
+    const { getByTestId } = render(<MyComponent />)
+    expect(getByTestId("test").textContent).toEqual("1");
+    await waitFor(() => {
+      expect(renderCount).toEqual(1);
+      expect(callback).toBeCalledTimes(0);
+    });
+    jest.runAllTimers();
+    await waitFor(() => {
+      expect(renderCount).toEqual(1);
+      expect(callback).toBeCalledTimes(0);
+    });
+    jest.runAllTimers();
+    await waitFor(() => {
+      expect(renderCount).toEqual(1);
+      expect(callback).toBeCalledTimes(0);
+    });
+
+  })
+
   afterEach(() => {
     jest.useRealTimers();
   });
