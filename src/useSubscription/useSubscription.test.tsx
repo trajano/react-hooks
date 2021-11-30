@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { render } from '@testing-library/react';
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react';
 import { waitFor } from "@testing-library/dom";

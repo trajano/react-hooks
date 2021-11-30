@@ -1,4 +1,7 @@
-import { waitFor } from "@testing-library/dom";
+/**
+ * @jest-environment jsdom
+ */
+ import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
 import { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
 import { SubscriptionManager } from "../useSubscription";

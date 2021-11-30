@@ -1,7 +1,9 @@
+/**
+ * @jest-environment jsdom
+ */
 import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
 import { usePollingIf } from './usePollingIf';
-
 
 describe("usePollingIf", () => {
 
