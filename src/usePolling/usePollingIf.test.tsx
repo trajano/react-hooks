@@ -9,7 +9,7 @@ describe("usePollingIf", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePollingIf(() => true, callback, 500, true);
+      usePollingIf(() => true, callback, 100, true);
       ++renderCount;
       return (<div data-testid="test">{renderCount}</div>);
     }
