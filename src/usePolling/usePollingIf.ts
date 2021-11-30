@@ -10,7 +10,7 @@ export function usePollingIf(
   asyncFunction: () => any | PromiseLike<any>,
   interval = 60000,
   immediate = true
-) {
+) : void {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const mountedRef = useRef(false);
   const activeRef = useRef(false);
@@ -45,6 +45,4 @@ export function usePollingIf(
       activeRef.current = false;
     };
   }, []);
-
-  return { activeRef };
 }
