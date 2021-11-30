@@ -65,4 +65,30 @@ describe("useDeepState", () => {
     });
   })
 
+  it("should rerender when setting state to the different values", async () => {
+    jest.useFakeTimers();
+    let renderCount = 0;
+
+    function MyComponent() {
+      const [foo, setFoo] = useDeepState({ foo: "bar" });
+      ++renderCount;
+      useEffect(() => {
+        (async function asyncEffect() {
+          await delay(10000);
+          setFoo({ foo: "foo" })
+        })()
+      }, [])
+      return (<div data-testid="test">{foo.foo}</div>);
+    }
+
+    const { getByTestId } = render(<MyComponent />)
+    expect(getByTestId("test").textContent).toEqual("bar");
+    expect(renderCount).toEqual(1);
+    jest.runAllTimers();
+    await waitFor(() => {
+      expect(getByTestId("test").textContent).toEqual("foo");
+      expect(renderCount).toEqual(2);
+    });
+  })
+
 })
