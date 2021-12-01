@@ -1,16 +1,16 @@
-import { usePollingIf } from ".";
+import { usePollingIf } from "./usePollingIf";
 import { SubscriptionManager, useSubscription } from "../useSubscription";
 
 /**
  * This is a conditional polling hook that allows a subscription that gets called when the poll completes.
  */
-export function useNotifiedPollingIf<T = any>(
+export function useNotifiedPollingIf<T = unknown>(
   predicate: () => boolean | PromiseLike<boolean>,
   asyncFunction: () => T | PromiseLike<T>,
   interval = 60000,
   immediate = true
-): Pick<SubscriptionManager<T>, "subscribe"> {
-  const { subscribe, notify } = useSubscription();
+): SubscriptionManager<T> {
+  const { subscribe, notify, useSubscribeEffect } = useSubscription<T>();
   usePollingIf(
     predicate,
     async () => {
@@ -20,5 +20,5 @@ export function useNotifiedPollingIf<T = any>(
     immediate
   );
 
-  return { subscribe };
+  return { subscribe, notify, useSubscribeEffect };
 }

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { render } from '@testing-library/react';
-import { createContext, PropsWithChildren, useContext, useEffect } from 'react';
+import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react';
 import { waitFor } from "@testing-library/dom";
 import { useSubscription } from "./useSubscription";
 import { SubscriptionManager } from "./SubscriptionManager";
@@ -11,7 +11,7 @@ describe("useSubscription", () => {
   it("should notify with clicks", async () => {
     const callback = jest.fn();
     const MyContext = createContext<SubscriptionManager>({} as SubscriptionManager);
-    function MyContextProvider({ children }: PropsWithChildren<{}>) {
+    function MyContextProvider({ children }: PropsWithChildren<Record<string, unknown>>) {
       const { subscribe, notify, useSubscribeEffect } = useSubscription();
       return <MyContext.Provider value={{ subscribe, notify, useSubscribeEffect }}>{children}</MyContext.Provider>
     }
@@ -36,7 +36,7 @@ describe("useSubscription", () => {
   it("should notify with clicks using generated hook", async () => {
     const callback = jest.fn();
     const MyContext = createContext<SubscriptionManager>({} as SubscriptionManager);
-    function MyContextProvider({ children }: PropsWithChildren<{}>) {
+    function MyContextProvider({ children }: PropsWithChildren<Record<string, unknown>>) {
       const { subscribe, notify, useSubscribeEffect } = useSubscription();
       return <MyContext.Provider value={{ subscribe, notify, useSubscribeEffect }}>{children}</MyContext.Provider>
     }

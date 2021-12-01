@@ -3,7 +3,7 @@ import { SubscriptionManager } from "./SubscriptionManager";
 /**
  * This hook provides a simple subscription semantic to React components.
  */
-export function useSubscription<T = any>(): SubscriptionManager<T> {
+export function useSubscription<T = unknown>(): SubscriptionManager<T> {
   const subscribersRef = useRef<((data: T) => void)[]>([]);
   function subscribe(fn: (data: T) => void) {
     subscribersRef.current.push(fn);

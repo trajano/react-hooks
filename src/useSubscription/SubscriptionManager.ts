@@ -1,4 +1,4 @@
-export interface SubscriptionManager<T = any> {
+export interface SubscriptionManager<T = unknown> {
   /**
    *
    * @param fn function to call when notified.  It can be passed some data
