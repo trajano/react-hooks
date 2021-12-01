@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { SubscriptionManager } from "./SubscriptionManager";
 /**
  * This hook provides a simple subscription semantic to React components.
@@ -16,5 +16,8 @@ export function useSubscription<T = any>(): SubscriptionManager<T> {
   function notify(data: T) {
     subscribersRef.current.forEach((fn) => fn(data));
   }
-  return { subscribe, notify };
+  function useSubscribeEffect(fn: (data: T) => void) {
+    useEffect(() => subscribe(fn), []);
+  }
+  return { subscribe, notify, useSubscribeEffect };
 }

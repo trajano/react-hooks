@@ -10,4 +10,10 @@ export interface SubscriptionManager<T = any> {
    * @param data optionally pass data to the subscribers.
    */
   notify(data?: T): void;
+
+  /**
+   * a hook that subscribes from the current subscription.
+   * @param fn callback
+   */
+  useSubscribeEffect(fn: (data: T) => void): void;
 }

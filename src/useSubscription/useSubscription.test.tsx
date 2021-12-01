@@ -12,8 +12,8 @@ describe("useSubscription", () => {
     const callback = jest.fn();
     const MyContext = createContext<SubscriptionManager>({} as SubscriptionManager);
     function MyContextProvider({ children }: PropsWithChildren<{}>) {
-      const { subscribe, notify } = useSubscription();
-      return <MyContext.Provider value={{ subscribe, notify }}>{children}</MyContext.Provider>
+      const { subscribe, notify, useSubscribeEffect } = useSubscription();
+      return <MyContext.Provider value={{ subscribe, notify, useSubscribeEffect }}>{children}</MyContext.Provider>
     }
     function MyComponent() {
       const { subscribe, notify } = useContext(MyContext);
@@ -21,6 +21,31 @@ describe("useSubscription", () => {
         notify();
       }
       useEffect(() => subscribe(callback), []);
+      return (<div data-testid="test" onClick={onClick}>abc</div>);
+    }
+    const { getByTestId } = render(<MyContextProvider><MyComponent /></MyContextProvider>)
+    const element = getByTestId("test");
+    expect(element.textContent).toEqual("abc");
+    await waitFor(() => expect(callback).toBeCalledTimes(0));
+    element.click();
+    await waitFor(() => expect(callback).toBeCalledTimes(1));
+    element.click();
+    await waitFor(() => expect(callback).toBeCalledTimes(2));
+  })
+
+  it("should notify with clicks using generated hook", async () => {
+    const callback = jest.fn();
+    const MyContext = createContext<SubscriptionManager>({} as SubscriptionManager);
+    function MyContextProvider({ children }: PropsWithChildren<{}>) {
+      const { subscribe, notify, useSubscribeEffect } = useSubscription();
+      return <MyContext.Provider value={{ subscribe, notify, useSubscribeEffect }}>{children}</MyContext.Provider>
+    }
+    function MyComponent() {
+      const { useSubscribeEffect, notify } = useContext(MyContext);
+      function onClick() {
+        notify();
+      }
+      useSubscribeEffect(callback);
       return (<div data-testid="test" onClick={onClick}>abc</div>);
     }
     const { getByTestId } = render(<MyContextProvider><MyComponent /></MyContextProvider>)
