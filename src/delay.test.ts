@@ -27,7 +27,7 @@ describe("delay", () => {
     jest.useFakeTimers();
     const callback = jest.fn();
     timerGame(10000, callback);
-    expect(callback).not.toBeCalled();
+    await waitFor(() => expect(callback).not.toBeCalled());
     jest.runAllTimers();
     await waitFor(() => expect(callback).toBeCalledTimes(1));
   });
