@@ -21,6 +21,19 @@ describe("useAsyncSetEffect", () => {
     await waitFor(() => expect(element.textContent).toEqual("foo"));
   })
 
+  it("should work with default deps", async () => {
+    function MyComponent() {
+      const [foo, setFoo] = useState("bar");
+
+      useAsyncSetEffect(() => Promise.resolve("foo"), setFoo);
+      return (<div data-testid="test">{foo}</div>);
+    }
+    const { getByTestId } = render(<MyComponent />)
+    const element = getByTestId("test");
+    await waitFor(() => expect(element.textContent).toEqual("bar"));
+    await waitFor(() => expect(element.textContent).toEqual("foo"));
+  })
+
   it("should work with delay", async () => {
     jest.useFakeTimers();
     function MyComponent() {
