@@ -70,7 +70,21 @@ describe("Clock update", () => {
       expect(renderCallback.mock.calls.length).toEqual(2);
     });
     act(() => {
-      jest.advanceTimersByTime(60000);
+      jest.advanceTimersByTime(12878);
+    })
+    await waitFor(() => {
+      expect(getByTestId("test").textContent).toEqual(new Date('2020-01-01T00:01:00Z').getTime().toString());
+      expect(renderCallback.mock.calls.length).toEqual(2);
+    });
+    act(() => {
+      jest.advanceTimersByTime(60000 - 12878);
+    })
+    await waitFor(() => {
+      expect(getByTestId("test").textContent).toEqual(new Date('2020-01-01T00:02:00Z').getTime().toString());
+      expect(renderCallback.mock.calls.length).toEqual(3);
+    });
+    act(() => {
+      jest.advanceTimersByTime(12878);
     })
     await waitFor(() => {
       expect(getByTestId("test").textContent).toEqual(new Date('2020-01-01T00:02:00Z').getTime().toString());
