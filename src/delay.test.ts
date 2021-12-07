@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { waitFor } from "@testing-library/dom";
+import { waitFor } from "@testing-library/react";
 import { delay } from "./delay";
 
 async function timerGame(delayTime: number, callback: () => void) {

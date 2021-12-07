@@ -1,8 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from '@testing-library/react';
-import { waitFor } from "@testing-library/dom";
+import { render, waitFor } from '@testing-library/react';
 import React, { useEffect } from 'react';
 import { delay } from '../delay';
 import { useDeepState } from './useDeepState';
