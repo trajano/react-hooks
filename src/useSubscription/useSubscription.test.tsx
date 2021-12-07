@@ -4,7 +4,7 @@
 import { render, waitFor } from '@testing-library/react';
 import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react';
 import { useSubscription } from "./useSubscription";
-import { SubscriptionManager } from "./SubscriptionManager";
+import type { SubscriptionManager } from "./SubscriptionManager";
 
 describe("useSubscription", () => {
   it("should notify with clicks", async () => {

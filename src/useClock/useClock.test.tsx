@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable jsx-a11y/click-events-have-key-events  */
+/* eslint-disable jsx-a11y/no-static-element-interactions  */
 import { act, render, waitFor } from '@testing-library/react';
 import React, { useState } from 'react';
 import { useClock } from "./useClock";
@@ -91,7 +93,8 @@ describe("Clock update", () => {
     });
   })
   afterEach(() => {
-    jest.useRealTimers();
+    jest.useRealTimers()
+      .resetAllMocks();
   });
 
 })
