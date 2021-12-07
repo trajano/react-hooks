@@ -3,7 +3,7 @@
  */
 import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
-import { PropsWithChildren, useEffect, useReducer, useRef } from 'react';
+import React, { PropsWithChildren, useEffect, useReducer, useRef } from 'react';
 import { delay } from '../delay';
 import { Rerendering } from '../Rerendering';
 describe('useRef', () => {

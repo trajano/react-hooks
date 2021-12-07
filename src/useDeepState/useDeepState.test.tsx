@@ -3,7 +3,7 @@
  */
 import { render } from '@testing-library/react';
 import { waitFor } from "@testing-library/dom";
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { delay } from '../delay';
 import { useDeepState } from './useDeepState';
 

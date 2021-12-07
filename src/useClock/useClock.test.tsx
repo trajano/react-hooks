@@ -3,7 +3,7 @@
  */
 import { waitFor } from "@testing-library/dom";
 import { act, render } from '@testing-library/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useClock } from "./useClock";
 
 const renderCallback = jest.fn();

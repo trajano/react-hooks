@@ -1,9 +1,9 @@
 /**
  * @jest-environment jsdom
  */
- import { waitFor } from "@testing-library/dom";
+import { waitFor } from "@testing-library/dom";
 import { render } from '@testing-library/react';
-import { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
 import { SubscriptionManager } from "../useSubscription";
 import { useNotifiedPollingIf } from "./useNotifiedPollingIf";
 
