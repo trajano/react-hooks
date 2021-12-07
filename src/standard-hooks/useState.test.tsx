@@ -1,9 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from '@testing-library/react';
-import { useEffect, useState } from 'react';
-import { waitFor } from "@testing-library/dom";
+import { render, waitFor } from '@testing-library/react';
+import React, { useEffect, useState } from 'react';
 import { delay } from '../delay';
 describe('useState', () => {
   it("should set initial state", () => {

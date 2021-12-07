@@ -1,11 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import React, { useState } from 'react';
-import { waitFor } from "@testing-library/dom";
-import { useAsyncSetEffect } from "./useAsyncSetEffect";
 import { delay } from '../delay';
+import { useAsyncSetEffect } from "./useAsyncSetEffect";
 
 describe("useAsyncSetEffect", () => {
   it("should work", async () => {

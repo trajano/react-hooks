@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { SubscriptionManager } from "./SubscriptionManager";
+import type { SubscriptionManager } from "./SubscriptionManager";
 /**
  * This hook provides a simple subscription semantic to React components.
  */

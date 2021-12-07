@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import { waitFor } from "@testing-library/dom";
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
+import React from 'react';
 import { usePolling } from './usePolling';
 
 describe("usePolling", () => {

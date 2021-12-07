@@ -1,7 +1,6 @@
-import { waitFor } from "@testing-library/dom";
-import { render } from '@testing-library/react';
-import { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
-import { useSubscription, SubscriptionManager } from "../useSubscription";
+import { render, waitFor } from '@testing-library/react';
+import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
+import { SubscriptionManager, useSubscription } from "../useSubscription";
 import { usePolling } from './usePolling';
 
 interface PollingData {

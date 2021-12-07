@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useReducer } from "react";
+import React, { createContext, PropsWithChildren, useContext, useEffect, useReducer } from 'react';
 import { delay } from "./delay";
 
 type IRendering = {}
