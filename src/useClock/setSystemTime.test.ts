@@ -1,4 +1,4 @@
-export {};
+export {}
 
 describe("setSystemTime", () => {
   beforeEach(() => {

@@ -34,6 +34,7 @@ export function useClock(): SubscriptionManager<number> {
   useEffect(() => {
     doNotify();
     return () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       clearTimeout(timeoutRef.current!);
     };
   }, []);
