@@ -1,10 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-import { render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import React, { useEffect } from 'react';
 import { delay } from '../delay';
 import { useDeepState } from './useDeepState';
+
 
 describe("useDeepState", () => {
   it("should set initial state", () => {
@@ -42,6 +43,41 @@ describe("useDeepState", () => {
     });
   })
 
+
+  it.skip("should not rerender when setting state to the same value, even if different objects via click", async () => {
+    // skipped due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v?noredirect=1#comment124298465_70312646
+    const callback = jest.fn();
+    const clickCallback = jest.fn();
+    function MyComponent() {
+      const [foo, setFoo] = useDeepState<{ a: number }>({ a: 0 });
+      callback();
+      return (<div>
+        <div data-testid="set1" onClick={() => { clickCallback(); setFoo({ a: 1 }); }} >1</div>
+        <div data-testid="test">{foo.a}</div>
+      </div>)
+    }
+
+    const { getByTestId } = render(<MyComponent />)
+    const testElement = getByTestId("test");
+    const set1 = getByTestId("set1");
+
+    expect(testElement.textContent).toEqual("0");
+    expect(callback).toBeCalledTimes(1)
+    expect(clickCallback).not.toBeCalled()
+
+    act(() => fireEvent.click(set1));
+    await waitFor(() => expect(testElement.textContent).toEqual("1"));
+
+    expect(callback).toBeCalledTimes(2)
+    expect(clickCallback).toBeCalledTimes(1)
+
+    act(() => fireEvent.click(set1));
+    await waitFor(() => expect(testElement.textContent).toEqual("1"));
+    expect(callback).toBeCalledTimes(2)
+    expect(clickCallback).toBeCalledTimes(2)
+
+  })
+
   it("should not rerender when setting state to the same value, even if different objects", async () => {
     jest.useFakeTimers();
     let renderCount = 0;
@@ -68,12 +104,12 @@ describe("useDeepState", () => {
   })
 
   it("should rerender when setting state to the different values", async () => {
-    jest.useFakeTimers();
-    let renderCount = 0;
+    jest.useFakeTimers('modern');
+    const renderCallback = jest.fn();
 
     function MyComponent() {
       const [foo, setFoo] = useDeepState({ foo: "bar" });
-      ++renderCount;
+      renderCallback();
       useEffect(() => {
         (async function asyncEffect() {
           await delay(10000);
@@ -85,11 +121,11 @@ describe("useDeepState", () => {
 
     const { getByTestId } = render(<MyComponent />)
     expect(getByTestId("test").textContent).toEqual("bar");
-    expect(renderCount).toEqual(1);
-    jest.runAllTimers();
+    expect(renderCallback).toBeCalledTimes(1)
+    act(() => jest.advanceTimersByTime(10000));
     await waitFor(() => {
       expect(getByTestId("test").textContent).toEqual("foo");
-      expect(renderCount).toEqual(2);
+      expect(renderCallback).toBeCalledTimes(2)
     });
   })
 
