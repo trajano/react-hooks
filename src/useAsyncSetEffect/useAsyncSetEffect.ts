@@ -1,4 +1,5 @@
 import React, { EffectCallback, useEffect, useRef } from "react";
+import { useMounted } from "..";
 
 /**
  * This starts an async function and executes another function that performs
@@ -15,17 +16,13 @@ export function useAsyncSetEffect<T>(
   onSuccess: (asyncResult: T) => void,
   deps: React.DependencyList = []
 ): void {
-  const mountedRef = useRef(false);
+  const isMounted = useMounted();
   useEffect(function effect(): ReturnType<EffectCallback> {
-    mountedRef.current = true;
     (async function wrapped() {
       const asyncResult = await asyncFunction();
-      if (mountedRef.current) {
+      if (isMounted()) {
         onSuccess(asyncResult);
       }
     })();
-    return function cleanup() {
-      mountedRef.current = false;
-    };
   }, deps);
 }
