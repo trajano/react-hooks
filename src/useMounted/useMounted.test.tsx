@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { render, waitFor } from '@testing-library/react';
 import React, { useEffect } from 'react';
 import { delay } from '../delay';
