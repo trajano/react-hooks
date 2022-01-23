@@ -9,6 +9,8 @@ dist
 
 # dependencies
 /node_modules
+/example/node_modules
+/example/yarn.lock
 
 # misc
 .env.local

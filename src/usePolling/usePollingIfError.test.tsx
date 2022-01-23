@@ -2,14 +2,14 @@
  * @jest-environment jsdom
  */
 import { render, waitFor } from '@testing-library/react';
-import noop from 'noop-ts';
+import { always } from 'ramda';
 import React from 'react';
 import { usePollingIf } from './usePollingIf';
 
 describe("usePollingIf with an error", () => {
   let errorMock: jest.SpyInstance
   beforeEach(() => {
-    errorMock = jest.spyOn(console, "error").mockImplementation(noop);
+    errorMock = jest.spyOn(console, "error").mockImplementation(always(true));
   });
   it("should keep on going even if there are errors", async () => {
     jest.useFakeTimers();

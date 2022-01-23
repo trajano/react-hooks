@@ -1,19 +1,12 @@
 {
-  "name": "@trajano/react-hooks",
-  "version": "1.0.0",
-  "description": "General purpose hooks for React apps.",
-  "source": "src/index.ts",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "name": "@trajano/react-hooks-example",
+  "version": "0.0.0",
+  "description": "Example usage of @trajano/react-hooks.",
+  "private": true,
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
-    "ramda": "^0.27.1"
-  },
-  "peerDependencies": {
-    "react": "16 || 17"
+    "@trajano/react-hooks": "link:..",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.0",
@@ -21,23 +14,18 @@
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^26.0.24",
     "@types/lodash.debounce": "^4.0.6",
-    "@types/ramda": "^0.27.55",
     "@types/react": "^17.0.37",
     "jest": "26.6.0",
-    "microbundle-crl": "^0.13.11",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
     "react-scripts": "^4.0.3",
     "typescript": "4.4"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "scripts": {
-    "build": "microbundle-crl --format modern,cjs",
+    "build": "react-scripts build",
     "test": "react-scripts test"
   },
   "repository": {
@@ -49,5 +37,17 @@
   "bugs": {
     "url": "https://github.com/trajano/react-hook-tests/issues"
   },
-  "homepage": "https://github.com/trajano/react-hook-tests#readme"
+  "homepage": "https://github.com/trajano/react-hook-tests#readme",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
