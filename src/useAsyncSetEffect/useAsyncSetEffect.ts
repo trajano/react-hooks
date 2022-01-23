@@ -1,5 +1,5 @@
-import React, { EffectCallback, useEffect, useRef } from "react";
-import { useMounted } from "..";
+import React, { EffectCallback, useEffect } from "react";
+import { useMounted } from "../useMounted";
 
 /**
  * This starts an async function and executes another function that performs
