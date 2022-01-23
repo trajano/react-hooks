@@ -1,6 +1,6 @@
 # React Hooks
 
-A collection of general purpose hooks that can be used in React apps.  It is tested with React and React Native.
+A collection of general purpose, side-effect free, hooks that can be used in React apps.  It is tested with React and React Native.
 
 This targets React 16 to make it work with Expo 42.
 
