@@ -3,7 +3,7 @@
  */
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import React, { useEffect } from 'react';
-import { delay } from '../delay';
+import { delay } from '../test-support/delay';
 import { useDeepState } from './useDeepState';
 
 

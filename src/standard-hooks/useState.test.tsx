@@ -3,7 +3,7 @@
  */
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
-import { delay } from '../delay';
+import { delay } from '../test-support/delay';
 describe('useState', () => {
   it("should set initial state", () => {
     function MyComponent() {

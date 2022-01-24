@@ -3,8 +3,8 @@
  */
 import { render, waitFor } from '@testing-library/react';
 import React, { PropsWithChildren, useEffect, useReducer, useRef } from 'react';
-import { delay } from '../delay';
-import { Rerendering } from '../Rerendering';
+import { delay } from '../test-support/delay';
+import { Rerendering } from '../test-support/Rerendering';
 describe('useRef', () => {
   it("should set initial value", () => {
     function MyComponent() {

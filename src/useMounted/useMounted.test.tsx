@@ -3,7 +3,7 @@
  */
 import { render, waitFor } from '@testing-library/react';
 import React, { useEffect } from 'react';
-import { delay } from '../delay';
+import { delay } from '../test-support/delay';
 import { useMounted } from "./useMounted";
 
 describe("useMounted", () => {

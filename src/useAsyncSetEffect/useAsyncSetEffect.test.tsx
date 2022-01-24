@@ -3,7 +3,7 @@
  */
 import { render, waitFor } from '@testing-library/react';
 import React, { useState } from 'react';
-import { delay } from '../delay';
+import { delay } from '../test-support/delay';
 import { useAsyncSetEffect } from "./useAsyncSetEffect";
 
 describe("useAsyncSetEffect", () => {
