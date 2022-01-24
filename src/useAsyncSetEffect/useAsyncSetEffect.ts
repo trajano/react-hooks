@@ -3,8 +3,9 @@ import { useMounted } from "../useMounted";
 
 /**
  * This starts an async function and executes another function that performs
- * React state changes if the component is still mounted after the async
- * operation completes
+ * React state changes if the component is still mounted after the `async`
+ * operation completes.  This uses {@link useMounted} for handling the
+ * mount logic.
  * @param asyncFunction async function,
  *   it has a copy of the mounted ref so an await chain can be canceled earlier.
  * @param onSuccess this gets executed after async
