@@ -23,7 +23,8 @@ jobs:
         cache: 'yarn'
     - name: Install dependencies
       run: yarn --frozen-lockfile
-    - name: Configure git for a user
-      uses: dawidd6/action-git-user-config@v1.0.0
     - run: yarn typedoc
-    - run: yarn deploy
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2.6.0
+      with:
+        build_dir: doc/
