@@ -25,11 +25,13 @@
     "@types/lodash.debounce": "^4.0.6",
     "@types/ramda": "^0.27.55",
     "@types/react": "^17.0.37",
+    "gh-pages": "^3.2.3",
     "jest": "26.6.0",
     "microbundle-crl": "^0.13.11",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-scripts": "5",
+    "typedoc": "^0.22.11",
     "typescript": "4.4"
   },
   "eslintConfig": {
@@ -40,16 +42,17 @@
   },
   "scripts": {
     "build": "microbundle --format modern,cjs",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "deploy": "gh-pages -d doc/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trajano/react-hook-tests.git"
+    "url": "git+https://github.com/trajano/react-hooks.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/trajano/react-hook-tests/issues"
+    "url": "https://github.com/trajano/react-hooks/issues"
   },
-  "homepage": "https://github.com/trajano/react-hook-tests#readme"
+  "homepage": "https://trajano.github.io/react-hooks"
 }
