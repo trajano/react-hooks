@@ -1,10 +1,10 @@
 import { useClock, useDeepState } from '@trajano/react-hooks';
-import { useState } from 'react';
+import React from "react";
+
 export function App(): JSX.Element {
   const { useSubscribeEffect } = useClock();
-  const [date, setDate] = useState<number>(Date.now());
+  const [date, setDate] = useDeepState<number>(Date.now());
   useSubscribeEffect(setDate)
 
-  useDeepState("foo");
   return <div>Hello world {date}</div>
 }

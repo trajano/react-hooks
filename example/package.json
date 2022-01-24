@@ -5,13 +5,13 @@
   "private": true,
   "dependencies": {
     "@trajano/react-hooks": "link:..",
-    "react": "17",
-    "react-dom": "17"
+    "react": "link:../node_modules/react",
+    "react-dom": "link:../node_modules/react-dom"
   },
   "devDependencies": {
-    "@types/react": "17",
-    "@types/react-dom": "17",
-    "react-scripts": "^4.0.3",
+    "@types/react": "16",
+    "@types/react-dom": "16",
+    "react-scripts": "^5.0.0",
     "typescript": "4.4"
   },
   "eslintConfig": {
@@ -20,20 +20,12 @@
     ]
   },
   "scripts": {
-    "build": "react-scripts build",
     "start": "react-scripts start",
-    "test": "react-scripts test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trajano/react-hook-tests.git"
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/trajano/react-hook-tests/issues"
-  },
-  "homepage": "https://github.com/trajano/react-hook-tests#readme",
   "browserslist": {
     "production": [
       ">0.2%",
