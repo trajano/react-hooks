@@ -1,1 +1,1 @@
-export { useDebouncedDeepState as useDebouncedState } from "./useDebouncedDeepState";
+export { useDebouncedDeepState } from "./useDebouncedDeepState";

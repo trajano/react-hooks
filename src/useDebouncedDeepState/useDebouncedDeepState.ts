@@ -12,5 +12,5 @@ export function useDebouncedDeepState<S>(
     debounce(setState, wait, debounceSettings),
     [wait, debounceSettings]
   );
-  return [state, setState];
+  return [state, debouncedSetState];
 }
