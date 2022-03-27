@@ -5,4 +5,5 @@ export * from './useDebouncedState';
 export * from './useDeepState';
 export * from './useMounted';
 export * from './usePolling';
+export * from './useReplaceLogging';
 export * from './useSubscription';
