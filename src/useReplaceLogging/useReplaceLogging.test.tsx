@@ -5,9 +5,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { useReplaceLogging } from "./useReplaceLogging";
 
-describe("useReplaceLogging", () => {
-
-  it("should work and not rerender", async () => {
+describe('useReplaceLogging', () => {
+  it('should work and not rerender', async () => {
     const logCallback = jest.fn();
     const errorCallback = jest.fn();
 
@@ -18,18 +17,23 @@ describe("useReplaceLogging", () => {
         error: errorCallback,
       });
 
-      console.log("Hello");
-
-      return (<div data-testid="test">Hello world</div>);
+      return (
+        <button
+          data-testid="test"
+          onClick={() => {
+            console.log('click');
+          }}
+        >
+          Hello world
+        </button>
+      );
     }
 
-    const { unmount } = render(<MyComponent />)
-
-    expect(logCallback.mock.calls).toEqual([["Hello"]]);
+    const { getByTestId, unmount } = render(<MyComponent />);
+    getByTestId('test').click();
+    expect(logCallback.mock.calls).toEqual([['click']]);
     unmount();
-    console.log("This should be shown on the console");
-    expect(logCallback.mock.calls).toEqual([["Hello"]]);
-
-  })
-
-})
+    console.log('This should be shown on the console');
+    expect(logCallback.mock.calls).toEqual([['click']]);
+  });
+});

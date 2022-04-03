@@ -23,22 +23,22 @@ export function useReplaceLogging({
   const originalConsoleInfo = useRef(console.info);
   const originalConsoleLog = useRef(console.log);
   const originalConsoleWarn = useRef(console.warn);
-  if (debug) {
-    console.debug = debug;
-  }
-  if (error) {
-    console.error = error;
-  }
-  if (info) {
-    console.info = info;
-  }
-  if (log) {
-    console.log = log;
-  }
-  if (warn) {
-    console.warn = warn;
-  }
   useEffect(() => {
+    if (debug) {
+      console.debug = debug;
+    }
+    if (error) {
+      console.error = error;
+    }
+    if (info) {
+      console.info = info;
+    }
+    if (log) {
+      console.log = log;
+    }
+    if (warn) {
+      console.warn = warn;
+    }
     return function restoreConsoleLog() {
       console.debug = originalConsoleDebug.current;
       console.error = originalConsoleError.current;
