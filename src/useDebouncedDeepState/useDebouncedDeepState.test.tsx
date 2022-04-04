@@ -5,8 +5,7 @@ import { act, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { useDebouncedDeepState as useDebouncedDeepState } from "./useDebouncedDeepState";
 
-describe.skip("useDebounceDeepState", () => {
-  // skipped due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v?noredirect=1#comment124298465_70312646
+describe("useDebounceDeepState", () => {
 
   beforeEach(() => {
     jest.useFakeTimers("modern");
@@ -14,7 +13,7 @@ describe.skip("useDebounceDeepState", () => {
   afterEach(() => {
     jest.useRealTimers();
   });
-  it.skip("should work the same was as useDebouncedState for simple values", async () => {
+  it("should work the same was as useDebouncedState for simple values", async () => {
     const callback = jest.fn();
     let clickCount = 0;
     function MyComponent() {
@@ -46,18 +45,18 @@ describe.skip("useDebounceDeepState", () => {
 
     elem.click();
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(2);
+      expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
       expect(elem.textContent).toEqual("click 1");
     });
     act(() => jest.advanceTimersByTime(500));
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(3);
+      expect(callback.mock.calls.length).toBeGreaterThanOrEqual(3);
       expect(elem.textContent).toEqual("click 2");
     });
 
   });
 
-  it.skip("should work the same was as useDebouncedState for simple values", async () => {
+  it("should work the same was as useDebouncedState for simple values", async () => {
     const callback = jest.fn();
     function MyComponent() {
       const [foo, setFoo] = useDebouncedDeepState<{ a: number }>({ a: 0 }, 500);
@@ -92,13 +91,13 @@ describe.skip("useDebounceDeepState", () => {
 
     set1.click();
     act(() => jest.advanceTimersByTime(500));
-    expect(callback).toBeCalledTimes(2);
+    expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
     expect(elem.textContent).toEqual("1");
 
     set2.click();
     act(() => jest.advanceTimersByTime(500));
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(3);
+      expect(callback.mock.calls.length).toBeGreaterThanOrEqual(3);
       expect(elem.textContent).toEqual("2");
     });
 
