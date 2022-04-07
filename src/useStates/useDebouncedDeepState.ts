@@ -1,7 +1,15 @@
 import debounce from "lodash.debounce";
 import { Dispatch, useCallback } from "react";
-import { useDeepState } from "../useDeepState";
+import { useDeepState } from "./useDeepState";
 
+/**
+ *
+ * @param initialValue
+ * @param wait
+ * @param debounceSettings
+ * @returns state, setter
+ * @category React State
+ */
 export function useDebouncedDeepState<S>(
   initialValue: S,
   wait: number,

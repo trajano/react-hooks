@@ -1,8 +1,9 @@
+/**
+ * @module
+ */
 export * from './useAsyncSetEffect';
 export * from './useClock';
-export * from './useDebouncedDeepState';
-export * from './useDebouncedState';
-export * from './useDeepState';
+export * from './useStates';
 export * from './useMounted';
 export * from './usePolling';
 export * from './useReplaceLogging';

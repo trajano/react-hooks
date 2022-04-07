@@ -11,6 +11,7 @@ import { Dispatch, useCallback, useState } from "react";
  * @param wait debounce wait
  * @param debounceSettings debounce settings.
  * @returns state and setter
+ * @category React State
  */
 export function useDebouncedState<S>(
   initialValue: S,

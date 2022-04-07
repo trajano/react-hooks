@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
 
+/**
+ * Replacments.
+ */
 type LoggingReplacements = {
   debug?: typeof console["debug"];
   error?: typeof console["error"];

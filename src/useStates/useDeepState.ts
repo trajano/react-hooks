@@ -6,6 +6,7 @@ import { Dispatch, useReducer } from "react";
  * deep comparison of the values.
  * @param initialState initial state
  * @returns state, setter
+ * @category React State
  */
 export function useDeepState<S>(initialState: S | (() => S)): [S, Dispatch<S>] {
   if (typeof initialState === "function") {
