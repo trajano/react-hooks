@@ -6,6 +6,10 @@
  *
  * Even if this can be thought of as an internal representation, exporting
  * it allows TypeDoc to render the documentation.
+ *
+ * Another approach could be `Xyz` but there's a good likelihood that
+ * an existing third-party module will be exposing the same type, as such
+ * suffixing it with `Context` mitigates the issue.
  * @internal
  */
 export interface IXyzContext {}
