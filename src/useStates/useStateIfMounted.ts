@@ -9,7 +9,7 @@ import { Dispatch, useEffect, useRef, useState } from "react";
  * when it is unable to refresh an auth token.
  * @param initialState initisl state
  * @returns state, setter
- * @category React State
+ *
  */
 export function useStateIfMounted<S>(
   initialState: S | (() => S)

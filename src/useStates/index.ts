@@ -1,7 +1,7 @@
 /**
  * Extensions to `useState`.
  * @module
- * @category React State
+ *
  */
 export { useDebouncedDeepState } from "./useDebouncedDeepState";
 export { useDebouncedState } from "../useStates/useDebouncedState";

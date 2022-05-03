@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
  * @param asyncFunction
  * @param interval milliseconds between calls to the asyncFunction, defaults to a minute
  * @param immediate if true it will run the asyncFunction immediately before looping
- * @category Polling
+ *
  */
 export function usePollingIf<T = unknown>(
   predicate: () => boolean | PromiseLike<boolean>,

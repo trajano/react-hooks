@@ -1,3 +1,7 @@
+/**
+ * @module
+ *
+ */
 import React from 'react';
 import { XyzContext } from "./XyzContext";
 import { XyzProviderProps } from "./XyzProviderProps";
@@ -6,7 +10,7 @@ import { XyzProviderProps } from "./XyzProviderProps";
  * Provides the context to the React application.
  * @param props provider initalization props
  * @return context provider.
- * @category Context
+ *
  */
 export function XyzProvider({
   children,

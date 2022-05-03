@@ -3,7 +3,7 @@ import { SubscriptionManager, useSubscription } from "../useSubscription";
 
 /**
  * This is a conditional polling hook that allows a subscription that gets called when the poll completes.
- * @category Polling
+ *
  */
 export function useNotifiedPollingIf<T = unknown>(
   predicate: () => boolean | PromiseLike<boolean>,

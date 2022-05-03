@@ -1,15 +1,6 @@
 import { useEffect, useRef } from "react";
+import { LoggingReplacements } from "./LoggingReplacements";
 
-/**
- * Replacments.
- */
-type LoggingReplacements = {
-  debug?: typeof console["debug"];
-  error?: typeof console["error"];
-  info?: typeof console["info"];
-  log?: typeof console["log"];
-  warn?: typeof console["warn"];
-};
 /**
  * This replaces console.XXX loggers with custom implementations.  It will restore console log on unmount of the component.
  * @param replacements a map of replacement loggers.  They're all optional and only the functions defined will be replaced.

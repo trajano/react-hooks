@@ -1,6 +1,7 @@
 /**
  * This provides a boiler plate code for a React context.
- * @category Context
+ * @module
+ *
  */
 export type { XyzProviderProps } from "./XyzProviderProps";
 export * from "./XyzProvider";

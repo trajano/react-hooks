@@ -8,7 +8,7 @@ import { useDeepState } from "./useDeepState";
  * @param wait
  * @param debounceSettings
  * @returns state, setter
- * @category React State
+ *
  */
 export function useDebouncedDeepState<S>(
   initialValue: S,

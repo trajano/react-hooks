@@ -1,4 +1,15 @@
 {
-  "entryPoints": ["./src/index.ts"],
+  "entryPoints": [
+    "./src/useAsyncSetEffect",
+    "./src/useClock",
+    "./src/useStates",
+    "./src/useMounted",
+    "./src/usePolling",
+    "./src/useReplaceLogging",
+    "./src/useSubscription",
+    "./src/xyz"
+  ],
+  "entryPointStrategy": "resolve",
+  "exclude": ["**/*.test.tsx", "**/*.test.ts", "**/test-support/**"],
   "out": "doc"
 }

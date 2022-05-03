@@ -1,3 +1,6 @@
+/**
+ * @typeparam T data that will be passed to the function when notified
+ */
 export interface SubscriptionManager<T = unknown> {
   /**
    *
