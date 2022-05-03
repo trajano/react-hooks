@@ -1,7 +1,3 @@
-/**
- * @module
- *
- */
 import React from 'react';
 import { XyzContext } from "./XyzContext";
 import { XyzProviderProps } from "./XyzProviderProps";
