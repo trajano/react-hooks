@@ -100,6 +100,7 @@ This provides the context and will contain the lifecycle management for the thir
 ```tsx
 import { useEffect } from "react";
 import { XyzContext } from "./XyzContext";
+import { XyzProviderProps } from "./XyzProviderProps";
 import { xyz, Xyz } from "xyz";
 
 export function XyzProvider({
@@ -118,7 +119,7 @@ export function XyzProvider({
 
   return (
     <XyzContext.Provider
-      values={{
+      value={{
         xyzInstance: xyzInstanceRef.current,
         xyzProperties: xyzInstanceRef.current.properties,
         doSomething: xyzInstanceRef.current.doSomething,
@@ -150,7 +151,7 @@ export function useXyz(): IXyzContext {
 This module ties everything together and exports the needed parts at once. Note the internals such as the interface and the actual context is not exported because the expectation is that a cleaner exposed API is used.
 
 ```ts
-export type * from "./XyzProviderProps";
+export type { XyzProviderProps } from "./XyzProviderProps";
 export * from "./XyzProvider";
 export * from "./useXyz";
 ```
