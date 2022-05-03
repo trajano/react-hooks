@@ -9,7 +9,7 @@ import { Dispatch, useReducer } from "react";
  * @category React State
  */
 export function useDeepState<S>(initialState: S | (() => S)): [S, Dispatch<S>] {
-  function newStateIfNotEqual(state: S, newState: S) {
+  function newStateIfNotEqual(state: S, newState: S) : S {
     return isEqual(state, newState) ? state : newState;
   }
   if (typeof initialState === "function") {
