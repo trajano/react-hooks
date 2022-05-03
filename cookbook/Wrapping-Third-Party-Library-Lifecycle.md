@@ -152,6 +152,7 @@ This module ties everything together and exports the needed parts at once. Note 
 
 ```ts
 export type { XyzProviderProps } from "./XyzProviderProps";
+export type { IXyzContext as XyzContext } from "./IXyzContext";
 export * from "./XyzProvider";
 export * from "./useXyz";
 ```
