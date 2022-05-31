@@ -56,6 +56,36 @@ describe("useDebounceDeepState", () => {
 
   });
 
+  it("should work stop processing when unmounted", async () => {
+    const callback = jest.fn();
+    let clickCount = 0;
+    function MyComponent() {
+      const [foo, setFoo] = useDebouncedDeepState("bar", 500);
+      callback();
+      return <div data-testid="elem" onClick={() => { ++clickCount; setFoo("click " + clickCount); }}>{foo}</div>
+    }
+    const { getByTestId, unmount } = render(<MyComponent />)
+    const elem = getByTestId("elem");
+
+    expect(callback).toBeCalledTimes(1);
+    expect(elem.textContent).toEqual("bar");
+
+    jest.advanceTimersByTime(100);
+    elem.click();
+    expect(callback).toBeCalledTimes(1);
+    expect(elem.textContent).toEqual("bar");
+
+    jest.advanceTimersByTime(399);
+    expect(callback).toBeCalledTimes(1);
+    expect(elem.textContent).toEqual("bar");
+
+    unmount();
+    act(() => jest.advanceTimersByTime(1));
+    expect(callback).toBeCalledTimes(1);
+
+  });
+
+
   it("should work the same was as useDebouncedState for simple values", async () => {
     const callback = jest.fn();
     function MyComponent() {
@@ -102,4 +132,5 @@ describe("useDebounceDeepState", () => {
     });
 
   });
+
 });
