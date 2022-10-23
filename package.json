@@ -43,7 +43,8 @@
     ]
   },
   "scripts": {
-    "build": "microbundle --format modern,cjs  --jsx React.createElement",
+    "build": "microbundle --format modern,cjs --jsx React.createElement",
+    "prepare": "build",
     "test": "react-scripts test",
     "deploy": "gh-pages -d doc/"
   },
