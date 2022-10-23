@@ -2,7 +2,7 @@
 
 A collection of general purpose, side-effect free, hooks that can be used in React apps.  It is tested with React and React Native.
 
-This targets React 16 to make it work with Expo 42.
+This targets React 17 to make it work with Expo 45.
 
 ## Origin
 
