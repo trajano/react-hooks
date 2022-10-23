@@ -188,7 +188,7 @@ describe("useDeepState", () => {
     const { getByTestId } = render(<MyComponent />)
     expect(getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
-    act(() => jest.advanceTimersByTime(10000));
+    act(() => { jest.advanceTimersByTime(10000) });
     await waitFor(() => {
       expect(getByTestId("test").textContent).toEqual("foo");
       expect(renderCallback).toBeCalledTimes(2)

@@ -36,7 +36,7 @@ describe("useDebounceDeepState", () => {
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
-    act(() => jest.advanceTimersByTime(1));
+    act(() => { jest.advanceTimersByTime(1) });
 
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
@@ -48,7 +48,7 @@ describe("useDebounceDeepState", () => {
       expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
       expect(elem.textContent).toEqual("click 1");
     });
-    act(() => jest.advanceTimersByTime(500));
+    act(() => { jest.advanceTimersByTime(500) });
     await waitFor(() => {
       expect(callback.mock.calls.length).toBeGreaterThanOrEqual(3);
       expect(elem.textContent).toEqual("click 2");
@@ -80,7 +80,7 @@ describe("useDebounceDeepState", () => {
     expect(elem.textContent).toEqual("bar");
 
     unmount();
-    act(() => jest.advanceTimersByTime(1));
+    act(() => { jest.advanceTimersByTime(1) });
     expect(callback).toBeCalledTimes(1);
 
   });
@@ -114,18 +114,18 @@ describe("useDebounceDeepState", () => {
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("0");
 
-    act(() => jest.advanceTimersByTime(1));
+    act(() => { jest.advanceTimersByTime(1) });
 
     expect(callback).toBeCalledTimes(2);
     expect(elem.textContent).toEqual("1");
 
     set1.click();
-    act(() => jest.advanceTimersByTime(500));
+    act(() => { jest.advanceTimersByTime(500) });
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
     expect(elem.textContent).toEqual("1");
 
     set2.click();
-    act(() => jest.advanceTimersByTime(500));
+    act(() => { jest.advanceTimersByTime(500) });
     await waitFor(() => {
       expect(callback.mock.calls.length).toBeGreaterThanOrEqual(3);
       expect(elem.textContent).toEqual("2");

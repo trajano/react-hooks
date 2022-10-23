@@ -35,7 +35,7 @@ describe("useDebounceState", () => {
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
-    act(() => jest.advanceTimersByTime(1));
+    act(() => { jest.advanceTimersByTime(1) });
 
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
@@ -47,7 +47,7 @@ describe("useDebounceState", () => {
       expect(callback).toBeCalledTimes(2);
       expect(elem.textContent).toEqual("click 1");
     });
-    act(() => jest.advanceTimersByTime(500));
+    act(() => { jest.advanceTimersByTime(500) });
     await waitFor(() => {
       expect(callback).toBeCalledTimes(3);
       expect(elem.textContent).toEqual("click 2");
@@ -79,7 +79,7 @@ describe("useDebounceState", () => {
     expect(elem.textContent).toEqual("bar");
 
     unmount();
-    act(() => jest.advanceTimersByTime(1));
+    act(() => { jest.advanceTimersByTime(1) });
     expect(callback).toBeCalledTimes(1);
 
   });

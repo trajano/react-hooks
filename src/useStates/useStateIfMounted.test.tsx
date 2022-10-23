@@ -50,11 +50,11 @@ describe("useStateIfMounted", () => {
     const { getByTestId, queryByTestId, unmount } = render(<MyComponent />)
     expect(getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
-    await act(async () => jest.advanceTimersByTime(5000));
+    await act(async () => { jest.advanceTimersByTime(5000) });
     expect(getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
     unmount();
-    await act(async () => jest.advanceTimersByTime(5000));
+    await act(async () => { jest.advanceTimersByTime(5000) });
     expect(queryByTestId("test")).toBeFalsy()
     expect(renderCallback).toBeCalledTimes(1)
   })
@@ -86,14 +86,14 @@ describe("useStateIfMounted", () => {
     const { getByTestId, queryByTestId, unmount } = render(<MyComponent />)
     expect(getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
-    await act(async () => jest.advanceTimersByTime(4999));
+    await act(async () => { jest.advanceTimersByTime(4999) });
     expect(getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
-    await act(async () => jest.advanceTimersByTime(3));
+    await act(async () => {jest.advanceTimersByTime(3)});
     expect(getByTestId("test").textContent).toEqual("brin");
     expect(renderCallback).toBeCalledTimes(2)
     unmount();
-    await act(async () => jest.advanceTimersByTime(5000));
+    await act(async () => { jest.advanceTimersByTime(5000) });
     expect(queryByTestId("test")).toBeFalsy()
     expect(renderCallback).toBeCalledTimes(2)
 
