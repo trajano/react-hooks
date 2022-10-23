@@ -13,11 +13,10 @@
   ],
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "lodash.isequal": "^4.5.0",
-    "microbundle": "^0.15.0"
+    "lodash.isequal": "^4.5.0"
   },
   "peerDependencies": {
-    "react": "16 || 17"
+    "react": "16 || 17 || 18"
   },
   "devDependencies": {
     "@testing-library/react": "^12.1.2",
@@ -29,6 +28,7 @@
     "gh-pages": "^3.2.3",
     "jest": "26.6.0",
     "lodash.noop": "^3.0.1",
+    "microbundle": "^0.15.0",
     "microbundle-crl": "^0.13.11",
     "react": "16.13.1",
     "react-dom": "16.13.1",
