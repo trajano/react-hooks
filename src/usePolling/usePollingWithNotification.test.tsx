@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
 import { SubscriptionManager, useSubscription } from "../useSubscription";
 import { usePolling } from './usePolling';
@@ -47,17 +47,15 @@ describe("Polling with notifications", () => {
     }
 
     const { getByTestId } = render(<PollingDataProvider><MyComponent /></PollingDataProvider>)
-    await waitFor(() => {
-      expect(getByTestId("test").childElementCount).toEqual(0);
-    });
-    jest.runAllTimers();
-    await waitFor(() => {
-      expect(getByTestId("test").childElementCount).toEqual(1);
-    });
-    jest.runAllTimers();
-    await waitFor(() => {
-      expect(getByTestId("test").childElementCount).toEqual(2);
-    });
+    expect(getByTestId("test").childElementCount).toEqual(0);
+    jest.advanceTimersByTime(5000);
+    expect(getByTestId("test").childElementCount).toEqual(0);
+    jest.advanceTimersByTime(54000);
+    expect(getByTestId("test").childElementCount).toEqual(0);
+    await act(() => { jest.advanceTimersByTime(1000); })
+    expect(getByTestId("test").childElementCount).toEqual(1);
+    await act(() => { jest.advanceTimersByTime(60000); });
+    expect(getByTestId("test").childElementCount).toEqual(2);
     expect(renderCallback.mock.calls.length).toEqual(1);
   })
   afterEach(() => {
