@@ -9,19 +9,12 @@ import { Dispatch, useReducer } from "react";
  *
  */
 export function useDeepState<S>(initialState: S | (() => S)): [S, Dispatch<S>] {
-  function newStateIfNotEqual(state: S, newState: S) : S {
-    return isEqual(state, newState) ? state : newState;
-  }
-  if (typeof initialState === "function") {
-    return useReducer(
-      newStateIfNotEqual,
-      null as unknown as S,
-      initialState as () => S
-    );
-  } else {
-    return useReducer(
-      newStateIfNotEqual,
-      initialState
-    );
-  }
+  const initialStateIsFunction = typeof initialState === "function";
+  return useReducer(
+    (state: S, newState: S) => isEqual(state, newState) ? state : newState,
+    initialStateIsFunction ? (null as unknown as S) : initialState,
+    initialStateIsFunction
+      ? (initialState as () => S)
+      : (undefined as unknown as () => S)
+  );
 }

@@ -48,10 +48,10 @@ describe("Polling with notifications", () => {
 
     const { getByTestId } = render(<PollingDataProvider><MyComponent /></PollingDataProvider>)
     expect(getByTestId("test").childElementCount).toEqual(0);
-    jest.advanceTimersByTime(5000);
-    expect(getByTestId("test").childElementCount).toEqual(0);
-    jest.advanceTimersByTime(54000);
-    expect(getByTestId("test").childElementCount).toEqual(0);
+    await act(() => { jest.advanceTimersByTime(5000); });
+    expect(getByTestId("test").childElementCount).toEqual(1);
+    await act(() => { jest.advanceTimersByTime(54000); });
+    expect(getByTestId("test").childElementCount).toEqual(1);
     await act(() => { jest.advanceTimersByTime(1000); })
     expect(getByTestId("test").childElementCount).toEqual(1);
     await act(() => { jest.advanceTimersByTime(60000); });

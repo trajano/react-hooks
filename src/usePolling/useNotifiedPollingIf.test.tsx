@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { waitFor } from "@testing-library/dom";
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
 import { SubscriptionManager } from "../useSubscription";
 import { useNotifiedPollingIf } from "./useNotifiedPollingIf";
@@ -52,11 +52,11 @@ describe("Polling with notifications", () => {
     await waitFor(() => {
       expect(getByTestId("test").childElementCount).toEqual(0);
     });
-    jest.runAllTimers();
+    await act(() => { jest.runAllTimers() });
     await waitFor(() => {
       expect(getByTestId("test").childElementCount).toEqual(1);
     });
-    jest.runAllTimers();
+    await act(() => { jest.runAllTimers() });
     await waitFor(() => {
       expect(getByTestId("test").childElementCount).toEqual(2);
     });

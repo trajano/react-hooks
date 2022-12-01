@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import React, { PropsWithChildren, useEffect, useReducer, useRef } from 'react';
 import { delay } from '../test-support/delay';
 import { Rerendering } from '../test-support/Rerendering';
@@ -36,7 +36,7 @@ describe('useRef', () => {
     expect(getByTestId("test").textContent).toEqual("blah");
     expect(renderCount).toEqual(1);
     expect(callback).not.toBeCalled();
-    jest.runAllTimers();
+    await act(() => { jest.runAllTimers(); })
     await waitFor(() => {
       expect(callback).toBeCalledTimes(1);
       expect(getByTestId("test").textContent).toEqual("blah");
@@ -74,7 +74,7 @@ describe('useRef', () => {
     expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
     expect(renderCount).toEqual(1);
     expect(callback).toBeCalledTimes(1);
-    jest.runAllTimers();
+    await act(() => jest.runAllTimers());
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
       expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
@@ -102,7 +102,7 @@ describe('useRef', () => {
     const { getByTestId } = render(<Rerendering><MyComponent /></Rerendering>)
     expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
     expect(callback).toBeCalledTimes(1);
-    jest.runAllTimers();
+    await act(() => jest.runAllTimers());
     await waitFor(() => {
       expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
       expect(callback).toBeCalledTimes(1);
