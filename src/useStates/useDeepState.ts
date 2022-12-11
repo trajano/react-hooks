@@ -1,5 +1,6 @@
-import isEqual from "lodash.isequal";
+import { isEqual } from "lodash";
 import { Dispatch, useReducer } from "react";
+
 /**
  * This is similar to the `React.useState` function except it uses
  * [lodash.isEqual](https://lodash.com/docs/4.17.15#isEqual) to perform a
