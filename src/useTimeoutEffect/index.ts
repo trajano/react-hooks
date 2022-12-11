@@ -1,1 +1,1 @@
-export { useTimeoutEffect} from './useTimeoutEffect'
+export { useTimeoutEffect } from "./useTimeoutEffect";
