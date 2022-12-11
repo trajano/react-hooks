@@ -8,4 +8,5 @@ export * from "./useMounted";
 export * from "./usePolling";
 export * from "./useReplaceLogging";
 export * from "./useSubscription";
+export * from "./useTimeoutEffect";
 export * from "./xyz";
