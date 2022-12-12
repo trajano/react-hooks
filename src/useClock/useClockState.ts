@@ -22,8 +22,12 @@ export function useClockState(
       intervalRef.current = setInterval(updateNow, frequencyMs);
     }, delayTillIntervalStart ?? frequencyMs - (Date.now() % frequencyMs));
     return () => {
-      clearTimeout(initialTimeoutRef.current);
-      clearInterval(intervalRef.current);
+      if (initialTimeoutRef.current) {   
+        clearTimeout(initialTimeoutRef.current);
+      }
+      if (intervalRef.current) {   
+        clearInterval(intervalRef.current);
+      }
     };
   }, []);
   return new Date(now);

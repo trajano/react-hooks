@@ -14,12 +14,11 @@ export function useTimeoutEffect(
 ): void {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   useEffect(() => {
-    if (timeoutRef.current !== undefined) {
-      clearTimeout(timeoutRef.current);
-    }
     timeoutRef.current = setTimeout(callback, ms);
     return () => {
-      clearTimeout(timeoutRef.current);
+      if (timeoutRef.current !== undefined) {
+        clearTimeout(timeoutRef.current);
+      }
       timeoutRef.current = undefined;
     };
   }, deps);
