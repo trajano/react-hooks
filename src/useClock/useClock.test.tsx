@@ -51,8 +51,8 @@ describe("Clock update", () => {
   })
   it("should work when not starting at zero seconds", async () => {
     jest
-      .useFakeTimers('modern')
-      .setSystemTime(new Date('2020-01-01T00:00:12.878Z').getTime());
+      .useFakeTimers()
+      .setSystemTime(parseISO('2020-01-01T00:00:12.878Z'));
 
     const { getByTestId } = render(<MyComponent />)
     await waitFor(() => {
