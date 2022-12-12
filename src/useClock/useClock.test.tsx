@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events  */
 /* eslint-disable jsx-a11y/no-static-element-interactions  */
 import { act, render, waitFor } from '@testing-library/react';
+import { parseISO } from 'date-fns';
 import React, { useState } from 'react';
 import { useClock } from "./useClock";
 
@@ -20,8 +21,8 @@ function MyComponent() {
 describe("Clock update", () => {
   it("should work when starting at zero seconds", async () => {
     jest
-      .useFakeTimers('modern')
-      .setSystemTime(new Date('2020-01-01T00:00:00Z').getTime());
+      .useFakeTimers()
+      .setSystemTime(parseISO('2020-01-01T00:00:00Z'));
 
     const { getByTestId } = render(<MyComponent />)
     await waitFor(() => {
