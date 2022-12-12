@@ -22,7 +22,7 @@ jobs:
         node-version: 16.x
         cache: 'yarn'
     - name: Install dependencies
-      run: yarn --frozen-lockfile
+      run: yarn
     - run: yarn typedoc --plugin ./hoist-single-typedoc-plugin/index.js
     - run: yarn test --coverage
     - run: mv coverage/lcov-report/ doc/
