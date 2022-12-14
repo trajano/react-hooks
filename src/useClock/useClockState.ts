@@ -6,7 +6,9 @@ import { useEffect, useReducer, useRef } from "react";
  * then run intervals at the frequencyMs specified after.
  * This can be overriden so that a different delay till the interval starts.
  * @param frequencyMs frequency to run the updates defaults to 1000ms.
- * @param delayTillIntervalStart number of milliseconds to wait before the next frequency block, defaults to the next block based on the frequency.
+ * @param delayTillIntervalStart number of milliseconds to wait before the
+ *   next frequency block, defaults to the next block based on the frequency.
+ *   Note on Android this should not go past 60 seconds.
  * @returns current instant
  */
 export function useClockState(
@@ -22,10 +24,10 @@ export function useClockState(
       intervalRef.current = setInterval(updateNow, frequencyMs);
     }, delayTillIntervalStart ?? frequencyMs - (Date.now() % frequencyMs));
     return () => {
-      if (initialTimeoutRef.current) {   
+      if (initialTimeoutRef.current) {
         clearTimeout(initialTimeoutRef.current);
       }
-      if (intervalRef.current) {   
+      if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
