@@ -1,4 +1,4 @@
-import { debounce } from "lodash/debounce";
+import debounce from "lodash/debounce";
 describe("debounce", () => {
   beforeEach(() => {
     jest.useFakeTimers("modern");
