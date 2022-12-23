@@ -1,4 +1,4 @@
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { Dispatch, useCallback, useEffect } from "react";
 import { useDeepState } from "./useDeepState";
 

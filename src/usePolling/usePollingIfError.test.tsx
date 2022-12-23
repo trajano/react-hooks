@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { render, waitFor } from '@testing-library/react';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import React from 'react';
 import { usePollingIf } from './usePollingIf';
 

@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import isEqual from "lodash/isequal";
 import { Dispatch, useReducer } from "react";
 
 /**
@@ -12,7 +12,7 @@ import { Dispatch, useReducer } from "react";
 export function useDeepState<S>(initialState: S | (() => S)): [S, Dispatch<S>] {
   const initialStateIsFunction = typeof initialState === "function";
   return useReducer(
-    (state: S, newState: S) => isEqual(state, newState) ? state : newState,
+    (state: S, newState: S) => (isEqual(state, newState) ? state : newState),
     initialStateIsFunction ? (null as unknown as S) : initialState,
     initialStateIsFunction
       ? (initialState as () => S)
