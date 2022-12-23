@@ -1,6 +1,7 @@
 import { XyzContext } from "./XyzContext";
 import { XyzProviderProps } from "./XyzProviderProps";
-import React from 'react';
+import React, { useMemo } from 'react';
+import { IXyzContext } from "./IXyzContext";
 
 /**
  * Provides the context to the React application.
@@ -12,10 +13,13 @@ export function XyzProvider({
   children,
 }: XyzProviderProps): JSX.Element {
 
+  /**
+   * Context value. Memoized.
+   */
+  const contextValue = useMemo<IXyzContext>(() => ({}), [])
   return (
     <XyzContext.Provider
-      value={{
-      }}
+      value={contextValue}
     >
       {children}
     </XyzContext.Provider>
