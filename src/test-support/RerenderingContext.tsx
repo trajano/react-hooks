@@ -1,22 +1,20 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useReducer } from 'react';
 import { delay } from "./delay";
 
-type IRendering = {}
-const RenderingContext = createContext<IRendering>({})
+const RenderingContext = createContext<{ calls: number }>({ calls: 0 })
 /**
  * This is a component that rerenders after a short delay
  */
 export function RerenderingProvider({ children }: PropsWithChildren<{}>): JSX.Element {
-  const forceUpdate = useReducer(() => ({}), {})[1] as () => void
-
+  const [calls, forceUpdate] = useReducer((prev: number) => prev + 1, 0)
   useEffect(() => {
     (async function asyncEffect() {
       await delay(10000);
       forceUpdate();
     })()
   }, [])
-  return (<RenderingContext.Provider value={{}}>{children}</RenderingContext.Provider>);
+  return (<RenderingContext.Provider value={{ calls }}>{children}</RenderingContext.Provider>);
 }
-export function useRerendering(): IRendering {
+export function useRerendering(): { calls: number } {
   return useContext(RenderingContext);
 }
