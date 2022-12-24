@@ -1,4 +1,4 @@
-import { DependencyList, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 /**
  * This hook wraps `setTimeout` to trigger an effect of invoking the callback function when the timeout hits.
  * This will clear the timeout if the component containing the hook is unmounted.  Unlike `setTimeout` this
@@ -9,8 +9,7 @@ import { DependencyList, useEffect, useRef } from "react";
  */
 export function useTimeoutEffect(
   callback: () => void,
-  ms: number | undefined,
-  deps: DependencyList
+  ms: number | undefined
 ): void {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   useEffect(() => {
@@ -21,5 +20,5 @@ export function useTimeoutEffect(
       }
       timeoutRef.current = undefined;
     };
-  }, deps);
+  }, [callback, ms]);
 }

@@ -27,6 +27,7 @@
     "@typescript-eslint/parser": "^5.47.0",
     "date-fns": "^2.29.3",
     "eslint": "^8.30.0",
+    "eslint-config-react-app": "^7.0.1",
     "gh-pages": "^4.0.0",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
@@ -51,8 +52,7 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest",
-      "plugin:@typescript-eslint/recommended"
+      "react-app/jest"
     ]
   },
   "scripts": {

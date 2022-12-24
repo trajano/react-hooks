@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { act, render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import React, { useEffect } from 'react';
 import { delay } from '../test-support/delay';
 import { useStateIfMounted } from "./useStateIfMounted";
@@ -20,17 +20,17 @@ describe("useStateIfMounted", () => {
       return (<div data-testid="test">{foo}</div>);
     }
 
-    const { getByTestId, queryByTestId, unmount } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("BAZ");
+    const { unmount } = render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("BAZ");
     expect(renderCallback).toBeCalledTimes(2)
     unmount();
-    expect(queryByTestId("test")).toBeFalsy()
+    expect(screen.queryByTestId("test")).toBeFalsy()
     expect(renderCallback).toBeCalledTimes(2)
 
   })
 
   it("should work and not rerender and unmount later", async () => {
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
 
     const renderCallback = jest.fn();
     function MyComponent() {
@@ -47,20 +47,20 @@ describe("useStateIfMounted", () => {
       return (<div data-testid="test">{foo}</div>);
     }
 
-    const { getByTestId, queryByTestId, unmount } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
+    const { unmount } = render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
     await act(async () => { jest.advanceTimersByTime(5000) });
-    expect(getByTestId("test").textContent).toEqual("bar");
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
     unmount();
     await act(async () => { jest.advanceTimersByTime(5000) });
-    expect(queryByTestId("test")).toBeFalsy()
+    expect(screen.queryByTestId("test")).toBeFalsy()
     expect(renderCallback).toBeCalledTimes(1)
   })
 
   it("should work and not rerender and unmount later", async () => {
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
 
     const renderCallback = jest.fn();
     function MyComponent() {
@@ -83,18 +83,18 @@ describe("useStateIfMounted", () => {
       return (<div data-testid="test">{foo}</div>);
     }
 
-    const { getByTestId, queryByTestId, unmount } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
+    const { unmount } = render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
     await act(async () => { jest.advanceTimersByTime(4999) });
-    expect(getByTestId("test").textContent).toEqual("bar");
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCallback).toBeCalledTimes(1)
-    await act(async () => {jest.advanceTimersByTime(3)});
-    expect(getByTestId("test").textContent).toEqual("brin");
+    await act(async () => { jest.advanceTimersByTime(3) });
+    expect(screen.getByTestId("test").textContent).toEqual("brin");
     expect(renderCallback).toBeCalledTimes(2)
     unmount();
     await act(async () => { jest.advanceTimersByTime(5000) });
-    expect(queryByTestId("test")).toBeFalsy()
+    expect(screen.queryByTestId("test")).toBeFalsy()
     expect(renderCallback).toBeCalledTimes(2)
 
   })

@@ -3,7 +3,7 @@
  */
 /* eslint-disable jsx-a11y/click-events-have-key-events  */
 /* eslint-disable jsx-a11y/no-static-element-interactions  */
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react';
 import { useSubscription } from "./useSubscription";
 import type { SubscriptionManager } from "./SubscriptionManager";
@@ -21,11 +21,11 @@ describe("useSubscription", () => {
       function onClick() {
         notify();
       }
-      useEffect(() => subscribe(callback), []);
+      useEffect(() => subscribe(callback), [subscribe]);
       return (<div data-testid="test" onClick={onClick}>abc</div>);
     }
-    const { getByTestId } = render(<MyContextProvider><MyComponent /></MyContextProvider>)
-    const element = getByTestId("test");
+    render(<MyContextProvider><MyComponent /></MyContextProvider>)
+    const element = screen.getByTestId("test");
     expect(element.textContent).toEqual("abc");
     await waitFor(() => expect(callback).toBeCalledTimes(0));
     element.click();
@@ -49,8 +49,8 @@ describe("useSubscription", () => {
       useSubscribeEffect(callback);
       return (<div data-testid="test" onClick={onClick}>abc</div>);
     }
-    const { getByTestId } = render(<MyContextProvider><MyComponent /></MyContextProvider>)
-    const element = getByTestId("test");
+    render(<MyContextProvider><MyComponent /></MyContextProvider>)
+    const element = screen.getByTestId("test");
     expect(element.textContent).toEqual("abc");
     await waitFor(() => expect(callback).toBeCalledTimes(0));
     element.click();

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { act, render, waitFor } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import React, { PropsWithChildren, useEffect, useReducer, useRef } from 'react';
 import { delay } from '../test-support/delay';
 import { Rerendering } from '../test-support/Rerendering';
@@ -11,8 +11,8 @@ describe('useRef', () => {
       const myRef = useRef("blah")
       return (<div data-testid="test">{myRef.current}</div>);
     }
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("blah");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("blah");
   })
 
   it("should not rerender when setting ref", async () => {
@@ -32,16 +32,14 @@ describe('useRef', () => {
       return (<div data-testid="test">{myRef.current}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("blah");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("blah");
     expect(renderCount).toEqual(1);
     expect(callback).not.toBeCalled();
     await act(() => { jest.runAllTimers(); })
-    await waitFor(() => {
-      expect(callback).toBeCalledTimes(1);
-      expect(getByTestId("test").textContent).toEqual("blah");
-      expect(renderCount).toEqual(1);
-    });
+    expect(callback).toBeCalledTimes(1);
+    expect(screen.getByTestId("test").textContent).toEqual("blah");
+    expect(renderCount).toEqual(1);
   })
   it("should get the same object when the parent rerenders with children", async () => {
     jest.useFakeTimers();
@@ -66,20 +64,18 @@ describe('useRef', () => {
           await delay(10000);
           forceUpdate()
         })()
-      }, [])
+      }, [forceUpdate])
       return (<MyComponent />);
     }
 
-    const { getByTestId } = render(<MyStateComponent />)
-    expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
+    render(<MyStateComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
     expect(renderCount).toEqual(1);
     expect(callback).toBeCalledTimes(1);
     await act(() => jest.runAllTimers());
-    await waitFor(() => {
-      expect(callback).toBeCalledTimes(2);
-      expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
-      expect(renderCount).toEqual(2);
-    });
+    expect(callback).toBeCalledTimes(2);
+    expect(screen.getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
+    expect(renderCount).toEqual(2);
   })
 
   it("should get the same object when the parent rerenders using component, but the component will not rerender as there is no state change", async () => {
@@ -99,14 +95,12 @@ describe('useRef', () => {
       </>);
     }
 
-    const { getByTestId } = render(<Rerendering><MyComponent /></Rerendering>)
-    expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
+    render(<Rerendering><MyComponent /></Rerendering>)
+    expect(screen.getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
     expect(callback).toBeCalledTimes(1);
     await act(() => jest.runAllTimers());
-    await waitFor(() => {
-      expect(getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
-      expect(callback).toBeCalledTimes(1);
-    });
+    expect(screen.getByTestId("test").textContent).toEqual(JSON.stringify({ random: x }));
+    expect(callback).toBeCalledTimes(1);
   })
 
   afterEach(() => {

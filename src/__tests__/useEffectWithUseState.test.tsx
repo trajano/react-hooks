@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 
 describe('useEffect with useState', () => {
@@ -10,8 +10,8 @@ describe('useEffect with useState', () => {
       const [foo] = useState('foo');
       return <span data-testid="asdf">{foo}</span>;
     }
-    const { getByTestId } = render(<MyComponent></MyComponent>)
-    expect(getByTestId("asdf").textContent).toBe("foo");
+    render(<MyComponent></MyComponent>)
+    expect(screen.getByTestId("asdf").textContent).toBe("foo");
   });
 
   it('with useEffect', () => {
@@ -22,8 +22,8 @@ describe('useEffect with useState', () => {
       }, []);
       return <span data-testid="asdf">{foo}</span>;
     }
-    const { getByTestId } = render(<MyComponent></MyComponent>)
-    expect(getByTestId("asdf").textContent).toBe("bar");
+    render(<MyComponent></MyComponent>)
+    expect(screen.getByTestId("asdf").textContent).toBe("bar");
   });
 
   it('with useEffect async', async () => {
@@ -36,12 +36,13 @@ describe('useEffect with useState', () => {
       }, []);
       return <span data-testid="asdf">{foo}</span>;
     }
-    const { getByTestId } = await waitFor(() => render(<MyComponent></MyComponent>))
-    expect(getByTestId("asdf").textContent).toBe("bar");
+    const { unmount } = render(<MyComponent></MyComponent>)
+    expect(screen.getByTestId("asdf").textContent).toBe("bar");
+    unmount()
   });
 
   it('with useEffect async and timeout', async () => {
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
     function MyComponent() {
       const [foo, setFoo] = useState('foo');
       useEffect(() => {
@@ -52,11 +53,12 @@ describe('useEffect with useState', () => {
       }, []);
       return <span data-testid="asdf">{foo}</span>;
     }
-    const { getByTestId } = await waitFor(() => render(<MyComponent></MyComponent>))
-    expect(getByTestId("asdf").textContent).toBe("foo");
+    const { unmount } = render(<MyComponent></MyComponent>)
+    expect(screen.getByTestId("asdf").textContent).toBe("foo");
     jest.advanceTimersByTime(4999)
-    expect(getByTestId("asdf").textContent).toBe("foo");
+    expect(screen.getByTestId("asdf").textContent).toBe("foo");
     jest.advanceTimersByTime(1)
-    await waitFor(() => expect(getByTestId("asdf").textContent).toBe("bar"));
+    await waitFor(() => expect(screen.getByTestId("asdf").textContent).toBe("bar"));
+    unmount();
   });
 });

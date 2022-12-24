@@ -17,7 +17,7 @@ export function useSubscription<T = unknown>(): SubscriptionManager<T> {
     subscribersRef.current.forEach((fn) => fn(data));
   }
   function useSubscribeEffect(fn: (data: T) => void) {
-    useEffect(() => subscribe(fn), []);
+    useEffect(() => subscribe(fn), [fn]);
   }
   return { subscribe, notify, useSubscribeEffect };
 }
