@@ -3,7 +3,7 @@
  */
 import { act, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import { useDebouncedDeepState as useDebouncedDeepState } from "./useDebouncedDeepState";
+import { useDebouncedDeepState } from "./useDebouncedDeepState";
 
 describe("useDebounceDeepState", () => {
 

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { XyzProvider } from './XyzProvider'
 import { useXyz } from './useXyz';
@@ -9,7 +9,7 @@ describe('xyzContext', () => {
       const xyz = useXyz()
       return (<div data-testid="test">{JSON.stringify(xyz)}</div>);
     }
-    const { getByTestId } = render(<XyzProvider><MyComponent /></XyzProvider>)
-    expect(getByTestId("test").textContent).toEqual("{}");
+    render(<XyzProvider><MyComponent /></XyzProvider>)
+    expect(screen.getByTestId("test").textContent).toEqual("{}");
   })
 });
