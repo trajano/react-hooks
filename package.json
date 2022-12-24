@@ -40,6 +40,11 @@
       "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,json,md}": [
+      "prettier --write"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
