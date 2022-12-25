@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSubscription, SubscriptionManager } from "../useSubscription";
 
 /**
@@ -27,18 +27,24 @@ export function useClock(): SubscriptionManager<number> {
   const { subscribe, notify, useSubscribeEffect } = useSubscription<number>();
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
-  function doNotify() {
-    notify(Date.now());
-    timeoutRef.current = setTimeout(doNotify, timeToNextFullMinute(Date.now()));
-  }
+  const doNotify = useCallback(
+    function doNotify() {
+      notify(Date.now());
+      timeoutRef.current = setTimeout(
+        doNotify,
+        timeToNextFullMinute(Date.now())
+      );
+    },
+    [notify]
+  );
   useEffect(() => {
     doNotify();
     return () => {
       if (timeoutRef.current) {
-         clearTimeout(timeoutRef.current);
+        clearTimeout(timeoutRef.current);
       }
     };
-  }, []);
+  }, [doNotify]);
 
   return { subscribe, notify, useSubscribeEffect };
 }

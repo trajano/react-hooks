@@ -16,7 +16,7 @@ describe("useMounted", () => {
 
       useEffect(() => {
         callback(isMounted())
-      }, [])
+      }, [isMounted])
 
       return (<div data-testid="test">Hello world</div>);
     }
@@ -29,7 +29,7 @@ describe("useMounted", () => {
   })
 
   it("should work and not rerender and unmount later", async () => {
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
     const callback = jest.fn();
 
     function MyComponent() {
@@ -40,7 +40,7 @@ describe("useMounted", () => {
           await delay(10000);
           callback(isMounted());
         })();
-      }, [])
+      }, [isMounted])
 
       return (<div data-testid="test">Hello world</div>);
     }

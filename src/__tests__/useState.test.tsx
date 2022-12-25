@@ -1,17 +1,21 @@
 /**
  * @jest-environment jsdom
  */
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
-import React, { useEffect, useState } from 'react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { delay } from '../test-support/delay';
 describe('useState', () => {
+  afterEach(() => {
+    cleanup();
+    jest.useRealTimers();
+  })
   it("should set initial state", () => {
     function MyComponent() {
       const [foo] = useState("bar");
       return (<div data-testid="test">{foo}</div>);
     }
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
   })
 
   it("should set rerender when setting state", async () => {
@@ -29,14 +33,14 @@ describe('useState', () => {
       return (<div data-testid="test">{foo}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCount).toEqual(1);
-    jest.runAllTimers();
+    act(() => jest.runAllTimers());
     await waitFor(() => {
-      expect(getByTestId("test").textContent).toEqual("mew");
       expect(renderCount).toEqual(2);
     });
+    expect(screen.getByTestId("test").textContent).toEqual("mew");
   })
 
   it("should not rerender when setting state to the same value", async () => {
@@ -54,14 +58,14 @@ describe('useState', () => {
       return (<div data-testid="test">{foo}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCount).toEqual(1);
     jest.runAllTimers();
     await waitFor(() => {
-      expect(getByTestId("test").textContent).toEqual("bar");
-      expect(renderCount).toEqual(1);
+      expect(screen.getByTestId("test").textContent).toEqual("bar");
     });
+    expect(renderCount).toEqual(1);
   })
 
   it("should not rerender when setting state to the same value via click", async () => {
@@ -72,8 +76,8 @@ describe('useState', () => {
       return (<div data-testid="test" onClick={() => setFoo("bar")}>{foo}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    const testElement = getByTestId("test");
+    render(<MyComponent />)
+    const testElement = screen.getByTestId("test");
     expect(testElement.textContent).toEqual("bar");
     expect(callback).toBeCalledTimes(1);
     fireEvent.click(testElement)
@@ -85,21 +89,58 @@ describe('useState', () => {
     const callback = jest.fn();
     function MyComponent() {
       const [foo, setFoo] = useState("bir");
-      callback();
-      return (<div data-testid="test" onClick={() => setFoo("bar")}>{foo}</div>);
+      const onClick = useCallback(() => setFoo("bar"), [])
+      callback(foo);
+      return (<div data-testid="test" onClick={onClick}>{foo}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    const testElement = getByTestId("test");
+    const { unmount } = render(<MyComponent />)
+    const testElement = screen.getByTestId("test");
     expect(testElement.textContent).toEqual("bir");
     expect(callback).toBeCalledTimes(1);
-    act(() => { fireEvent.click(testElement); });
+    fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
     expect(callback).toBeCalledTimes(2);
-    act(() => { fireEvent.click(testElement); });
+    fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
-    // workaround  due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v?noredirect=1#comment124298465_70312646
+    expect(Object.is("bar", "bar")).toBeTruthy();
+    // expect(callback).toBeCalledTimes(2) does not work.
+    // workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
     expect(callback.mock.calls.length >= 2).toBeTruthy();
+    unmount();
+  })
+
+  it("should not rerender when setting state to a different value from initial followed by same value via click using a reducer", async () => {
+    const callback = jest.fn();
+    const comparisonCallback = jest.fn();
+    function MyComponent() {
+      const [foo, setFoo] = useReducer((prev: string, next: string) => {
+        const isPrevEqNext = prev === next;
+        comparisonCallback(isPrevEqNext)
+        return isPrevEqNext ? prev : next;
+      }, "bir");
+      const onClick = useCallback(() => setFoo("bar"), [])
+      callback(foo);
+      return (<div data-testid="test" onClick={onClick}>{foo}</div>);
+    }
+
+    const { unmount } = render(<MyComponent />)
+    const testElement = screen.getByTestId("test");
+    expect(testElement.textContent).toEqual("bir");
+    expect(callback).toBeCalledTimes(1);
+    fireEvent.click(testElement);
+    expect(testElement.textContent).toEqual("bar");
+    expect(callback).toBeCalledTimes(2);
+    fireEvent.click(testElement);
+    expect(testElement.textContent).toEqual("bar");
+    expect(Object.is("bar", "bar")).toBeTruthy();
+    // expect(callback).toBeCalledTimes(2) does not work.
+    // workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
+    expect(callback.mock.calls.length >= 2).toBeTruthy();
+    expect(comparisonCallback).toBeCalledTimes(2);
+    expect(comparisonCallback).toHaveBeenNthCalledWith(1, false)
+    expect(comparisonCallback).toHaveBeenNthCalledWith(2, true)
+    unmount();
   })
 
   it("should rerender when setting state to the same value, but still different objects", async () => {
@@ -117,17 +158,13 @@ describe('useState', () => {
       return (<div data-testid="test">{foo.foo}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCount).toEqual(1);
-    jest.runAllTimers();
-    await waitFor(() => {
-      expect(getByTestId("test").textContent).toEqual("bar");
-      expect(renderCount).toEqual(2);
-    });
+    act(() => jest.runAllTimers());
+    await waitFor(() => expect(renderCount).toEqual(2));
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
+
   })
 
-  afterEach(() => {
-    jest.useRealTimers();
-  })
 })

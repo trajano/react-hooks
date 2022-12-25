@@ -46,5 +46,5 @@ export function usePollingIf<T = unknown>(
       mountedRef.current = false;
       activeRef.current = false;
     };
-  }, []);
+  }, [immediate, interval, wrappedAsyncFunction]);
 }

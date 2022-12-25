@@ -1,8 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { waitFor } from "@testing-library/react";
-import { render, act } from '@testing-library/react';
+import { act, render, screen, waitFor } from "@testing-library/react";
 import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
 import { SubscriptionManager } from "../useSubscription";
 import { useNotifiedPollingIf } from "./useNotifiedPollingIf";
@@ -43,24 +42,23 @@ describe("Polling with notifications", () => {
       const { fetchData, subscribe } = usePollingData();
       const [data, setData] = useState<number[]>([]);
 
-      useEffect(() => subscribe(async () => setData(await fetchData())), [])
+      useEffect(() => subscribe(async () => setData(await fetchData())), [fetchData, subscribe])
 
-      return (<div data-testid="test">{data.map((r) => (<div key={r}>{r.toString()}</div>))}</div>);
+      return (<div data-testid="test">{data.map((r, index) => (<div key={r} data-testid={"." + index}>{r.toString()}</div>))}</div>);
     }
 
-    const { getByTestId } = render(<PollingDataProvider><MyComponent /></PollingDataProvider>)
+    const { unmount } = render(<PollingDataProvider><MyComponent /></PollingDataProvider>)
+    expect(screen.queryByTestId(".0")).toBeFalsy();
+    await act(() => { jest.runAllTimers() });
     await waitFor(() => {
-      expect(getByTestId("test").childElementCount).toEqual(0);
+      expect(screen.getByTestId(".0")).toBeTruthy();
     });
     await act(() => { jest.runAllTimers() });
     await waitFor(() => {
-      expect(getByTestId("test").childElementCount).toEqual(1);
-    });
-    await act(() => { jest.runAllTimers() });
-    await waitFor(() => {
-      expect(getByTestId("test").childElementCount).toEqual(2);
+      expect(screen.getByTestId(".1")).toBeTruthy();
     });
     expect(renderCallback.mock.calls.length).toEqual(1);
+    unmount();
   })
   afterEach(() => {
     jest.useRealTimers();

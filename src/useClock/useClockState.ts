@@ -31,6 +31,6 @@ export function useClockState(
         clearInterval(intervalRef.current);
       }
     };
-  }, []);
+  }, [delayTillIntervalStart, frequencyMs]);
   return new Date(now);
 }

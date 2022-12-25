@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import React, { useState } from 'react';
 import { delay } from '../test-support/delay';
 import { useAsyncSetEffect } from "./useAsyncSetEffect";
@@ -14,23 +14,27 @@ describe("useAsyncSetEffect", () => {
       useAsyncSetEffect(() => Promise.resolve("foo"), setFoo, []);
       return (<div data-testid="test">{foo}</div>);
     }
-    const { getByTestId } = render(<MyComponent />)
-    const element = getByTestId("test");
+    const { unmount } = render(<MyComponent />)
+    const element = screen.getByTestId("test");
     await waitFor(() => expect(element.textContent).toEqual("bar"));
     await waitFor(() => expect(element.textContent).toEqual("foo"));
+    unmount();
   })
 
   it("should work with default deps", async () => {
+    jest.useFakeTimers();
     function MyComponent() {
       const [foo, setFoo] = useState("bar");
 
       useAsyncSetEffect(() => Promise.resolve("foo"), setFoo);
       return (<div data-testid="test">{foo}</div>);
     }
-    const { getByTestId } = render(<MyComponent />)
-    const element = getByTestId("test");
+    const { unmount } = render(<MyComponent />)
+    const element = screen.getByTestId("test");
     await waitFor(() => expect(element.textContent).toEqual("bar"));
+    jest.runOnlyPendingTimers();
     await waitFor(() => expect(element.textContent).toEqual("foo"));
+    unmount();
   })
 
   it("should work with delay", async () => {
@@ -44,11 +48,12 @@ describe("useAsyncSetEffect", () => {
       }, setFoo, []);
       return (<div data-testid="test">{foo}</div>);
     }
-    const { getByTestId } = render(<MyComponent />)
-    const element = getByTestId("test");
+    const { unmount } = render(<MyComponent />)
+    const element = screen.getByTestId("test");
     await waitFor(() => expect(element.textContent).toEqual("bar"));
     jest.runAllTimers();
     await waitFor(() => expect(element.textContent).toEqual("foo"));
+    unmount();
   })
 
   it("should not call state when umounted", async () => {
@@ -63,8 +68,8 @@ describe("useAsyncSetEffect", () => {
       }, callback, []);
       return (<div data-testid="test">{foo}</div>);
     }
-    const { getByTestId, unmount } = render(<MyComponent />)
-    const element = getByTestId("test");
+    const { unmount } = render(<MyComponent />)
+    const element = screen.getByTestId("test");
     await waitFor(() => expect(element.textContent).toEqual("bar"));
     await waitFor(() => expect(callback).not.toBeCalled());
     unmount();

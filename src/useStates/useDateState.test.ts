@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useState } from "react";
 import { useDateState } from "./useDateState";
-test("useState", () => {
+test("useState as a sample", () => {
   const { result } = renderHook((props: [number]) => useState(...props), {
     initialProps: [0],
   });
@@ -30,12 +30,9 @@ test("just initial set with function", () => {
   expect(result.current[0]).toStrictEqual(new Date(0));
 });
 test("update", () => {
-  const { result, waitForValueToChange } = renderHook(
-    (props: [number]) => useDateState(...props),
-    {
-      initialProps: [0],
-    }
-  );
+  const { result } = renderHook((props: [number]) => useDateState(...props), {
+    initialProps: [0],
+  });
   let [date, setDate] = result.current;
   expect(date).toStrictEqual(new Date(0));
 
