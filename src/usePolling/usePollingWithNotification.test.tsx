@@ -1,7 +1,14 @@
-import { act, render } from '@testing-library/react';
-import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
+import { act, render } from "@testing-library/react";
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { SubscriptionManager, useSubscription } from "../useSubscription";
-import { usePolling } from './usePolling';
+import { usePolling } from "./usePolling";
 
 interface PollingData {
   subscribe: SubscriptionManager["subscribe"];
@@ -27,7 +34,11 @@ function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
   usePolling(pollingCallback);
   renderCallback();
 
-  return <PollingDataContext.Provider value={{ fetchData, subscribe }}>{children}</PollingDataContext.Provider>
+  return (
+    <PollingDataContext.Provider value={{ fetchData, subscribe }}>
+      {children}
+    </PollingDataContext.Provider>
+  );
 }
 
 function usePollingData(): PollingData {
@@ -41,25 +52,42 @@ describe("Polling with notifications", () => {
       const { fetchData, subscribe } = usePollingData();
       const [data, setData] = useState<number[]>([]);
 
-      useEffect(() => subscribe(async () => setData(await fetchData())), [])
+      useEffect(() => subscribe(async () => setData(await fetchData())), []);
 
-      return (<div data-testid="test">{data.map((r) => (<div key={r}>{r.toString()}</div>))}</div>);
+      return (
+        <div data-testid="test">
+          {data.map((r) => (
+            <div key={r}>{r.toString()}</div>
+          ))}
+        </div>
+      );
     }
 
-    const { getByTestId } = render(<PollingDataProvider><MyComponent /></PollingDataProvider>)
+    const { getByTestId } = render(
+      <PollingDataProvider>
+        <MyComponent />
+      </PollingDataProvider>
+    );
     expect(getByTestId("test").childElementCount).toEqual(0);
-    await act(() => { jest.advanceTimersByTime(5000); });
+    await act(() => {
+      jest.advanceTimersByTime(5000);
+    });
     expect(getByTestId("test").childElementCount).toEqual(1);
-    await act(() => { jest.advanceTimersByTime(54000); });
+    await act(() => {
+      jest.advanceTimersByTime(54000);
+    });
     expect(getByTestId("test").childElementCount).toEqual(1);
-    await act(() => { jest.advanceTimersByTime(1000); })
+    await act(() => {
+      jest.advanceTimersByTime(1000);
+    });
     expect(getByTestId("test").childElementCount).toEqual(1);
-    await act(() => { jest.advanceTimersByTime(60000); });
+    await act(() => {
+      jest.advanceTimersByTime(60000);
+    });
     expect(getByTestId("test").childElementCount).toEqual(2);
     expect(renderCallback.mock.calls.length).toEqual(1);
-  })
+  });
   afterEach(() => {
     jest.useRealTimers();
   });
-
-})
+});

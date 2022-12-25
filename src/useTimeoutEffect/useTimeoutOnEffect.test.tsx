@@ -1,28 +1,35 @@
 /**
  * @jest-environment jsdom
  */
-import { add } from 'date-fns';
-import { act, render, screen } from '@testing-library/react';
-import { useTimeoutOnEffect, useTimeoutOnWithMinuteIntervalEffect } from './useTimeoutOnEffect';
-import React from 'react';
+import { add } from "date-fns";
+import { act, render, screen } from "@testing-library/react";
+import {
+  useTimeoutOnEffect,
+  useTimeoutOnWithMinuteIntervalEffect,
+} from "./useTimeoutOnEffect";
+import React from "react";
 describe("useTimeoutOnEffect", () => {
   beforeEach(() => {
     jest.useFakeTimers();
-  })
+  });
 
   it("one second max interval", async () => {
-
     const timeoutCallback = jest.fn();
     const renderCallback = jest.fn();
 
     function MyComponent() {
-      useTimeoutOnEffect(timeoutCallback, add(Date.now(), { minutes: 1 }), 1000, []);
+      useTimeoutOnEffect(
+        timeoutCallback,
+        add(Date.now(), { minutes: 1 }),
+        1000,
+        []
+      );
       renderCallback();
-      return (<div data-testid="test">foo</div>);
+      return <div data-testid="test">foo</div>;
     }
 
-    render(<MyComponent />)
-    expect(screen.getByTestId("test").textContent).toEqual('foo');
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("foo");
     expect(renderCallback).toBeCalledTimes(1);
     expect(timeoutCallback).toBeCalledTimes(0);
 
@@ -45,22 +52,24 @@ describe("useTimeoutOnEffect", () => {
     await act(() => jest.advanceTimersByTime(1));
     expect(renderCallback).toBeCalledTimes(1);
     expect(timeoutCallback).toBeCalledTimes(1);
-
-  })
+  });
 
   it("one minute max interval", async () => {
-
     const timeoutCallback = jest.fn();
     const renderCallback = jest.fn();
 
     function MyComponent() {
-      useTimeoutOnWithMinuteIntervalEffect(timeoutCallback, add(Date.now(), { minutes: 5 }), []);
+      useTimeoutOnWithMinuteIntervalEffect(
+        timeoutCallback,
+        add(Date.now(), { minutes: 5 }),
+        []
+      );
       renderCallback();
-      return (<div data-testid="test">foo</div>);
+      return <div data-testid="test">foo</div>;
     }
 
-     render(<MyComponent />)
-    expect(screen.getByTestId("test").textContent).toEqual('foo');
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("foo");
     expect(renderCallback).toBeCalledTimes(1);
     expect(timeoutCallback).toBeCalledTimes(0);
 
@@ -103,11 +112,9 @@ describe("useTimeoutOnEffect", () => {
     await act(() => jest.advanceTimersByTime(10 * 60 * 1000));
     expect(renderCallback).toBeCalledTimes(1);
     expect(timeoutCallback).toBeCalledTimes(1);
-
-  })
-
+  });
 
   afterEach(() => {
     jest.useRealTimers();
-  })
-})
+  });
+});

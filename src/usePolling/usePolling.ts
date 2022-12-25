@@ -9,6 +9,6 @@ export function usePolling<T = unknown>(
   asyncFunction: () => T | PromiseLike<T>,
   interval = 60000,
   immediate = true
-) : void {
+): void {
   usePollingIf(() => true, asyncFunction, interval, immediate);
 }
