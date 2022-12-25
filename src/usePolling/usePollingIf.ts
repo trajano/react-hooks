@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 /**
  * @param predicate an async function that if false will skip the callback, but will still poll.
  * @param asyncFunction
@@ -16,23 +16,26 @@ export function usePollingIf<T = unknown>(
   const mountedRef = useRef(false);
   const activeRef = useRef(false);
 
-  async function wrappedAsyncFunction(): Promise<void> {
-    if (!mountedRef.current || activeRef.current) {
-      // don't process if currently active or the component is unmounted
-      return;
-    }
-    if (await predicate()) {
-      activeRef.current = true;
-      try {
-        await asyncFunction();
-      } catch (e) {
-        console.error("Error while polling", e);
-      } finally {
-        activeRef.current = false;
+  const wrappedAsyncFunction = useCallback(
+    async function wrappedAsyncFunction(): Promise<void> {
+      if (!mountedRef.current || activeRef.current) {
+        // don't process if currently active or the component is unmounted
+        return;
       }
-    }
-    timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
-  }
+      if (await predicate()) {
+        activeRef.current = true;
+        try {
+          await asyncFunction();
+        } catch (e) {
+          console.error("Error while polling", e);
+        } finally {
+          activeRef.current = false;
+        }
+      }
+      timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
+    },
+    [asyncFunction, interval, predicate]
+  );
 
   useEffect(() => {
     mountedRef.current = true;

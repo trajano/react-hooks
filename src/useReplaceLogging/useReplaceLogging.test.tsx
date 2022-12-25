@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { useReplaceLogging } from "./useReplaceLogging";
 
@@ -29,8 +29,8 @@ describe('useReplaceLogging', () => {
       );
     }
 
-    const { getByTestId, unmount } = render(<MyComponent />);
-    getByTestId('test').click();
+    const { unmount } = render(<MyComponent />);
+    screen.getByTestId('test').click();
     expect(logCallback.mock.calls).toEqual([['click']]);
     unmount();
     console.log('This should be shown on the console');
@@ -39,7 +39,7 @@ describe('useReplaceLogging', () => {
   it('should work with no configuration', async () => {
 
     function MyComponent() {
-      useReplaceLogging({      });
+      useReplaceLogging({});
 
       return (
         <button
@@ -50,7 +50,7 @@ describe('useReplaceLogging', () => {
       );
     }
 
-    const {  unmount } = render(<MyComponent />);
+    const { unmount } = render(<MyComponent />);
     unmount();
   });
 
@@ -86,13 +86,14 @@ describe('useReplaceLogging', () => {
       );
     }
 
-    const { getByTestId, unmount } = render(<MyComponent />);
-    getByTestId('test').click();
+    const { unmount } = render(<MyComponent />);
+    screen.getByTestId('test').click();
     expect(debugCallback.mock.calls).toEqual([['click']]);
     expect(logCallback.mock.calls).toEqual([['click']]);
     expect(infoCallback.mock.calls).toEqual([['click']]);
     expect(warnCallback.mock.calls).toEqual([['click']]);
     expect(errorCallback.mock.calls).toEqual([['click']]);
+    unmount();
   });
 
 });

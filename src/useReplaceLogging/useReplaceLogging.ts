@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { LoggingReplacements } from "./LoggingReplacements";
 
 /**
@@ -12,12 +12,12 @@ export function useReplaceLogging({
   log,
   warn,
 }: LoggingReplacements): void {
-  const originalConsoleDebug = useRef(console.debug);
-  const originalConsoleError = useRef(console.error);
-  const originalConsoleInfo = useRef(console.info);
-  const originalConsoleLog = useRef(console.log);
-  const originalConsoleWarn = useRef(console.warn);
   useEffect(() => {
+    const originalConsoleDebug = console.debug;
+    const originalConsoleError = console.error;
+    const originalConsoleInfo = console.info;
+    const originalConsoleLog = console.log;
+    const originalConsoleWarn = console.warn;
     if (debug) {
       console.debug = debug;
     }
@@ -34,11 +34,11 @@ export function useReplaceLogging({
       console.warn = warn;
     }
     return function restoreConsoleLog() {
-      console.debug = originalConsoleDebug.current;
-      console.error = originalConsoleError.current;
-      console.info = originalConsoleInfo.current;
-      console.log = originalConsoleLog.current;
-      console.warn = originalConsoleWarn.current;
+      console.debug = originalConsoleDebug;
+      console.error = originalConsoleError;
+      console.info = originalConsoleInfo;
+      console.log = originalConsoleLog;
+      console.warn = originalConsoleWarn;
     };
-  }, []);
+  }, [debug, error, info, log, warn]);
 }

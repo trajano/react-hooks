@@ -59,7 +59,7 @@ describe("useStateIfMounted", () => {
     expect(renderCallback).toBeCalledTimes(1)
   })
 
-  it("should work and not rerender and unmount later", async () => {
+  it("should work and not rerender and unmount later 2", async () => {
     jest.useFakeTimers();
 
     const renderCallback = jest.fn();

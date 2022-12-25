@@ -22,6 +22,6 @@ export function useDebouncedDeepState<S>(
   );
   useEffect(() => {
     return () => debouncedSetState.cancel();
-  }, [wait, debounceSettings]);
+  }, [debouncedSetState]);
   return [state, debouncedSetState];
 }

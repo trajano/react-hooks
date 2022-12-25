@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { usePolling } from './usePolling';
 
@@ -16,20 +16,20 @@ describe("usePolling", () => {
       return (<div data-testid="test">{renderCount}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("1");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(1);
     });
+    expect(callback).toBeCalledTimes(1);
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
-      expect(renderCount).toEqual(1);
     });
+    expect(renderCount).toEqual(1);
     await waitFor(() => {
       expect(callback).toBeCalledTimes(3);
-      expect(renderCount).toEqual(1);
     });
+    expect(renderCount).toEqual(1);
   })
 
   it("should work with just the callback", async () => {
@@ -42,22 +42,22 @@ describe("usePolling", () => {
       return (<div data-testid="test">{renderCount}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("1");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(1);
     });
+    expect(callback).toBeCalledTimes(1);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(2);
     });
+    expect(callback).toBeCalledTimes(2);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(3);
     });
+    expect(callback).toBeCalledTimes(3);
   })
 
   it("should not start immediately if specified", async () => {
@@ -70,26 +70,27 @@ describe("usePolling", () => {
       return (<div data-testid="test">{renderCount}</div>);
     }
 
-    const { getByTestId } = render(<MyComponent />)
-    expect(getByTestId("test").textContent).toEqual("1");
+    render(<MyComponent />)
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(0);
     });
+    expect(callback).toBeCalledTimes(0);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(1);
     });
+    expect(callback).toBeCalledTimes(1);
     jest.runAllTimers();
     await waitFor(() => {
-      expect(renderCount).toEqual(1);
       expect(callback).toBeCalledTimes(2);
     });
+    expect(renderCount).toEqual(1);
 
   })
   afterEach(() => {
     jest.useRealTimers();
+    cleanup();
   });
 
 })
