@@ -1,5 +1,5 @@
 import debounce from "lodash/debounce";
-import { Dispatch, useCallback, useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 
 /**
  * This is a variant of set state that debounces rapid changes to a state.
@@ -19,12 +19,7 @@ export function useDebouncedState<S>(
   debounceSettings?: Parameters<typeof debounce>[2]
 ): [S, Dispatch<S>] {
   const [state, setState] = useState<S>(initialValue);
-  const debouncedSetState = useCallback(
-    debounce(setState, wait, debounceSettings),
-    [wait, debounceSettings]
-  );
-  useEffect(() => {
-    return () => debouncedSetState.cancel();
-  }, [debouncedSetState]);
+  const debouncedSetState = debounce(setState, wait, debounceSettings);
+  useEffect(() => () => debouncedSetState.cancel(), [debouncedSetState]);
   return [state, debouncedSetState];
 }

@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
  */
-import { act, render, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { useDebouncedState } from "./useDebouncedState";
 
 describe("useDebounceState", () => {
   beforeEach(() => {
-    jest.useFakeTimers("modern");
+    jest.useFakeTimers();
   });
   afterEach(() => {
     jest.useRealTimers();
@@ -30,8 +30,9 @@ describe("useDebounceState", () => {
         </div>
       );
     }
-    const { getByTestId } = render(<MyComponent />);
-    const elem = getByTestId("elem");
+
+    render(<MyComponent />);
+    const elem = screen.getByTestId("elem");
 
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
@@ -51,21 +52,21 @@ describe("useDebounceState", () => {
 
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
-      expect(elem.textContent).toEqual("click 1");
     });
+    expect(elem.textContent).toEqual("click 1");
 
     elem.click();
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
-      expect(elem.textContent).toEqual("click 1");
     });
+    expect(elem.textContent).toEqual("click 1");
     act(() => {
       jest.advanceTimersByTime(500);
     });
     await waitFor(() => {
       expect(callback).toBeCalledTimes(3);
-      expect(elem.textContent).toEqual("click 2");
     });
+    expect(elem.textContent).toEqual("click 2");
   });
 
   it("should not fire when component is unmounted", async () => {
@@ -86,8 +87,8 @@ describe("useDebounceState", () => {
         </div>
       );
     }
-    const { getByTestId, unmount } = render(<MyComponent />);
-    const elem = getByTestId("elem");
+    const { unmount } = render(<MyComponent />);
+    const elem = screen.getByTestId("elem");
 
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("bar");

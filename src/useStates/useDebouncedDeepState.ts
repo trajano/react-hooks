@@ -1,5 +1,5 @@
 import debounce from "lodash/debounce";
-import { Dispatch, useCallback, useEffect } from "react";
+import { Dispatch, useEffect } from "react";
 import { useDeepState } from "./useDeepState";
 
 /**
@@ -16,12 +16,7 @@ export function useDebouncedDeepState<S>(
   debounceSettings?: Parameters<typeof debounce>[2]
 ): [S, Dispatch<S>] {
   const [state, setState] = useDeepState<S>(initialValue);
-  const debouncedSetState = useCallback(
-    debounce(setState, wait, debounceSettings),
-    [wait, debounceSettings]
-  );
-  useEffect(() => {
-    return () => debouncedSetState.cancel();
-  }, [debouncedSetState]);
+  const debouncedSetState = debounce(setState, wait, debounceSettings);
+  useEffect(() => () => debouncedSetState.cancel(), [debouncedSetState]);
   return [state, debouncedSetState];
 }

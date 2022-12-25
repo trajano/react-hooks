@@ -18,8 +18,8 @@ describe("useDeepState", () => {
       const [foo] = useDeepState("bar");
       return <div data-testid="test">{foo}</div>;
     }
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
   });
 
   it("should set initial state via a function", () => {
@@ -27,8 +27,8 @@ describe("useDeepState", () => {
       const [foo] = useDeepState(() => "bar");
       return <div data-testid="test">{foo}</div>;
     }
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
   });
 
   it.skip("should not rerender when setting state to the same value", async () => {
@@ -43,23 +43,23 @@ describe("useDeepState", () => {
           await delay(10000);
           setFoo(val);
         })();
-      }, []);
+      }, [setFoo]);
       rendering();
       return <div data-testid="test">{foo.foo}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(rendering).toBeCalledTimes(1);
-    await act(() => jest.advanceTimersByTime(5000));
+    act(() => jest.advanceTimersByTime(5000));
     expect(rendering).toBeCalledTimes(1);
-    await act(() => jest.advanceTimersByTime(5000));
-    expect(getByTestId("test").textContent).toEqual("bar");
+    act(() => jest.advanceTimersByTime(5000));
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     // skip this assertion as there's extra renders
     //expect(rendering).toBeCalledTimes(1)
   });
 
-  it.skip("should not rerender when setting state to the same value", async () => {
+  it.skip("should not rerender when setting state to the same value #2", async () => {
     jest.useFakeTimers();
     const rendering = jest.fn();
     const val = { foo: "bar" };
@@ -72,20 +72,20 @@ describe("useDeepState", () => {
           await delay(10000);
           setFoo(val);
         })();
-      }, []);
+      }, [setFoo]);
       rendering();
       return <div data-testid="test">{foo.foo}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(rendering).toBeCalledTimes(1);
-    await act(() => jest.advanceTimersByTime(5000));
+    act(() => jest.advanceTimersByTime(5000));
     expect(rendering).toBeCalledTimes(1);
-    await act(() => jest.advanceTimersByTime(5000));
-    expect(getByTestId("test").textContent).toEqual("bar");
-    await act(() => jest.advanceTimersByTime(10000));
-    expect(getByTestId("test").textContent).toEqual("bar");
+    act(() => jest.advanceTimersByTime(5000));
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
+    act(() => jest.advanceTimersByTime(10000));
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     // skip this assertion as there's extra renders
     expect(rendering).toBeCalledTimes(1);
   });
@@ -101,19 +101,19 @@ describe("useDeepState", () => {
           await delay(10000);
           setFoo({ ...val, abc: "123" });
         })();
-      }, []);
+      }, [setFoo]);
       ++renderCount;
       return <div data-testid="test">{foo.foo}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCount).toEqual(1);
-    await act(() => jest.advanceTimersByTime(5000));
+    act(() => jest.advanceTimersByTime(5000));
     expect(renderCount).toEqual(1);
-    await act(() => jest.advanceTimersByTime(5000));
-    expect(getByTestId("test").textContent).toEqual("bar");
-    expect(renderCount).toEqual(2);
+    act(() => jest.advanceTimersByTime(5000));
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
+    await waitFor(() => expect(renderCount).toEqual(2));
   });
 
   it.skip("should not rerender when setting state to the same value, with value initialized from function", async () => {
@@ -128,17 +128,17 @@ describe("useDeepState", () => {
           await delay(10000);
           setFoo(val);
         })();
-      }, []);
+      }, [setFoo]);
       return <div data-testid="test">{foo.foo}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("bar");
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCount).toEqual(1);
     await act(() => {
       jest.runAllTimers();
     });
-    expect(getByTestId("test").textContent).toEqual("bar");
+    expect(screen.getByTestId("test").textContent).toEqual("bar");
     expect(renderCount).toEqual(1);
   });
 
@@ -164,25 +164,21 @@ describe("useDeepState", () => {
       );
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    const testElement = getByTestId("test");
-    const set1 = getByTestId("set1");
+    render(<MyComponent />);
+    const testElement = screen.getByTestId("test");
+    const set1 = screen.getByTestId("set1");
 
     expect(testElement.textContent).toEqual("0");
     expect(callback).toBeCalledTimes(1);
     expect(clickCallback).not.toBeCalled();
 
-    await act(() => {
-      fireEvent.click(set1);
-    });
+    fireEvent.click(set1);
     await waitFor(() => expect(testElement.textContent).toEqual("1"));
 
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
     expect(clickCallback).toBeCalledTimes(1);
 
-    await act(() => {
-      fireEvent.click(set1);
-    });
+    fireEvent.click(set1);
     await waitFor(() => expect(testElement.textContent).toEqual("1"));
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
     expect(clickCallback).toBeCalledTimes(2);
