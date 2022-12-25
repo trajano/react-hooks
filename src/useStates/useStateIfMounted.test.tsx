@@ -15,7 +15,7 @@ describe("useStateIfMounted", () => {
 
       useEffect(() => {
         setFoo("BAZ");
-      }, [])
+      }, [setFoo])
       renderCallback();
       return (<div data-testid="test">{foo}</div>);
     }
@@ -41,7 +41,7 @@ describe("useStateIfMounted", () => {
           await delay(10000);
           setFoo("BAZ");
         })();
-      }, [])
+      }, [setFoo])
 
       renderCallback();
       return (<div data-testid="test">{foo}</div>);
