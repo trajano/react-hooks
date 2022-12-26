@@ -1,4 +1,4 @@
-import { EffectCallback, useEffect } from "react";
+import { DependencyList, EffectCallback, useEffect } from "react";
 import { useMounted } from "../useMounted";
 
 /**
@@ -8,14 +8,20 @@ import { useMounted } from "../useMounted";
  * mount logic.
  * @param asyncFunction async function,
  *   it has a copy of the mounted ref so an await chain can be canceled earlier.
+ *   this should ideally be wrapped with useCallback to prevent rerenders
  * @param onSuccess this gets executed after async
  *   function is resolved and the component is still mounted
+ *   this should ideally be wrapped with useCallback to prevent rerenders
+ * @param deps dependency list
  */
 export function useAsyncSetEffect<T>(
   asyncFunction: () => Promise<T>,
-  onSuccess: (asyncResult: T) => void
+  onSuccess: (asyncResult: T) => void,
+  deps: DependencyList = []
 ): void {
   const isMounted = useMounted();
+  // eslint is disabled since the deps are needed in this csae
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(
     function effect(): ReturnType<EffectCallback> {
       (async function wrapped() {
@@ -25,6 +31,7 @@ export function useAsyncSetEffect<T>(
         }
       })();
     },
-    [asyncFunction, isMounted, onSuccess]
+    [asyncFunction, isMounted, onSuccess, ...deps]
   );
+  /* eslint-enable react-hooks/exhaustive-deps */
 }
