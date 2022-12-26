@@ -47,8 +47,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,json,md}": [
-      "prettier --write"
+    "src/**/*.{ts,tsx}": [
+      "tsc --noEmit"
+    ],
+    "src/**/*.{ts,tsx,json}": [
+      "eslint --fix"
     ]
   },
   "eslintConfig": {
