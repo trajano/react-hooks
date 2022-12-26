@@ -9,7 +9,9 @@ import { Dispatch, useReducer } from "react";
  * @returns state, setter
  *
  */
-export function useDeepState<S>(initialState: S | (() => S)): [S, Dispatch<S>] {
+export function useDeepState<S>(
+  initialState?: S | (() => S)
+): [S, Dispatch<S>] {
   const initialStateIsFunction = typeof initialState === "function";
   return useReducer(
     (state: S, newState: S) => (isEqual(state, newState) ? state : newState),

@@ -22,6 +22,15 @@ describe("useDeepState", () => {
     expect(screen.getByTestId("test").textContent).toEqual("bar");
   });
 
+  it("should allow undefined initial state", () => {
+    function MyComponent() {
+      const [foo] = useDeepState<string>();
+      return <div data-testid="test">{foo}</div>;
+    }
+    render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("");
+  });
+
   it("should set initial state via a function", () => {
     function MyComponent() {
       const [foo] = useDeepState(() => "bar");
