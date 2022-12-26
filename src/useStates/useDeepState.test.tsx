@@ -228,7 +228,7 @@ describe("useDeepState", () => {
     expect(clickCallback).toBeCalledTimes(2);
   });
 
-  it.skip("should not rerender when setting state to the same value, even if different objects", async () => {
+  it("should not rerender when setting state to the same value, even if different objects", async () => {
     jest.useFakeTimers();
     let renderCount = 0;
     function MyComponent() {
