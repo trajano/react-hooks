@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { usePollingIf } from "./usePollingIf";
 
@@ -15,20 +15,21 @@ describe("usePollingIf", () => {
       return <div data-testid="test">{renderCount}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("1");
+    const { unmount } = render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(1);
     });
+    expect(callback).toBeCalledTimes(1);
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
-      expect(renderCount).toEqual(1);
     });
+    expect(renderCount).toEqual(1);
     await waitFor(() => {
       expect(callback).toBeCalledTimes(3);
-      expect(renderCount).toEqual(1);
     });
+    expect(renderCount).toEqual(1);
+    unmount();
   });
 
   it("should work with just the callback", async () => {
@@ -41,22 +42,23 @@ describe("usePollingIf", () => {
       return <div data-testid="test">{renderCount}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("1");
+    const { unmount } = render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(1);
     });
+    expect(callback).toBeCalledTimes(1);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(2);
     });
+    expect(callback).toBeCalledTimes(2);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(3);
     });
+    expect(callback).toBeCalledTimes(3);
+    unmount();
   });
 
   it("should not start immediately if specified", async () => {
@@ -69,22 +71,23 @@ describe("usePollingIf", () => {
       return <div data-testid="test">{renderCount}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("1");
+    const { unmount } = render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(0);
     });
+    expect(callback).toBeCalledTimes(0);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(1);
     });
+    expect(callback).toBeCalledTimes(1);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(2);
     });
+    expect(callback).toBeCalledTimes(2);
+    unmount();
   });
 
   it("should never call callback as predicate is always false", async () => {
@@ -97,22 +100,23 @@ describe("usePollingIf", () => {
       return <div data-testid="test">{renderCount}</div>;
     }
 
-    const { getByTestId } = render(<MyComponent />);
-    expect(getByTestId("test").textContent).toEqual("1");
+    const { unmount } = render(<MyComponent />);
+    expect(screen.getByTestId("test").textContent).toEqual("1");
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(0);
     });
+    expect(callback).toBeCalledTimes(0);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(0);
     });
+    expect(callback).toBeCalledTimes(0);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
-      expect(callback).toBeCalledTimes(0);
     });
+    expect(callback).toBeCalledTimes(0);
+    unmount();
   });
 
   afterEach(() => {

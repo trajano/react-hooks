@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
  */
-import { act, render, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { useDebouncedDeepState } from "./useDebouncedDeepState";
 
 describe("useDebounceDeepState", () => {
   beforeEach(() => {
-    jest.useFakeTimers("modern");
+    jest.useFakeTimers();
   });
   afterEach(() => {
     jest.useRealTimers();
@@ -30,8 +30,8 @@ describe("useDebounceDeepState", () => {
         </div>
       );
     }
-    const { getByTestId } = render(<MyComponent />);
-    const elem = getByTestId("elem");
+    const { unmount } = render(<MyComponent />);
+    const elem = screen.getByTestId("elem");
 
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
@@ -51,21 +51,22 @@ describe("useDebounceDeepState", () => {
 
     await waitFor(() => {
       expect(callback).toBeCalledTimes(2);
-      expect(elem.textContent).toEqual("click 1");
     });
+    expect(elem.textContent).toEqual("click 1");
 
     elem.click();
     await waitFor(() => {
       expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
-      expect(elem.textContent).toEqual("click 1");
     });
+    expect(elem.textContent).toEqual("click 1");
     act(() => {
       jest.advanceTimersByTime(500);
     });
     await waitFor(() => {
       expect(callback.mock.calls.length).toBeGreaterThanOrEqual(3);
-      expect(elem.textContent).toEqual("click 2");
     });
+    expect(elem.textContent).toEqual("click 2");
+    unmount();
   });
 
   it("should work stop processing when unmounted", async () => {
@@ -86,8 +87,8 @@ describe("useDebounceDeepState", () => {
         </div>
       );
     }
-    const { getByTestId, unmount } = render(<MyComponent />);
-    const elem = getByTestId("elem");
+    const { unmount } = render(<MyComponent />);
+    const elem = screen.getByTestId("elem");
 
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
@@ -108,7 +109,7 @@ describe("useDebounceDeepState", () => {
     expect(callback).toBeCalledTimes(1);
   });
 
-  it("should work the same was as useDebouncedState for simple values", async () => {
+  it("should work the same was as useDebouncedState for simple values #2", async () => {
     const callback = jest.fn();
     function MyComponent() {
       const [foo, setFoo] = useDebouncedDeepState<{ a: number }>({ a: 0 }, 500);
@@ -133,10 +134,10 @@ describe("useDebounceDeepState", () => {
         </div>
       );
     }
-    const { getByTestId } = render(<MyComponent />);
-    const elem = getByTestId("elem");
-    const set1 = getByTestId("set1");
-    const set2 = getByTestId("set2");
+    const { unmount } = render(<MyComponent />);
+    const elem = screen.getByTestId("elem");
+    const set1 = screen.getByTestId("set1");
+    const set2 = screen.getByTestId("set2");
 
     expect(callback).toBeCalledTimes(1);
     expect(elem.textContent).toEqual("0");
@@ -170,7 +171,8 @@ describe("useDebounceDeepState", () => {
     });
     await waitFor(() => {
       expect(callback.mock.calls.length).toBeGreaterThanOrEqual(3);
-      expect(elem.textContent).toEqual("2");
     });
+    expect(elem.textContent).toEqual("2");
+    unmount();
   });
 });

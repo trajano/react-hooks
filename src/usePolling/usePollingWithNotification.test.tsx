@@ -1,4 +1,4 @@
-import { act, render } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import React, {
   createContext,
   PropsWithChildren,
@@ -46,48 +46,60 @@ function usePollingData(): PollingData {
 }
 
 describe("Polling with notifications", () => {
-  it("should work with just the callback", async () => {
+  beforeEach(() => {
     jest.useFakeTimers();
+  });
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+  it("should work with just the callback", async () => {
     function MyComponent() {
       const { fetchData, subscribe } = usePollingData();
       const [data, setData] = useState<number[]>([]);
 
-      useEffect(() => subscribe(async () => setData(await fetchData())), []);
+      useEffect(
+        () => subscribe(async () => setData(await fetchData())),
+        [subscribe, setData, fetchData]
+      );
 
       return (
         <div data-testid="test">
-          {data.map((r) => (
-            <div key={r}>{r.toString()}</div>
+          {data.map((r, index) => (
+            <div key={r} data-testid={"." + index}>
+              {r.toString()}
+            </div>
           ))}
         </div>
       );
     }
 
-    const { getByTestId } = render(
+    const { unmount } = render(
       <PollingDataProvider>
         <MyComponent />
       </PollingDataProvider>
     );
-    expect(getByTestId("test").childElementCount).toEqual(0);
+    expect(screen.queryByTestId(".0")).toBeFalsy();
     await act(() => {
       jest.advanceTimersByTime(5000);
     });
-    expect(getByTestId("test").childElementCount).toEqual(1);
+    expect(screen.getByTestId(".0")).toBeTruthy();
+    expect(screen.queryByTestId(".1")).toBeFalsy();
     await act(() => {
       jest.advanceTimersByTime(54000);
     });
-    expect(getByTestId("test").childElementCount).toEqual(1);
+    expect(screen.getByTestId(".0")).toBeTruthy();
+    expect(screen.queryByTestId(".1")).toBeFalsy();
     await act(() => {
       jest.advanceTimersByTime(1000);
     });
-    expect(getByTestId("test").childElementCount).toEqual(1);
+    expect(screen.getByTestId(".0")).toBeTruthy();
+    expect(screen.queryByTestId(".1")).toBeFalsy();
     await act(() => {
       jest.advanceTimersByTime(60000);
     });
-    expect(getByTestId("test").childElementCount).toEqual(2);
-    expect(renderCallback.mock.calls.length).toEqual(1);
-  });
-  afterEach(() => {
-    jest.useRealTimers();
+    expect(renderCallback).toBeCalledTimes(1);
+    expect(screen.getByTestId(".1")).toBeTruthy();
+    expect(screen.queryByTestId(".2")).toBeFalsy();
+    unmount();
   });
 });

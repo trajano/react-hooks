@@ -14,7 +14,7 @@ describe("useStateIfMounted", () => {
     jest.useRealTimers();
     cleanup();
   });
-  it.skip("should work and not rerender", async () => {
+  it("should work and not rerender", async () => {
     const renderCallback = jest.fn();
     function MyComponent() {
       const [foo, setFoo] = useStateIfMounted("bar");
@@ -33,11 +33,13 @@ describe("useStateIfMounted", () => {
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("BAZ");
     await waitFor(() => {
-      expect(renderCallback).toBeCalledTimes(2);
+      // React DOM does extra rendering that is outside our control
+      expect(renderCallback.mock.calls.length).toBeGreaterThanOrEqual(2);
     });
+    renderCallback.mockClear();
     unmount();
     expect(screen.queryByTestId("test")).toBeFalsy();
-    expect(renderCallback).toBeCalledTimes(2);
+    expect(renderCallback).toBeCalledTimes(0);
   });
 
   it("should work and not rerender and unmount later", async () => {
