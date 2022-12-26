@@ -48,7 +48,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "tsc --noEmit"
+      "tsc --noEmit",
+      "jest"
     ],
     "src/**/*.{ts,tsx,json}": [
       "eslint --fix"
