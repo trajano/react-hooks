@@ -33,14 +33,11 @@ describe("hoc", () => {
     expect(screen.getByTestId("my-element")).toHaveTextContent("bar");
   })
   it("should work with simple component", () => {
-    const serializer = new XMLSerializer();
     const HocMyComponent = withHoc<MyComponentProps, MyComponentProps, HTMLSpanElement>(MyComponent);
 
     const { asFragment } = render(<HocMyComponent text="should be as is" />);
     expect(screen.getByTestId("my-element")).toHaveTextContent("should be as is");
-    const renderedValue = serializer.serializeToString(asFragment());
     const { asFragment: expectedAsFragment } = render(<span data-testid="my-element">should be as is</span>);
-    expect(renderedValue).toStrictEqual(serializer.serializeToString(expectedAsFragment()));
     expect(asFragment()).toStrictEqual(expectedAsFragment());
   });
 
