@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
  * This will clear the timeout if the component containing the hook is unmounted.  Unlike `setTimeout` this
  * does not support call back functions that accept arguments.  This is due to the need to pass the
  * useEffect dependency list.
+ *
+ * This should only be used for short timeouts under 60 seconds.  Longer ones should use setTimeoutOn to
+ * ensure that the timeout is going to be triggered correctly on Android.
  * @param callback callback
  * @param ms time before callback fires
  */
