@@ -68,7 +68,7 @@
   "scripts": {
     "build": "microbundle --format modern,cjs --jsx React.createElement",
     "prepare": "microbundle --format modern,cjs --jsx React.createElement",
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx .",
+    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src/",
     "test": "react-scripts test",
     "deploy": "gh-pages -d doc/"
   },

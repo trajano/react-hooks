@@ -1,4 +1,12 @@
-import { ComponentType, forwardRef, NamedExoticComponent, PropsWithoutRef, ReactElement, Ref, RefAttributes } from "react";
+import {
+  ComponentType,
+  forwardRef,
+  NamedExoticComponent,
+  PropsWithoutRef,
+  ReactElement,
+  Ref,
+  RefAttributes,
+} from "react";
 
 /**
  * This is a simple HoC that is a noop that supports ref forwarding.  The ref fowarding logic is added

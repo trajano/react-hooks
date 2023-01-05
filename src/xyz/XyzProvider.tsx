@@ -9,12 +9,13 @@ import { XyzContext } from "./XyzContext";
  * @return context provider.
  *
  */
-export function XyzProvider({ children, initializationProp: _initializationProp }: XyzProviderProps): JSX.Element {
+export function XyzProvider({
+  children,
+  initializationProp: _initializationProp,
+}: XyzProviderProps): JSX.Element {
   /**
    * Context value. Memoized.
    */
   const contextValue = useMemo<XyzContext>(() => ({}), []);
-  return (
-    <Context.Provider value={contextValue}>{children}</Context.Provider>
-  );
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 }
