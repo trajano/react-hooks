@@ -3,8 +3,13 @@
  *
  */
 import type { PropsWithChildren } from "react";
+
 /**
- * Provider initialization props
- *
+ * Provider initialization props with children.
  */
-export type XyzProviderProps = PropsWithChildren<{}>;
+export type XyzProviderProps = PropsWithChildren<{
+  /*
+   * This is an example initialization prop.
+   */
+  initializationProp?: string;
+}>;

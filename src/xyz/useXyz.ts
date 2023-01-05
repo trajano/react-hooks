@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { XyzContext } from "./XyzContext";
-import type { IXyzContext } from "./IXyzContext";
+import { Context } from "./context";
+import type { XyzContext } from "./XyzContext";
 
 /**
  * Provides the interface to work with the Xyz context.
  * @returns interface to work with Xyz context
  *
  */
-export function useXyz(): IXyzContext {
-  return useContext(XyzContext);
+export function useXyz(): XyzContext {
+  return useContext(Context);
 }

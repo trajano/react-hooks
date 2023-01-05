@@ -1,7 +1,7 @@
-import { IXyzContext } from "./IXyzContext";
+import { XyzContext } from "./XyzContext";
 
 /**
  * Default context implementation that would provide stubs or null object values.
  *
  */
-export default {} as IXyzContext;
+export default {} as XyzContext;

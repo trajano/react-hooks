@@ -4,6 +4,6 @@
  *
  */
 export type { XyzProviderProps } from "./XyzProviderProps";
-export type { IXyzContext as XyzContext } from "./IXyzContext";
-export * from "./XyzProvider";
-export * from "./useXyz";
+export type { XyzContext } from "./XyzContext";
+export { XyzProvider } from "./XyzProvider";
+export { useXyz } from "./useXyz";
