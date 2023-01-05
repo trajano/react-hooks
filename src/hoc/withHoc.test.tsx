@@ -33,19 +33,24 @@ describe("hoc", () => {
     expect(screen.getByTestId("my-element")).toHaveTextContent("bar");
   })
   it("should work with simple component", () => {
+    const serializer = new XMLSerializer();
     const HocMyComponent = withHoc<MyComponentProps, MyComponentProps, HTMLSpanElement>(MyComponent);
 
     const { asFragment } = render(<HocMyComponent text="should be as is" />);
-    const { asFragment: expectedAsFragment } = render(<span>should be as is</span>);
-    expect(asFragment()).toStrictEqual(asFragment());
+    expect(screen.getByTestId("my-element")).toHaveTextContent("should be as is");
+    const renderedValue = serializer.serializeToString(asFragment());
+    const { asFragment: expectedAsFragment } = render(<span data-testid="my-element">should be as is</span>);
+    expect(renderedValue).toStrictEqual(serializer.serializeToString(expectedAsFragment()));
+    expect(asFragment()).toStrictEqual(expectedAsFragment());
   });
 
   it("should work with reffed component", () => {
     const HocMyComponent = withHoc<MyComponentProps, MyComponentProps, HTMLSpanElement>(MyComponentWithRef);
 
     const { asFragment } = render(<HocMyComponent text="should be as is" />);
-    const { asFragment: expectedAsFragment } = render(<span>should be as is</span>);
-    expect(asFragment()).toStrictEqual(asFragment());
+    expect(screen.getByTestId("my-ref-element")).toHaveTextContent("should be as is");
+    const { asFragment: expectedAsFragment } = render(<span data-testid="my-ref-element">should be as is</span>);
+    expect(asFragment()).toStrictEqual(expectedAsFragment());
   });
 
 });
