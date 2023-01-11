@@ -3,6 +3,7 @@
  */
 export * from "./useAsyncSetEffect";
 export * from "./useClock";
+export * from "./useRenderCount";
 export * from "./useStates";
 export * from "./useMounted";
 export * from "./usePolling";
