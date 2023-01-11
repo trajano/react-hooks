@@ -12,7 +12,7 @@ import { useEffect, useReducer, useRef } from "react";
  * @returns current instant
  */
 export function useClockState(
-  frequencyMs: number = 1000,
+  frequencyMs = 1000,
   delayTillIntervalStart?: number
 ): Date {
   const [now, updateNow] = useReducer((_prev) => Date.now(), Date.now());

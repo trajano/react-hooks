@@ -11,4 +11,5 @@
  * suffixing it with `Context` mitigates the issue.
  * @internal
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface XyzContext {}

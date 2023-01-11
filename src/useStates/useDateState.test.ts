@@ -12,7 +12,7 @@ test("useState as a sample", () => {
   expect(date).toStrictEqual(1);
 });
 test("just initial set with Date", () => {
-  const { result } = renderHook((props: [any]) => useDateState(...props), {
+  const { result } = renderHook((props: [Date]) => useDateState(...props), {
     initialProps: [new Date(0)],
   });
   expect(result.current[0]).toStrictEqual(new Date(0));
@@ -24,9 +24,12 @@ test("just initial set with number", () => {
   expect(result.current[0]).toStrictEqual(new Date(0));
 });
 test("just initial set with function", () => {
-  const { result } = renderHook((props: [any]) => useDateState(...props), {
-    initialProps: [() => new Date(0)],
-  });
+  const { result } = renderHook(
+    (props: [() => Date]) => useDateState(...props),
+    {
+      initialProps: [() => new Date(0)],
+    }
+  );
   expect(result.current[0]).toStrictEqual(new Date(0));
 });
 test("update", () => {

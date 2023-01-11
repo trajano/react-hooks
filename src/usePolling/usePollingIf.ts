@@ -45,7 +45,7 @@ export function usePollingIf<T = unknown>(
       timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
     }
     return () => {
-      clearTimeout(timeoutRef.current!);
+      clearTimeout(timeoutRef.current);
       mountedRef.current = false;
       activeRef.current = false;
     };

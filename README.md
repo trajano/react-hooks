@@ -21,3 +21,9 @@ These are fixable using `--fix`
 * [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback) since the naming is done automatically by babel
   * https://stackoverflow.com/questions/49306148/why-is-arrow-syntax-preferred-over-function-declaration-for-functional-react-com
   * https://stackoverflow.com/questions/32828698/difference-between-anonymous-function-vs-named-function-as-value-for-an-object-k/32830772#32830772
+* [prefer-const](https://eslint.org/docs/latest/rules/prefer-const)
+* "prefer-numeric-literals": "error",
+* "prefer-object-spread": "error",
+* "prefer-template": "error",
+* "yoda": "error",
+* [@typescript-eslint/ban-types](https://typescript-eslint.io/rules/ban-types) is ignored becaues React uses `{}` as the prop type default.

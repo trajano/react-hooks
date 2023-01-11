@@ -65,6 +65,7 @@
       "react-app/jest",
       "plugin:prettier/recommended",
       "plugin:react-hooks/recommended",
+      "plugin:@typescript-eslint/recommended",
       "prettier"
     ],
     "rules": {
@@ -79,7 +80,8 @@
       "prefer-numeric-literals": "error",
       "prefer-object-spread": "error",
       "prefer-template": "error",
-      "yoda": "error"
+      "yoda": "error",
+      "@typescript-eslint/ban-types": "off"
     }
   },
   "scripts": {
