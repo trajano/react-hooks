@@ -7,3 +7,9 @@ This targets React 18 to make it work with Expo 47.
 ## Origin
 
 Originally this was *React Hook Tests* which is a bunch of hooks I wrote to learn how to use React hooks and have associated jest tests with it and attempt to get a [good test coverage](https://trajano.github.io/react-hooks/lcov-report/).
+
+## Explicit linting rules
+
+* [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback) since the naming is done automatically by babel
+  * https://stackoverflow.com/questions/49306148/why-is-arrow-syntax-preferred-over-function-declaration-for-functional-react-com
+  * https://stackoverflow.com/questions/32828698/difference-between-anonymous-function-vs-named-function-as-value-for-an-object-k/32830772#32830772

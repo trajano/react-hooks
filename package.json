@@ -1,6 +1,6 @@
 {
   "name": "@trajano/react-hooks",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "General purpose hooks for React apps.",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
@@ -65,7 +65,10 @@
       "plugin:prettier/recommended",
       "plugin:react-hooks/recommended",
       "prettier"
-    ]
+    ],
+    "rules": {
+      "prefer-arrow-callback": "error"
+    }
   },
   "scripts": {
     "build": "microbundle --format modern,cjs --jsx React.createElement",

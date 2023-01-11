@@ -8,16 +8,13 @@ import type { IsMountedFunction } from "./IsMountedFunction";
  */
 export function useMounted(): IsMountedFunction {
   const mountedRef = useRef(false);
-  useEffect(function useMountedEffect() {
+  useEffect(() => {
     mountedRef.current = true;
     return function useMountedEffectCleanup() {
       mountedRef.current = false;
     };
   }, []);
-  return useCallback(
-    function isMounted() {
-      return mountedRef.current;
-    },
-    [mountedRef]
-  );
+  return useCallback(() => {
+    return mountedRef.current;
+  }, [mountedRef]);
 }

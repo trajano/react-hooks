@@ -15,7 +15,7 @@ export function useStateIfMounted<S>(
   initialState: S | (() => S)
 ): [S, Dispatch<S>] {
   const mountedRef = useRef(false);
-  useEffect(function useMountedEffect() {
+  useEffect(() => {
     mountedRef.current = true;
     return function useMountedEffectCleanup() {
       mountedRef.current = false;

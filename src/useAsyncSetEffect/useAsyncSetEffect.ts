@@ -22,16 +22,13 @@ export function useAsyncSetEffect<T>(
   const isMounted = useMounted();
   // eslint is disabled since the deps are needed in this csae
   /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(
-    function effect(): ReturnType<EffectCallback> {
-      (async function wrapped() {
-        const asyncResult = await asyncFunction();
-        if (isMounted()) {
-          onSuccess(asyncResult);
-        }
-      })();
-    },
-    [asyncFunction, isMounted, onSuccess, ...deps]
-  );
+  useEffect((): ReturnType<EffectCallback> => {
+    (async function wrapped() {
+      const asyncResult = await asyncFunction();
+      if (isMounted()) {
+        onSuccess(asyncResult);
+      }
+    })();
+  }, [asyncFunction, isMounted, onSuccess, ...deps]);
   /* eslint-enable react-hooks/exhaustive-deps */
 }
