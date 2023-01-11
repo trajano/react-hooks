@@ -3,8 +3,8 @@
  */
 import { act, render, screen, waitFor } from "@testing-library/react";
 import React, {
-  createContext,
   PropsWithChildren,
+  createContext,
   useContext,
   useEffect,
   useRef,
@@ -61,7 +61,7 @@ describe("Polling with notifications", () => {
       return (
         <div data-testid="test">
           {data.map((r, index) => (
-            <div key={r} data-testid={"." + index}>
+            <div key={r} data-testid={`.${index}`}>
               {r.toString()}
             </div>
           ))}

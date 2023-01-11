@@ -23,7 +23,7 @@ describe("useDebounceDeepState", () => {
           data-testid="elem"
           onClick={() => {
             ++clickCount;
-            setFoo("click " + clickCount);
+            setFoo(`click ${clickCount}`);
           }}
         >
           {foo}
@@ -80,7 +80,7 @@ describe("useDebounceDeepState", () => {
           data-testid="elem"
           onClick={() => {
             ++clickCount;
-            setFoo("click " + clickCount);
+            setFoo(`click ${clickCount}`);
           }}
         >
           {foo}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useSubscription, SubscriptionManager } from "../useSubscription";
+import { SubscriptionManager, useSubscription } from "../useSubscription";
 
 /**
  * time to next full minute from the date

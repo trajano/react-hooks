@@ -119,8 +119,10 @@ describe("useState", () => {
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
     expect(Object.is("bar", "bar")).toBeTruthy();
-    // expect(callback).toBeCalledTimes(2) does not work.
-    // workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
+    /*
+     * expect(callback).toBeCalledTimes(2) does not work.
+     * workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
+     */
     expect(callback.mock.calls.length >= 2).toBeTruthy();
     unmount();
   });
@@ -153,8 +155,10 @@ describe("useState", () => {
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
     expect(Object.is("bar", "bar")).toBeTruthy();
-    // expect(callback).toBeCalledTimes(2) does not work.
-    // workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
+    /*
+     * expect(callback).toBeCalledTimes(2) does not work.
+     * workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
+     */
     expect(callback.mock.calls.length >= 2).toBeTruthy();
     expect(comparisonCallback).toBeCalledTimes(2);
     expect(comparisonCallback).toHaveBeenNthCalledWith(1, false);

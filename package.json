@@ -26,6 +26,7 @@
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
+    "commitlint": "^17.4.1",
     "date-fns": "^2.29.3",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
@@ -37,7 +38,7 @@
     "jest": "^29.3.1",
     "lint-staged": "^13.1.0",
     "microbundle": "^0.15.1",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.2",
     "react": "18",
     "react-dom": "18",
     "react-scripts": "^5.0.1",
@@ -71,7 +72,14 @@
       "curly": "error",
       "eqeqeq": "error",
       "logical-assignment-operators": "error",
-      "prefer-arrow-callback": "error"
+      "multiline-comment-style": "error",
+      "no-floating-decimal": "error",
+      "prefer-arrow-callback": "error",
+      "prefer-const": "error",
+      "prefer-numeric-literals": "error",
+      "prefer-object-spread": "error",
+      "prefer-template": "error",
+      "yoda": "error"
     }
   },
   "scripts": {
