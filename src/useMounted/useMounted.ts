@@ -14,7 +14,5 @@ export function useMounted(): IsMountedFunction {
       mountedRef.current = false;
     };
   }, []);
-  return useCallback(() => {
-    return mountedRef.current;
-  }, [mountedRef]);
+  return useCallback(() => mountedRef.current, [mountedRef]);
 }

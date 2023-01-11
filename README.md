@@ -10,6 +10,10 @@ Originally this was *React Hook Tests* which is a bunch of hooks I wrote to lear
 
 ## Explicit linting rules
 
+* [arrow-body-style](https://eslint.org/docs/latest/rules/arrow-body-style)
+* [curly](https://eslint.org/docs/latest/rules/curly)
+* [eqeqeq](https://eslint.org/docs/latest/rules/eqeqeq)
+* [logical-assignment-operators](https://eslint.org/docs/latest/rules/logical-assignment-operators)
 * [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback) since the naming is done automatically by babel
   * https://stackoverflow.com/questions/49306148/why-is-arrow-syntax-preferred-over-function-declaration-for-functional-react-com
   * https://stackoverflow.com/questions/32828698/difference-between-anonymous-function-vs-named-function-as-value-for-an-object-k/32830772#32830772

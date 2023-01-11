@@ -67,6 +67,10 @@
       "prettier"
     ],
     "rules": {
+      "arrow-body-style": "error",
+      "curly": "error",
+      "eqeqeq": "error",
+      "logical-assignment-operators": "error",
       "prefer-arrow-callback": "error"
     }
   },
