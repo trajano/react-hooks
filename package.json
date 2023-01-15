@@ -2,20 +2,77 @@
   "name": "@trajano/react-hooks",
   "version": "2.0.1",
   "description": "General purpose hooks for React apps.",
-  "source": "./src/index.ts",
+  "homepage": "https://trajano.github.io/react-hooks",
+  "bugs": {
+    "url": "https://github.com/trajano/react-hooks/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trajano/react-hooks.git"
+  },
+  "license": "EPL-2.0",
+  "author": "",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.modern.js",
+  "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
-  "sideEffects": false,
   "files": [
     "src",
     "dist"
   ],
+  "scripts": {
+    "build": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
+    "deploy": "gh-pages -d doc/",
+    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src/",
+    "prepare": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
+    "test": "react-scripts test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "tsc --noEmit",
+      "jest"
+    ],
+    "src/**/*.{ts,tsx,json}": [
+      "eslint --fix"
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": [
+        "./tsconfig.json"
+      ]
+    },
+    "extends": [
+      "plugin:@typescript-eslint/strict",
+      "plugin:jest/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:testing-library/react",
+      "prettier"
+    ],
+    "rules": {
+      "arrow-body-style": "error",
+      "curly": "error",
+      "eqeqeq": "error",
+      "logical-assignment-operators": "error",
+      "multiline-comment-style": "error",
+      "no-floating-decimal": "error",
+      "prefer-arrow-callback": "error",
+      "prefer-const": "error",
+      "prefer-numeric-literals": "error",
+      "prefer-object-spread": "error",
+      "prefer-template": "error",
+      "yoda": "error",
+      "@typescript-eslint/ban-types": "off"
+    }
+  },
   "dependencies": {
     "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "react": "17 || 18"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -40,70 +97,14 @@
     "prettier": "^2.8.2",
     "prettier-plugin-jsdoc": "^0.4.2",
     "prettier-plugin-organize-imports": "^3.2.2",
+    "prettier-plugin-packagejson": "^2.3.0",
     "react": "18",
     "react-dom": "18",
     "react-scripts": "^5.0.1",
     "typedoc": "^0.23.24",
     "typescript": "^4.9.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "tsc --noEmit",
-      "jest"
-    ],
-    "src/**/*.{ts,tsx,json}": [
-      "eslint --fix"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:@typescript-eslint/strict",
-      "plugin:jest/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:testing-library/react",
-      "prettier"
-    ],
-    "rules": {
-      "arrow-body-style": "error",
-      "curly": "error",
-      "eqeqeq": "error",
-      "logical-assignment-operators": "error",
-      "multiline-comment-style": "error",
-      "no-floating-decimal": "error",
-      "prefer-arrow-callback": "error",
-      "prefer-const": "error",
-      "prefer-numeric-literals": "error",
-      "prefer-object-spread": "error",
-      "prefer-template": "error",
-      "yoda": "error",
-      "@typescript-eslint/ban-types": "off"
-    },
-    "parserOptions": {
-      "project": [
-        "./tsconfig.json"
-      ]
-    }
-  },
-  "scripts": {
-    "build": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
-    "prepare": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src/",
-    "test": "react-scripts test",
-    "deploy": "gh-pages -d doc/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trajano/react-hooks.git"
-  },
-  "author": "",
-  "license": "EPL-2.0",
-  "bugs": {
-    "url": "https://github.com/trajano/react-hooks/issues"
-  },
-  "homepage": "https://trajano.github.io/react-hooks"
+  "peerDependencies": {
+    "react": "17 || 18"
+  }
 }
