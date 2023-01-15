@@ -89,8 +89,8 @@
     }
   },
   "scripts": {
-    "build": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig-build.json",
-    "prepare": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig-build.json",
+    "build": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
+    "prepare": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src/",
     "test": "react-scripts test",
     "deploy": "gh-pages -d doc/"
