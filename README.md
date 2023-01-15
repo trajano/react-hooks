@@ -27,3 +27,7 @@ These are fixable using `--fix`
 * "prefer-template": "error",
 * "yoda": "error",
 * [@typescript-eslint/ban-types](https://typescript-eslint.io/rules/ban-types) is ignored becaues React uses `{}` as the prop type default.
+
+## Why lodash?
+
+Instead of [Ramda](https://ramdajs.com/) and [Rambda](https://selfrefactor.github.io/rambda/)? [`debounce`](https://lodash.com/docs/4.17.15#debounce) is only implemented in Lodash.
