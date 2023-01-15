@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import { renderHook } from "@testing-library/react-hooks";
+
 import { useTimeoutEffect } from "./useTimeoutEffect";
 describe("useTimeoutEffect", () => {
   beforeEach(() => {

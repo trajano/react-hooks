@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 import { act, render, screen } from "@testing-library/react";
-import React, { PropsWithChildren, useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
+
 import { delay } from "../test-support/delay";
 import { Rerendering } from "../test-support/Rerendering";
 describe("useRef", () => {
@@ -59,7 +60,7 @@ describe("useRef", () => {
       return <div data-testid="test">{JSON.stringify(myRef.current)}</div>;
     }
 
-    function MyStateComponent({ children }: PropsWithChildren<{}>) {
+    function MyStateComponent() {
       const forceUpdate = useReducer(() => ({}), {})[1] as () => void;
       useEffect(() => {
         (async function asyncEffect() {

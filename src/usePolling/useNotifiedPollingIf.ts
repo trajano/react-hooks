@@ -1,5 +1,5 @@
-import { usePollingIf } from "./usePollingIf";
 import { SubscriptionManager, useSubscription } from "../useSubscription";
+import { usePollingIf } from "./usePollingIf";
 
 /**
  * This is a conditional polling hook that allows a subscription that gets called when the poll completes.

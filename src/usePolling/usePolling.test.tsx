@@ -3,6 +3,7 @@
  */
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
+
 import { usePolling } from "./usePolling";
 
 describe("usePolling", () => {

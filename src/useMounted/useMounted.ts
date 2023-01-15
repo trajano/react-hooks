@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
+
 import type { IsMountedFunction } from "./IsMountedFunction";
 /**
  * This hook provides a function that returns whether the component is still mounted.

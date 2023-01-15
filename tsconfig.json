@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "lib": [
+      "dom",
       "esnext"
     ],
     "types": ["jest"],
@@ -24,10 +25,5 @@
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "src/test-support/*"
   ]
 }

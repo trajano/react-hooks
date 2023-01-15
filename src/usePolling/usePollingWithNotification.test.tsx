@@ -1,12 +1,13 @@
 import { act, render, screen } from "@testing-library/react";
 import React, {
-  PropsWithChildren,
   createContext,
+  PropsWithChildren,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
+
 import { SubscriptionManager, useSubscription } from "../useSubscription";
 import { usePolling } from "./usePolling";
 

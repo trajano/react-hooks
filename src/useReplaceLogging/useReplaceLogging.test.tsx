@@ -3,6 +3,7 @@
  */
 import { render, screen } from "@testing-library/react";
 import React from "react";
+
 import { useReplaceLogging } from "./useReplaceLogging";
 
 describe("useReplaceLogging", () => {
@@ -37,14 +38,16 @@ describe("useReplaceLogging", () => {
     expect(logCallback.mock.calls).toEqual([["click"]]);
   });
   it("should work with no configuration", async () => {
+    const renderCount = jest.fn();
     function MyComponent() {
       useReplaceLogging({});
-
+      renderCount();
       return <button data-testid="test">Hello world</button>;
     }
 
     const { unmount } = render(<MyComponent />);
     unmount();
+    expect(renderCount).toBeCalledTimes(0);
   });
 
   it("swap all", async () => {

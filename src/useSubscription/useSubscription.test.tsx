@@ -1,17 +1,16 @@
 /**
  * @jest-environment jsdom
  */
-/* eslint-disable jsx-a11y/click-events-have-key-events  */
-/* eslint-disable jsx-a11y/no-static-element-interactions  */
 import { render, screen, waitFor } from "@testing-library/react";
 import React, {
-  PropsWithChildren,
   createContext,
+  PropsWithChildren,
   useContext,
   useEffect,
 } from "react";
-import { useSubscription } from "./useSubscription";
+
 import type { SubscriptionManager } from "./SubscriptionManager";
+import { useSubscription } from "./useSubscription";
 
 describe("useSubscription", () => {
   it("should notify with clicks", async () => {

@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, useEffect, useReducer } from "react";
+import { PropsWithChildren, useEffect, useReducer } from "react";
+
 import { delay } from "./delay";
 
 /**

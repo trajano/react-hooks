@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { XyzProvider } from "./XyzProvider";
+
 import { useXyz } from "./useXyz";
+import { XyzProvider } from "./XyzProvider";
 
 describe("xyzContext", () => {
   it("should render", () => {

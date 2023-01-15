@@ -1,11 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-/* eslint-disable jsx-a11y/click-events-have-key-events  */
-/* eslint-disable jsx-a11y/no-static-element-interactions  */
 import { act, render, screen } from "@testing-library/react";
 import { parseISO } from "date-fns";
 import React from "react";
+
 import { useClockState } from "./useClockState";
 
 describe("Clock update", () => {

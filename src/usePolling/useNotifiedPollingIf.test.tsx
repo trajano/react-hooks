@@ -3,13 +3,14 @@
  */
 import { act, render, screen, waitFor } from "@testing-library/react";
 import React, {
-  PropsWithChildren,
   createContext,
+  PropsWithChildren,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
+
 import { SubscriptionManager } from "../useSubscription";
 import { useNotifiedPollingIf } from "./useNotifiedPollingIf";
 

@@ -1,13 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-import { add } from "date-fns";
 import { act, render, screen } from "@testing-library/react";
+import { add } from "date-fns";
+import React from "react";
+
 import {
   useTimeoutOnEffect,
   useTimeoutOnWithMinuteIntervalEffect,
 } from "./useTimeoutOnEffect";
-import React from "react";
 describe("useTimeoutOnEffect", () => {
   beforeEach(() => {
     jest.useFakeTimers();

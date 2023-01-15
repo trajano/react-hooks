@@ -1,11 +1,11 @@
 import {
   ComponentType,
+  forwardRef,
   NamedExoticComponent,
   PropsWithoutRef,
   ReactElement,
   Ref,
   RefAttributes,
-  forwardRef,
 } from "react";
 
 /**
@@ -29,8 +29,7 @@ export function withHoc<P extends Q, Q extends object, T, O = object>(
     const componentProps: Q = props as Q;
     return <Component {...componentProps} ref={ref} />;
   }
-  const displayName =
-    Component.displayName || Component.name || "AnonymousComponent";
+  const displayName = Component.displayName ?? Component.name;
   useWrapped.displayName = `hoc(${displayName})`;
   return forwardRef(useWrapped);
 }

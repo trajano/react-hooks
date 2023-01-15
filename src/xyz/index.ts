@@ -3,7 +3,7 @@
  * @module
  *
  */
-export type { XyzProviderProps } from "./XyzProviderProps";
+export { useXyz } from "./useXyz";
 export type { XyzContext } from "./XyzContext";
 export { XyzProvider } from "./XyzProvider";
-export { useXyz } from "./useXyz";
+export type { XyzProviderProps } from "./XyzProviderProps";

@@ -1,10 +1,11 @@
-import React, {
-  PropsWithChildren,
+import {
   createContext,
+  PropsWithChildren,
   useContext,
   useEffect,
   useReducer,
 } from "react";
+
 import { delay } from "./delay";
 
 const RenderingContext = createContext<{ calls: number }>({ calls: 0 });

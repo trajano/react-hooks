@@ -1,10 +1,11 @@
 import "@testing-library/jest-dom";
+
 import { render, screen } from "@testing-library/react";
 import React, { forwardRef } from "react";
 
 import { withHoc } from "./withHoc";
 
-type MyComponentProps = { text: string };
+interface MyComponentProps { text: string }
 function MyComponent({ text }: MyComponentProps) {
   return <span data-testid="my-element">{text}</span>;
 }
