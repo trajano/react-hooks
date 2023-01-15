@@ -80,13 +80,12 @@
       "prefer-object-spread": "error",
       "prefer-template": "error",
       "yoda": "error",
-      "@typescript-eslint/ban-types": "off",
-      "@typescript-eslint/dot-notation": "off",
-      "@typescript-eslint/no-base-to-string": "off",
-      "@typescript-eslint/no-meaningless-void-operator": "off",
-      "@typescript-eslint/no-throw-literal": "off"
-    }, "parserOptions": {
-      "project": ["./tsconfig.json"]
+      "@typescript-eslint/ban-types": "off"
+    },
+    "parserOptions": {
+      "project": [
+        "./tsconfig.json"
+      ]
     }
   },
   "scripts": {
