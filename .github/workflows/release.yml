@@ -25,6 +25,11 @@ jobs:
       run: yarn
     - run: yarn typedoc --plugin ./hoist-single-typedoc-plugin/index.js
     - run: yarn test --coverage
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - run: mv coverage/lcov-report/ doc/
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.6.0
