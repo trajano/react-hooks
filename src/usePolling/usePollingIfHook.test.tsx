@@ -12,7 +12,7 @@ describe("usePollingIf hook test", () => {
   it("should work with just the callback", async () => {
     const predicate = () => Promise.resolve(true);
     const func1 = jest.fn(() => Promise.resolve());
-    renderHook(() =>
+    const { unmount } = renderHook(() =>
       usePollingIf(predicate, func1, 300, false), {});
     const start = Date.now();
     expect(func1).toBeCalledTimes(0);
@@ -24,6 +24,10 @@ describe("usePollingIf hook test", () => {
     await act(() => jest.advanceTimersByTime(300));
     expect(func1).toBeCalledTimes(2);
     expect(Date.now() - start).toBe(600);
+    unmount ();
+    await act(() => jest.advanceTimersByTime(300));
+    expect(func1).toBeCalledTimes(2);
+    expect(Date.now() - start).toBe(900);
   });
 
   it("should work with just the callback and immediate", async () => {
