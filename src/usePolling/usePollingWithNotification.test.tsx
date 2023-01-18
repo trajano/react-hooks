@@ -32,7 +32,6 @@ function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
 
   const fetchData = useCallback(async (): Promise<number[]> => Promise.resolve([...dataRef.current]), []);
 
-
   usePolling(pollingCallback);
   renderCallback();
 
