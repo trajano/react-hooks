@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { SubscriptionManager, useSubscription } from "../useSubscription";
 import { usePollingIf } from "./usePollingIf";
 
@@ -12,14 +13,10 @@ export function useNotifiedPollingIf<T = unknown>(
   immediate = true
 ): SubscriptionManager<T> {
   const { subscribe, notify, useSubscribeEffect } = useSubscription<T>();
-  usePollingIf(
-    predicate,
-    async () => {
-      notify(await asyncFunction());
-    },
-    interval,
-    immediate
-  );
+  const notifyingAsyncFunction = useCallback(async () => {
+    notify(await asyncFunction());
+  }, [notify, asyncFunction]);
+  usePollingIf(predicate, notifyingAsyncFunction, interval, immediate);
 
   return { subscribe, notify, useSubscribeEffect };
 }

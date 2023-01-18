@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 /**
  * @param predicate an async function that if false will skip the callback, but will still poll.
- * @param asyncFunction
+ * @param asyncFunction the async function to call.  This is part of the dependency and will update the wrapped callback as needed.
  * @param interval milliseconds between calls to the asyncFunction, defaults to a minute
  * @param immediate if true it will run the asyncFunction immediately before looping
  *
