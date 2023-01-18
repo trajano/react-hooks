@@ -36,7 +36,7 @@ jobs:
           -Dsonar.projectKey=trajano_react-hooks
           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
           -Dsonar.coverage.exclusions=**/*.test.*,src/__tests__/*
-          -Dsonar.coverage.exclusions=**/*.test.*,src/__tests__/*
+          -Dsonar.coverage.exclusions=**/*.test.*,src/__tests__/*,example/,hoist-single-typedoc-plugin/
     - run: mv coverage/lcov-report/ doc/
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.6.0
