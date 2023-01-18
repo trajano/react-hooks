@@ -71,12 +71,6 @@
       "@typescript-eslint/ban-types": "off"
     }
   },
-  "jest": {
-    "reporters": [
-      "default",
-      "jest-sonar"
-    ]
-  },
   "dependencies": {
     "lodash": "^4.17.21"
   },
