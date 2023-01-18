@@ -1,7 +1,7 @@
 import debounce from "lodash/debounce";
 describe("debounce", () => {
   beforeEach(() => {
-    jest.useFakeTimers("modern");
+    jest.useFakeTimers();
   });
   afterEach(() => {
     jest.useRealTimers();

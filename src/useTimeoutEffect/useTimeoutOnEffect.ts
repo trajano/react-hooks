@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { DependencyList, useEffect, useRef } from "react";
 
 /**
  * This performs an operation where the timeout occurs at a given time, but limits the timeout so it
@@ -16,9 +16,11 @@ import { useEffect, useRef } from "react";
 export function useTimeoutOnEffect(
   callback: () => void,
   on: Date,
-  maxIntervalMs: number
+  maxIntervalMs: number,
+  deps: DependencyList = []
 ): void {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     function doSetTimeout() {
       const timeRemaining = Math.max(0, on.getTime() - Date.now());
@@ -35,7 +37,8 @@ export function useTimeoutOnEffect(
       }
       timeoutRef.current = undefined;
     };
-  }, [maxIntervalMs, on, callback]);
+  }, [maxIntervalMs, on, callback, ...deps]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 }
 
 /**
