@@ -3,6 +3,7 @@ import {
   PropsWithChildren,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
 } from "react";
 
@@ -22,8 +23,9 @@ export function RerenderingProvider({
       forceUpdate();
     })();
   }, []);
+  const contextValue = useMemo(()=>({calls}),[calls]);
   return (
-    <RenderingContext.Provider value={{ calls }}>
+    <RenderingContext.Provider value={contextValue}>
       {children}
     </RenderingContext.Provider>
   );
