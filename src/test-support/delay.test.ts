@@ -47,7 +47,7 @@ describe("delay", () => {
   });
 
   it("polls the callback after 10 seconds mocked using modern timers", async () => {
-    jest.useFakeTimers("modern");
+    jest.useFakeTimers();
     const callback = jest.fn();
     pollingGame(10000, callback);
     expect(callback).not.toBeCalled();

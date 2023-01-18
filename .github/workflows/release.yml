@@ -30,6 +30,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          sonar.javascript.lcov.reportPaths=coverage/lcov.info
     - run: mv coverage/lcov-report/ doc/
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.6.0
