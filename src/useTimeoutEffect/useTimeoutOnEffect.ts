@@ -54,7 +54,8 @@ export function useTimeoutOnEffect(
  */
 export function useTimeoutOnWithMinuteIntervalEffect(
   callback: () => void,
-  on: Date
+  on: Date,
+  deps: DependencyList
 ): void {
-  return useTimeoutOnEffect(callback, on, 60000);
+  return useTimeoutOnEffect(callback, on, 60000, deps);
 }
