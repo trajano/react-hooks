@@ -2,6 +2,7 @@ import { act, render, screen } from "@testing-library/react";
 import React, {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -29,9 +30,8 @@ function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
     notify();
   }
 
-  async function fetchData(): Promise<number[]> {
-    return Promise.resolve([...dataRef.current]);
-  }
+  const fetchData = useCallback(async (): Promise<number[]> => Promise.resolve([...dataRef.current]), []);
+
 
   usePolling(pollingCallback);
   renderCallback();

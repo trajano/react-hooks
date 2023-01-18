@@ -2,13 +2,15 @@
  * @jest-environment jsdom
  */
 import { act, render, screen, waitFor } from "@testing-library/react";
-import React, {
+import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
-  useState,
+  useState
 } from "react";
 
 import { SubscriptionManager } from "../useSubscription";
@@ -30,14 +32,13 @@ function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
   }
   const { subscribe } = useNotifiedPollingIf(() => true, pollingCallback);
 
-  async function fetchData(): Promise<number[]> {
-    return Promise.resolve([...dataRef.current]);
-  }
+  const fetchData = useCallback(async (): Promise<number[]> => Promise.resolve([...dataRef.current]), []);
 
   renderCallback();
 
+  const contextValue = useMemo(() => ({ fetchData, subscribe }), [fetchData, subscribe])
   return (
-    <PollingDataContext.Provider value={{ fetchData, subscribe }}>
+    <PollingDataContext.Provider value={contextValue}>
       {children}
     </PollingDataContext.Provider>
   );
