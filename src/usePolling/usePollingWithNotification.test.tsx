@@ -4,6 +4,7 @@ import React, {
   PropsWithChildren,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -35,8 +36,9 @@ function PollingDataProvider({ children }: PropsWithChildren<{}>): JSX.Element {
   usePolling(pollingCallback);
   renderCallback();
 
+  const contextValue = useMemo(() => ({ fetchData, subscribe }), [fetchData, subscribe])
   return (
-    <PollingDataContext.Provider value={{ fetchData, subscribe }}>
+    <PollingDataContext.Provider value={contextValue}>
       {children}
     </PollingDataContext.Provider>
   );
