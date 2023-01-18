@@ -7,6 +7,7 @@ import React, {
   PropsWithChildren,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 
 import type { SubscriptionManager } from "./SubscriptionManager";
@@ -63,8 +64,9 @@ describe("useSubscription", () => {
       children,
     }: PropsWithChildren<Record<string, unknown>>) {
       const { subscribe, notify, useSubscribeEffect } = useSubscription();
+      const contextValue = useMemo(()=>({subscribe, notify, useSubscribeEffect}),[subscribe, notify, useSubscribeEffect])
       return (
-        <MyContext.Provider value={{ subscribe, notify, useSubscribeEffect }}>
+        <MyContext.Provider value={contextValue}>
           {children}
         </MyContext.Provider>
       );
