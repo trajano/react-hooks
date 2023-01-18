@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { act, renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 
 import { useNotifiedPollingIf } from "./useNotifiedPollingIf";
 
