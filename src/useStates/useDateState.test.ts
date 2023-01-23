@@ -1,4 +1,7 @@
-import { act, renderHook } from "@testing-library/react-hooks";
+/**
+ * @jest-environment jsdom
+ */
+import { act, renderHook } from "@testing-library/react";
 import { useState } from "react";
 
 import { useDateState } from "./useDateState";
