@@ -48,6 +48,11 @@
         "./tsconfig.json"
       ]
     },
+    "settings": {
+      "jest": {
+        "version": 29
+      }
+    },
     "extends": [
       "plugin:@typescript-eslint/strict",
       "plugin:jest/recommended",
