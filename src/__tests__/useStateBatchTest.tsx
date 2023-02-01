@@ -79,7 +79,7 @@ describe("useState batch scenario", () => {
     expect(effectFn).toBeCalledTimes(2);
   })
 
-  it("two set states will trigger only one render with effect check with async handler", async () => {
+  it("two set states will trigger render with effect check with async handler per await", async () => {
     const renderFn = jest.fn();
     const effectFn = jest.fn();
     function MyComponent() {
@@ -117,6 +117,5 @@ describe("useState batch scenario", () => {
     expect(renderFn).toBeCalledTimes(3);
     expect(effectFn).toBeCalledTimes(3);
   })
-
 
 });
