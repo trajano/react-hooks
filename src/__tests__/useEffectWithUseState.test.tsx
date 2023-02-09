@@ -71,20 +71,20 @@ describe("useEffect with useState", () => {
     let theRenderCount = 0;
     const trackFn = jest.fn((label: string) => { });
     function MyComponent() {
-      const renderCount = theRenderCount;
+      const view = theRenderCount;
       const [foo, setFoo] = useState("foo");
       useEffect(() => {
-        trackFn(`useEffect ${renderCount}`);
+        trackFn(`useEffect ${view}`);
         (async () => {
           await new Promise<string>((resolve) =>
             setTimeout(() => resolve("bar"), 5000)
           );
           setFoo("bar");
         })();
-        return () => trackFn(`useEffect cleanup ${renderCount}`);
-      }, [foo]);
+        return () => trackFn(`useEffect cleanup ${view}`);
+      }, [foo, view]);
       ++theRenderCount;
-      trackFn(`render ${renderCount}`);
+      trackFn(`render ${view}`);
       return <span data-testid="asdf">{foo}</span>;
     }
     const { unmount } = render(<MyComponent></MyComponent>);
