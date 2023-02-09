@@ -1,17 +1,23 @@
 import { useCallback, useEffect, useRef } from "react";
+import { defaultPollingOptions } from "./defaultPollingOptions";
+import { PollingOptions } from "./PollingOptions";
+
 /**
+ * This is a different variant of usePollingIf that leverages the useEffect and useState of React.  Using this style removes the need for a function that setTimeout that would called by setTimeout requiring a ref to manage rather than a local variable.
  * @param predicate an async function that if false will skip the callback, but will still poll.
- * @param asyncFunction the async function to call.  This is part of the dependency and will update the wrapped callback as needed.
- * @param interval milliseconds between calls to the asyncFunction, defaults to a minute
- * @param immediate if true it will run the asyncFunction immediately before looping
- *
+ * @param asyncFunction the async function to call.
+ * @param options extra options for polling
  */
 export function usePollingIf<T = unknown>(
   predicate: () => boolean | PromiseLike<boolean>,
   asyncFunction: () => T | PromiseLike<T>,
-  interval = 60000,
-  immediate = true
+  options: Partial<PollingOptions> = {}
 ): void {
+  const { intervalMs, immediate, maxIntervalMs, onError } = {
+    ...defaultPollingOptions,
+    ...options,
+  };
+
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const mountedRef = useRef(false);
   const activeRef = useRef(false);
@@ -27,14 +33,14 @@ export function usePollingIf<T = unknown>(
         try {
           await asyncFunction();
         } catch (e) {
-          console.error("Error while polling", e);
+          onError(e);
         } finally {
           activeRef.current = false;
         }
       }
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
+      timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
     },
-    [asyncFunction, interval, predicate]
+    [asyncFunction, intervalMs, predicate]
   );
 
   useEffect(() => {
@@ -42,12 +48,12 @@ export function usePollingIf<T = unknown>(
     if (immediate) {
       wrappedAsyncFunction();
     } else {
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, interval);
+      timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
     }
     return () => {
       clearTimeout(timeoutRef.current);
       mountedRef.current = false;
       activeRef.current = false;
     };
-  }, [immediate, interval, wrappedAsyncFunction]);
+  }, [immediate, intervalMs, wrappedAsyncFunction]);
 }

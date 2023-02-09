@@ -2,15 +2,13 @@ import { noop } from "lodash";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { defaultPollingOptions } from "./defaultPollingOptions";
 import { PollingOptions } from "./PollingOptions";
-export const timeToNextCheck = (nextFire: number, maxIntervalMs: number) =>
-  Math.max(0, Math.min(nextFire - Date.now(), maxIntervalMs));
+import { timeToNextCheck } from "./timeToNextCheck";
 
 /**
  * This is a different variant of usePollingIf that leverages the useEffect and useState of React.  Using this style removes the need for a function that setTimeout that would called by setTimeout requiring a ref to manage rather than a local variable.
  * @param predicate an async function that if false will skip the callback, but will still poll.
- * @param asyncFunction the async function to call.  This is part of the dependency and will update the wrapped callback as needed.
+ * @param asyncFunction the async function to call.
  * @param options extra options for polling
- *
  */
 export function usePollingIfUsingStateEffect<T = unknown>(
   predicate: () => boolean | PromiseLike<boolean>,

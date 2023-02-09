@@ -11,7 +11,7 @@ describe("usePollingIf", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePollingIf(() => true, callback, 100, true);
+      usePollingIf(() => true, callback, { intervalMs: 100, immediate: true });
       ++renderCount;
       return <div data-testid="test">{renderCount}</div>;
     }
@@ -67,7 +67,7 @@ describe("usePollingIf", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePollingIf(() => true, callback, 1000, false);
+      usePollingIf(() => true, callback, { intervalMs: 1000, immediate: false });
       ++renderCount;
       return <div data-testid="test">{renderCount}</div>;
     }

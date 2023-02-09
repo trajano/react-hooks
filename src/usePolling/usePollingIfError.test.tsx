@@ -8,19 +8,16 @@ import React from "react";
 import { usePollingIf } from "./usePollingIf";
 
 describe("usePollingIf with an error", () => {
-  let errorMock: jest.SpyInstance;
-  beforeEach(() => {
-    errorMock = jest.spyOn(console, "error").mockImplementation(noop);
-  });
   it("should keep on going even if there are errors", async () => {
     jest.useFakeTimers();
     const callback = jest.fn();
+    const errorMock = jest.fn();
     callback.mockImplementation(() => {
-      throw new Error();
+      throw new Error("fail");
     });
     let renderCount = 0;
     function MyComponent() {
-      usePollingIf(() => true, callback);
+      usePollingIf(() => true, callback, { onError: errorMock });
       ++renderCount;
       return <div data-testid="test">{renderCount}</div>;
     }
@@ -31,23 +28,22 @@ describe("usePollingIf with an error", () => {
       expect(renderCount).toEqual(1);
     });
     expect(callback).toBeCalledTimes(1);
-    expect(errorMock.mock.calls[0][0]).toEqual("Error while polling");
+    expect(errorMock.mock.calls[0][0]).toEqual(new Error("fail"));
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
     expect(callback).toBeCalledTimes(2);
-    expect(errorMock.mock.calls[1][0]).toEqual("Error while polling");
+    expect(errorMock.mock.calls[1][0]).toEqual(new Error("fail"));
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
     expect(callback).toBeCalledTimes(3);
-    expect(errorMock.mock.calls[2][0]).toEqual("Error while polling");
+    expect(errorMock.mock.calls[2][0]).toEqual(new Error("fail"));
   });
 
   afterEach(() => {
     jest.useRealTimers();
-    errorMock.mockReset();
   });
 });

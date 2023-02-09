@@ -11,7 +11,7 @@ describe("usePolling", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePolling(callback, 100, true);
+      usePolling(callback, { intervalMs: 100, immediate: true });
       ++renderCount;
       return <div data-testid="test">{renderCount}</div>;
     }
@@ -65,7 +65,7 @@ describe("usePolling", () => {
     const callback = jest.fn();
     let renderCount = 0;
     function MyComponent() {
-      usePolling(callback, 1000, false);
+      usePolling(callback, { intervalMs: 1000, immediate: false });
       ++renderCount;
       return <div data-testid="test">{renderCount}</div>;
     }
