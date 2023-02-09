@@ -18,14 +18,14 @@ describe("usePollingIf hook test", () => {
     expect(func1).toBeCalledTimes(0);
     jest.advanceTimersByTime(299);
     expect(func1).toBeCalledTimes(0);
-    await act(() => jest.advanceTimersByTime(1));
+    await act(async () => jest.advanceTimersByTime(1));
     expect(func1).toBeCalledTimes(1);
     expect(Date.now() - start).toBe(300);
-    await act(() => jest.advanceTimersByTime(300));
+    await act(async () => jest.advanceTimersByTime(300));
     expect(func1).toBeCalledTimes(2);
     expect(Date.now() - start).toBe(600);
     unmount();
-    await act(() => jest.advanceTimersByTime(300));
+    await act(async () => jest.advanceTimersByTime(300));
     expect(func1).toBeCalledTimes(2);
     expect(Date.now() - start).toBe(900);
   });
@@ -41,7 +41,7 @@ describe("usePollingIf hook test", () => {
     expect(Date.now() - start).toBe(0);
     jest.advanceTimersByTime(299);
     expect(func1).toBeCalledTimes(1);
-    await act(() => jest.advanceTimersByTime(1));
+    await act(async () => jest.advanceTimersByTime(1));
     expect(func1).toBeCalledTimes(2);
     expect(Date.now() - start).toBe(300);
   });
@@ -57,7 +57,7 @@ describe("usePollingIf hook test", () => {
     expect(func1).toBeCalledTimes(1);
 
     // advance to next tick
-    await act(() => jest.advanceTimersByTime(300));
+    await act(async () => jest.advanceTimersByTime(300));
     expect(func1).toBeCalledTimes(2);
 
     // advance by 200 then change functions
@@ -67,11 +67,11 @@ describe("usePollingIf hook test", () => {
     expect(func2).toBeCalledTimes(0);
 
     // move to next interval
-    await act(() => jest.advanceTimersByTime(100));
+    await act(async () => jest.advanceTimersByTime(100));
     expect(func1).toBeCalledTimes(2);
     expect(func2).toBeCalledTimes(1);
 
-    await act(() => jest.advanceTimersByTime(300));
+    await act(async () => jest.advanceTimersByTime(300));
     expect(func1).toBeCalledTimes(2);
     expect(func2).toBeCalledTimes(2);
 

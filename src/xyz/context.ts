@@ -1,7 +1,5 @@
 /**
  * This is where the context is defined.  It is called `Context` internally.
- * @module
- *
  */
 import { createContext } from "react";
 

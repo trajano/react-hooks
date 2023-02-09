@@ -1,34 +1,12 @@
 import { noop } from "lodash";
 import { useCallback, useEffect, useReducer, useState } from "react";
-export interface PollingOptions {
-  /**
-   * milliseconds between calls to the asyncFunction, defaults to a minute.
-   */
-  intervalMs: number;
-  /**
-   * milliseconds between polling checks.  This is the maximum time the setTimeout would be set to.
-   */
-  maxIntervalMs: number;
-  /**
-   * if true it will run the asyncFunction immediately before looping.
-   */
-  immediate: boolean;
-  /**
-   * The error handler.  Defults to console.error
-   */
-  onError: (err: unknown) => void;
-}
+import { defaultPollingOptions } from "./defaultPollingOptions";
+import { PollingOptions } from "./PollingOptions";
 export const timeToNextCheck = (nextFire: number, maxIntervalMs: number) =>
   Math.max(0, Math.min(nextFire - Date.now(), maxIntervalMs));
 
-const defaultOptions: PollingOptions = {
-  intervalMs: 60000,
-  maxIntervalMs: 60000,
-  immediate: true,
-  onError: console.error,
-};
 /**
- * This is a different variant of usePollingIf that leverages the useEffect and useState of React.
+ * This is a different variant of usePollingIf that leverages the useEffect and useState of React.  Using this style removes the need for a function that setTimeout that would called by setTimeout requiring a ref to manage rather than a local variable.
  * @param predicate an async function that if false will skip the callback, but will still poll.
  * @param asyncFunction the async function to call.  This is part of the dependency and will update the wrapped callback as needed.
  * @param options extra options for polling
@@ -40,7 +18,7 @@ export function usePollingIfUsingStateEffect<T = unknown>(
   options: Partial<PollingOptions> = {}
 ): void {
   const { intervalMs, immediate, maxIntervalMs, onError } = {
-    ...defaultOptions,
+    ...defaultPollingOptions,
     ...options,
   };
   const [lastCheck, updateLastCheck] = useReducer(() => Date.now(), Date.now());

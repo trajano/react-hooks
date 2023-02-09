@@ -1,6 +1,4 @@
 /**
- * @module
- *
  */
 import type { PropsWithChildren } from "react";
 

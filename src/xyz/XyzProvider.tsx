@@ -6,8 +6,8 @@ import { XyzProviderProps } from "./XyzProviderProps";
 
 /**
  * Provides the context to the React application.
- * @param props provider initalization props
- * @return context provider.
+ * @param props - provider initalization props
+ * @returns context provider.
  */
 export function XyzProvider({
   children,

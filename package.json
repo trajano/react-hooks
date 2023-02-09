@@ -60,6 +60,7 @@
       "plugin:testing-library/react",
       "prettier"
     ],
+    "plugins": ["eslint-plugin-tsdoc"],
     "rules": {
       "arrow-body-style": "error",
       "curly": "error",
@@ -73,7 +74,8 @@
       "prefer-object-spread": "error",
       "prefer-template": "error",
       "yoda": "error",
-      "@typescript-eslint/ban-types": "off"
+      "@typescript-eslint/ban-types": "off",
+      "tsdoc/syntax": "warn"
     }
   },
   "dependencies": {
@@ -94,11 +96,12 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-config-universe": "^11.1.1",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-tsdoc": "^0.2.17",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "microbundle": "^0.15.1",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.4",
     "prettier-plugin-jsdoc": "^0.4.2",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.2",

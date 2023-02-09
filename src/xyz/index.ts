@@ -1,7 +1,5 @@
 /**
  * This provides a boiler plate code for a React context.
- * @module
- *
  */
 export { useXyz } from "./useXyz";
 export type { XyzContext } from "./XyzContext";
