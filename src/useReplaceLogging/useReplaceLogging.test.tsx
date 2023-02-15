@@ -47,7 +47,7 @@ describe("useReplaceLogging", () => {
 
     const { unmount } = render(<MyComponent />);
     unmount();
-    expect(renderCount).toBeCalledTimes(1);
+    expect(renderCount).toHaveBeenCalledTimes(1);
   });
 
   it("swap all", async () => {

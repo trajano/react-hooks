@@ -80,11 +80,11 @@ describe("useAsyncSetEffect", () => {
     const { unmount } = render(<MyComponent />);
     const element = screen.getByTestId("test");
     await waitFor(() => expect(element.textContent).toEqual("bar"));
-    await waitFor(() => expect(callback).not.toBeCalled());
+    await waitFor(() => expect(callback).not.toHaveBeenCalled());
     unmount();
     jest.runAllTimers();
     await waitFor(() => expect(element.textContent).toEqual("bar"));
-    await waitFor(() => expect(callback).not.toBeCalled());
+    await waitFor(() => expect(callback).not.toHaveBeenCalled());
   });
 
   afterEach(() => {

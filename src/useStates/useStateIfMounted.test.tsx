@@ -40,7 +40,7 @@ describe("useStateIfMounted", () => {
     renderCallback.mockClear();
     unmount();
     expect(screen.queryByTestId("test")).toBeFalsy();
-    expect(renderCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(0);
   });
 
   it("should work and not rerender and unmount later", async () => {
@@ -61,18 +61,18 @@ describe("useStateIfMounted", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
     await act(() => {
       jest.advanceTimersByTime(5000);
     });
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
     unmount();
     act(() => {
       jest.advanceTimersByTime(5000);
     });
     expect(screen.queryByTestId("test")).toBeFalsy();
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
   });
 
   it("should work and not rerender and unmount later 2", async () => {
@@ -103,17 +103,17 @@ describe("useStateIfMounted", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
     act(() => {
       jest.advanceTimersByTime(4999);
     });
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
     act(() => {
       jest.advanceTimersByTime(3);
     });
     await waitFor(() => {
-      expect(renderCallback).toBeCalledTimes(2);
+      expect(renderCallback).toHaveBeenCalledTimes(2);
     });
     expect(screen.getByTestId("test").textContent).toEqual("brin");
     unmount();
@@ -121,6 +121,6 @@ describe("useStateIfMounted", () => {
       jest.advanceTimersByTime(5000);
     });
     expect(screen.queryByTestId("test")).toBeFalsy();
-    expect(renderCallback).toBeCalledTimes(2);
+    expect(renderCallback).toHaveBeenCalledTimes(2);
   });
 });

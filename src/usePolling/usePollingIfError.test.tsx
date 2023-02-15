@@ -27,19 +27,19 @@ describe("usePollingIf with an error", () => {
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(errorMock.mock.calls[0][0]).toEqual(new Error("fail"));
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(2);
     expect(errorMock.mock.calls[1][0]).toEqual(new Error("fail"));
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(3);
+    expect(callback).toHaveBeenCalledTimes(3);
     expect(errorMock.mock.calls[2][0]).toEqual(new Error("fail"));
   });
 

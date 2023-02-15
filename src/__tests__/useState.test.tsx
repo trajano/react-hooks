@@ -91,10 +91,10 @@ describe("useState", () => {
     render(<MyComponent />);
     const testElement = screen.getByTestId("test");
     expect(testElement.textContent).toEqual("bar");
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it("should not rerender when setting state to a different value from initial followed by same value via click", async () => {
@@ -113,10 +113,10 @@ describe("useState", () => {
     const { unmount } = render(<MyComponent />);
     const testElement = screen.getByTestId("test");
     expect(testElement.textContent).toEqual("bir");
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
-    expect(callback).toBeCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(2);
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
     expect(Object.is("bar", "bar")).toBeTruthy();
@@ -149,10 +149,10 @@ describe("useState", () => {
     const { unmount } = render(<MyComponent />);
     const testElement = screen.getByTestId("test");
     expect(testElement.textContent).toEqual("bir");
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
-    expect(callback).toBeCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(2);
     fireEvent.click(testElement);
     expect(testElement.textContent).toEqual("bar");
     expect(Object.is("bar", "bar")).toBeTruthy();
@@ -161,7 +161,7 @@ describe("useState", () => {
      * workaround due to https://stackoverflow.com/questions/70312646/why-does-react-rerender-when-the-state-is-set-to-the-same-value-the-first-time-v#comment124298465_70312646
      */
     expect(callback.mock.calls.length >= 2).toBeTruthy();
-    expect(comparisonCallback).toBeCalledTimes(2);
+    expect(comparisonCallback).toHaveBeenCalledTimes(2);
     expect(comparisonCallback).toHaveBeenNthCalledWith(1, false);
     expect(comparisonCallback).toHaveBeenNthCalledWith(2, true);
     unmount();

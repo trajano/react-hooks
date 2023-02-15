@@ -31,28 +31,28 @@ describe("useTimeoutOnEffect", () => {
 
     render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("foo");
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 0:00.500
     await act(() => jest.advanceTimersByTime(500));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 0:01.000
     await act(() => jest.advanceTimersByTime(500));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 0:59.999
     await act(() => jest.advanceTimersByTime(58999));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 1:00.000
     await act(() => jest.advanceTimersByTime(1));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(1);
   });
 
   it("one minute max interval", async () => {
@@ -71,48 +71,48 @@ describe("useTimeoutOnEffect", () => {
 
     render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("foo");
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 0:00.500
     await act(() => jest.advanceTimersByTime(500));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 0:01.000
     await act(() => jest.advanceTimersByTime(500));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 0:59.999
     await act(() => jest.advanceTimersByTime(58999));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 1:00.000
     await act(() => jest.advanceTimersByTime(1));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 4:00.000
     await act(() => jest.advanceTimersByTime(3 * 60 * 1000));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 4:59.000
     await act(() => jest.advanceTimersByTime(59 * 1000));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
 
     // 5:00.000
     await act(() => jest.advanceTimersByTime(1000));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(1);
 
     // 10:00.000
     await act(() => jest.advanceTimersByTime(10 * 60 * 1000));
-    expect(renderCallback).toBeCalledTimes(1);
-    expect(timeoutCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(1);
   });
 
   afterEach(() => {

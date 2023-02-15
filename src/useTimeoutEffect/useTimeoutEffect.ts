@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
  *
  * This should only be used for short timeouts under 60 seconds.  Longer ones should use setTimeoutOn to
  * ensure that the timeout is going to be triggered correctly on Android.
- * @param callback callback
- * @param ms time before callback fires
+ * @param callback - callback
+ * @param ms - time before callback fires
  */
 export function useTimeoutEffect(
   callback: () => void,

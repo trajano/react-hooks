@@ -99,7 +99,7 @@ describe("Polling with notifications", () => {
     await act(() => {
       jest.advanceTimersByTime(60000);
     });
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId(".1")).toBeTruthy();
     expect(screen.queryByTestId(".2")).toBeFalsy();
     unmount();

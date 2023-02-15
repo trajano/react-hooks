@@ -34,16 +34,16 @@ describe("useDebounceDeepState", () => {
     const { unmount } = render(<MyComponent />);
     const elem = screen.getByTestId("elem");
 
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
     jest.advanceTimersByTime(100);
     elem.click();
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
     jest.advanceTimersByTime(399);
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
     act(() => {
@@ -51,7 +51,7 @@ describe("useDebounceDeepState", () => {
     });
 
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(2);
+      expect(callback).toHaveBeenCalledTimes(2);
     });
     expect(elem.textContent).toEqual("click 1");
 
@@ -91,23 +91,23 @@ describe("useDebounceDeepState", () => {
     const { unmount } = render(<MyComponent />);
     const elem = screen.getByTestId("elem");
 
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
     jest.advanceTimersByTime(100);
     elem.click();
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
     jest.advanceTimersByTime(399);
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("bar");
 
     unmount();
     act(() => {
       jest.advanceTimersByTime(1);
     });
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it("should work the same was as useDebouncedState for simple values #2", async () => {
@@ -140,23 +140,23 @@ describe("useDebounceDeepState", () => {
     const set1 = screen.getByTestId("set1");
     const set2 = screen.getByTestId("set2");
 
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("0");
 
     jest.advanceTimersByTime(100);
     set1.click();
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("0");
 
     jest.advanceTimersByTime(499);
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(elem.textContent).toEqual("0");
 
     act(() => {
       jest.advanceTimersByTime(1);
     });
 
-    expect(callback).toBeCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(2);
     expect(elem.textContent).toEqual("1");
 
     set1.click();

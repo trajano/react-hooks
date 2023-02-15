@@ -4,9 +4,9 @@ import { PollingOptions } from "./PollingOptions";
 
 /**
  * This is a different variant of usePollingIf that leverages the useEffect and useState of React.  Using this style removes the need for a function that setTimeout that would called by setTimeout requiring a ref to manage rather than a local variable.
- * @param predicate an async function that if false will skip the callback, but will still poll.
- * @param asyncFunction the async function to call.
- * @param options extra options for polling
+ * @param predicate - an async function that if false will skip the callback, but will still poll.
+ * @param asyncFunction - the async function to call.
+ * @param options - extra options for polling
  */
 export function usePollingIf<T = unknown>(
   predicate: () => boolean | PromiseLike<boolean>,

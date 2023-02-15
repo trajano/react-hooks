@@ -24,7 +24,7 @@ describe("Clock update", () => {
     expect(screen.getByTestId("test").textContent).toEqual(
       "2020-01-01T00:00:00.000Z"
     );
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
 
     await act(() => jest.advanceTimersByTime(500));
     expect(screen.getByTestId("test").textContent).toEqual(
@@ -63,7 +63,7 @@ describe("Clock update", () => {
     expect(screen.getByTestId("test").textContent).toEqual(
       "2020-01-01T00:00:00.500Z"
     );
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
 
     await act(() => jest.advanceTimersByTime(499));
     expect(screen.getByTestId("test").textContent).toEqual(
@@ -102,7 +102,7 @@ describe("Clock update", () => {
     expect(screen.getByTestId("test").textContent).toEqual(
       "2020-01-01T12:00:00.500Z"
     );
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
 
     await act(() => jest.advanceTimersByTime(499));
     expect(screen.getByTestId("test").textContent).toEqual(
@@ -128,7 +128,7 @@ describe("Clock update", () => {
     expect(screen.getByTestId("test").textContent).toEqual(
       "2020-01-03T00:00:00.000Z"
     );
-    expect(renderCallback).toBeCalledTimes(3);
+    expect(renderCallback).toHaveBeenCalledTimes(3);
     unmount();
   });
 

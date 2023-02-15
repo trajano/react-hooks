@@ -36,11 +36,11 @@ describe("useRef", () => {
     render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("blah");
     expect(renderCount).toEqual(1);
-    expect(callback).not.toBeCalled();
+    expect(callback).not.toHaveBeenCalled();
     await act(() => {
       jest.runAllTimers();
     });
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId("test").textContent).toEqual("blah");
     expect(renderCount).toEqual(1);
   });
@@ -76,9 +76,9 @@ describe("useRef", () => {
       JSON.stringify({ random: x })
     );
     expect(renderCount).toEqual(1);
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     await act(() => jest.runAllTimers());
-    expect(callback).toBeCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(2);
     expect(screen.getByTestId("test").textContent).toEqual(
       JSON.stringify({ random: x })
     );
@@ -112,12 +112,12 @@ describe("useRef", () => {
     expect(screen.getByTestId("test").textContent).toEqual(
       JSON.stringify({ random: x })
     );
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     await act(() => jest.runAllTimers());
     expect(screen.getByTestId("test").textContent).toEqual(
       JSON.stringify({ random: x })
     );
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
   afterEach(() => {

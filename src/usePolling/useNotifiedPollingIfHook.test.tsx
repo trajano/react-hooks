@@ -18,23 +18,23 @@ describe("useNotifiedPollingIf hook tests", () => {
     const { result } = renderHook(({ func }) =>
       useNotifiedPollingIf(predicate, func, 300, true), { initialProps: { func: func1 } });
     result.current.subscribe(notifyMe);
-    expect(func1).toBeCalledTimes(0);
-    expect(notifyMe).toBeCalledTimes(0);
+    expect(func1).toHaveBeenCalledTimes(0);
+    expect(notifyMe).toHaveBeenCalledTimes(0);
     await act(() => Promise.resolve());
-    expect(func1).toBeCalledTimes(1);
-    expect(notifyMe).toBeCalledTimes(1);
+    expect(func1).toHaveBeenCalledTimes(1);
+    expect(notifyMe).toHaveBeenCalledTimes(1);
     expect(notifyMe).toHaveBeenLastCalledWith("one");
 
     // advance to next tick
     await act(() => jest.advanceTimersByTime(300));
-    expect(func1).toBeCalledTimes(2);
-    expect(notifyMe).toBeCalledTimes(2);
+    expect(func1).toHaveBeenCalledTimes(2);
+    expect(notifyMe).toHaveBeenCalledTimes(2);
     expect(notifyMe).toHaveBeenLastCalledWith("one");
 
     // advance to next tick
     await act(() => jest.advanceTimersByTime(300));
-    expect(func1).toBeCalledTimes(3);
-    expect(notifyMe).toBeCalledTimes(3);
+    expect(func1).toHaveBeenCalledTimes(3);
+    expect(notifyMe).toHaveBeenCalledTimes(3);
     expect(notifyMe).toHaveBeenLastCalledWith("one");
 
   });
@@ -46,36 +46,36 @@ describe("useNotifiedPollingIf hook tests", () => {
     const { result, rerender } = renderHook(({ func }) =>
       useNotifiedPollingIf(predicate, func, 300, true), { initialProps: { func: func1 } });
     result.current.subscribe(notifyMe);
-    expect(func1).toBeCalledTimes(0);
-    expect(notifyMe).toBeCalledTimes(0);
+    expect(func1).toHaveBeenCalledTimes(0);
+    expect(notifyMe).toHaveBeenCalledTimes(0);
     await act(() => Promise.resolve());
-    expect(func1).toBeCalledTimes(1);
-    expect(notifyMe).toBeCalledTimes(1);
+    expect(func1).toHaveBeenCalledTimes(1);
+    expect(notifyMe).toHaveBeenCalledTimes(1);
     expect(notifyMe).toHaveBeenLastCalledWith("one");
 
     // advance to next tick
     await act(() => jest.advanceTimersByTime(300));
-    expect(func1).toBeCalledTimes(2);
+    expect(func1).toHaveBeenCalledTimes(2);
 
     // advance by 200 then change functions
     jest.advanceTimersByTime(200);
     rerender({ func: func2 });
-    expect(func1).toBeCalledTimes(2);
-    expect(func2).toBeCalledTimes(0);
-    expect(notifyMe).toBeCalledTimes(2);
+    expect(func1).toHaveBeenCalledTimes(2);
+    expect(func2).toHaveBeenCalledTimes(0);
+    expect(notifyMe).toHaveBeenCalledTimes(2);
     expect(notifyMe).toHaveBeenLastCalledWith("one");
 
     // move to next interval
     await act(() => jest.advanceTimersByTime(100));
-    expect(func1).toBeCalledTimes(2);
-    expect(func2).toBeCalledTimes(1);
-    expect(notifyMe).toBeCalledTimes(3);
+    expect(func1).toHaveBeenCalledTimes(2);
+    expect(func2).toHaveBeenCalledTimes(1);
+    expect(notifyMe).toHaveBeenCalledTimes(3);
     expect(notifyMe).toHaveBeenLastCalledWith("two");
 
     await act(() => jest.advanceTimersByTime(300));
-    expect(func1).toBeCalledTimes(2);
-    expect(func2).toBeCalledTimes(2);
-    expect(notifyMe).toBeCalledTimes(4);
+    expect(func1).toHaveBeenCalledTimes(2);
+    expect(func2).toHaveBeenCalledTimes(2);
+    expect(notifyMe).toHaveBeenCalledTimes(4);
     expect(notifyMe).toHaveBeenLastCalledWith("two");
 
   });

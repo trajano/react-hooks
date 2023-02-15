@@ -35,12 +35,12 @@ describe("useState batch scenario", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("foobar");
-    expect(renderFn).toBeCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByTestId("test"))
-    expect(renderFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
     expect(screen.getByTestId("test").textContent).toEqual("blahblah");
     unmount();
-    expect(renderFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
   });
 
   it("multiple updating set states will trigger only one render", async () => {
@@ -68,12 +68,12 @@ describe("useState batch scenario", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("foobar");
-    expect(renderFn).toBeCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByTestId("test"))
-    expect(renderFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
     expect(screen.getByTestId("test").textContent).toEqual("blahblah");
     unmount();
-    expect(renderFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
   });
 
 
@@ -100,15 +100,15 @@ describe("useState batch scenario", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("foobar");
-    expect(renderFn).toBeCalledTimes(1);
-    expect(effectFn).toBeCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
+    expect(effectFn).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByTestId("test"))
-    expect(renderFn).toBeCalledTimes(2);
-    expect(effectFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(effectFn).toHaveBeenCalledTimes(2);
     expect(screen.getByTestId("test").textContent).toEqual("blahblah");
     unmount();
-    expect(renderFn).toBeCalledTimes(2);
-    expect(effectFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(effectFn).toHaveBeenCalledTimes(2);
   })
 
   it("two set states will trigger render with effect check with async handler per await", async () => {
@@ -134,20 +134,20 @@ describe("useState batch scenario", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("foobar");
-    expect(renderFn).toBeCalledTimes(1);
-    expect(effectFn).toBeCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
+    expect(effectFn).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByTestId("test"))
-    expect(renderFn).toBeCalledTimes(2);
-    expect(effectFn).toBeCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(effectFn).toHaveBeenCalledTimes(2);
     expect(screen.getByTestId("test").textContent).toEqual("blahbar");
     // second state update after await
     await act(() => Promise.resolve());
-    expect(renderFn).toBeCalledTimes(3);
-    expect(effectFn).toBeCalledTimes(3);
+    expect(renderFn).toHaveBeenCalledTimes(3);
+    expect(effectFn).toHaveBeenCalledTimes(3);
     expect(screen.getByTestId("test").textContent).toEqual("blahblah");
     unmount();
-    expect(renderFn).toBeCalledTimes(3);
-    expect(effectFn).toBeCalledTimes(3);
+    expect(renderFn).toHaveBeenCalledTimes(3);
+    expect(effectFn).toHaveBeenCalledTimes(3);
   })
 
 });

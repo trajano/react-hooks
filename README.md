@@ -37,8 +37,7 @@ Instead of [Ramda](https://ramdajs.com/) and [Rambda](https://selfrefactor.githu
 This project used Yarn earlier.  However, it has changed to npm again.  Reasons:
 
 * [Facebook still uses Yarn 1 over Yarn Berry](https://shift.infinite.red/yarn-1-vs-yarn-2-vs-npm-a69ccf0229cd) so seems like a contention there.
-* I noted that when I am using a monorepo set up, most things are `nohoist` because ESLint, Jest, Prettier lookup plugins relative to the node_module they are installed in.
-* `npm` is `nohoist` by default, so even if the space is a little bit more, it is predictable.
+* Since this this a stand alone project, I'd rather reduce the complexity of the setup.  For my [monorepo](https://github.com/trajano/spring-cloud-demo) that is using this Yarn works with it.
 * `npm` is installed with NodeJS
 * `npm` has workspace support as well.
 * `npm` has stricter semver checks.

@@ -45,11 +45,11 @@ describe("useMounted", () => {
     }
 
     const { unmount } = render(<MyComponent />);
-    await waitFor(() => expect(callback).toBeCalledTimes(0));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(0));
     jest.advanceTimersByTime(5000);
     unmount();
     jest.advanceTimersByTime(5000);
-    await waitFor(() => expect(callback).toBeCalledTimes(1));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(1));
     expect(callback.mock.calls).toEqual([[false]]);
   });
 });

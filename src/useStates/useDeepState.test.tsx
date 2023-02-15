@@ -59,13 +59,13 @@ describe("useDeepState", () => {
     }
 
     const { unmount } = render(<MyComponent />);
-    await waitFor(() => expect(rendering).toBeCalledTimes(1));
+    await waitFor(() => expect(rendering).toHaveBeenCalledTimes(1));
     expect(screen.getByTestId("test").textContent).toEqual("bar");
     act(() => jest.advanceTimersByTime(5000));
-    expect(rendering).toBeCalledTimes(1);
+    expect(rendering).toHaveBeenCalledTimes(1);
     act(() => jest.advanceTimersByTime(5000));
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(rendering).toBeCalledTimes(1);
+    expect(rendering).toHaveBeenCalledTimes(1);
     unmount();
   });
 
@@ -89,15 +89,15 @@ describe("useDeepState", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(rendering).toBeCalledTimes(1);
+    expect(rendering).toHaveBeenCalledTimes(1);
     act(() => jest.advanceTimersByTime(5000));
-    expect(rendering).toBeCalledTimes(1);
+    expect(rendering).toHaveBeenCalledTimes(1);
     act(() => jest.advanceTimersByTime(5000));
     expect(screen.getByTestId("test").textContent).toEqual("bar");
     act(() => jest.advanceTimersByTime(10000));
     expect(screen.getByTestId("test").textContent).toEqual("bar");
     // skip this assertion as there's extra renders
-    expect(rendering).toBeCalledTimes(1);
+    expect(rendering).toHaveBeenCalledTimes(1);
     unmount();
   });
 
@@ -181,19 +181,19 @@ describe("useDeepState", () => {
     const set1 = screen.getByTestId("set1");
 
     expect(testElement.textContent).toEqual("0");
-    expect(callback).toBeCalledTimes(1);
-    expect(clickCallback).not.toBeCalled();
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(clickCallback).not.toHaveBeenCalled();
 
     fireEvent.click(set1);
     await waitFor(() => expect(testElement.textContent).toEqual("1"));
 
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
-    expect(clickCallback).toBeCalledTimes(1);
+    expect(clickCallback).toHaveBeenCalledTimes(1);
 
     fireEvent.click(set1);
     await waitFor(() => expect(testElement.textContent).toEqual("1"));
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
-    expect(clickCallback).toBeCalledTimes(2);
+    expect(clickCallback).toHaveBeenCalledTimes(2);
   });
 
   it("should not rerender when setting state to the same value, even if different objects via click, value initialized via function", async () => {
@@ -223,19 +223,19 @@ describe("useDeepState", () => {
     const set1 = screen.getByTestId("set1");
 
     expect(testElement.textContent).toEqual("0");
-    expect(callback).toBeCalledTimes(1);
-    expect(clickCallback).not.toBeCalled();
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(clickCallback).not.toHaveBeenCalled();
 
     fireEvent.click(set1);
     await waitFor(() => expect(testElement.textContent).toEqual("1"));
 
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
-    expect(clickCallback).toBeCalledTimes(1);
+    expect(clickCallback).toHaveBeenCalledTimes(1);
 
     fireEvent.click(set1);
     await waitFor(() => expect(testElement.textContent).toEqual("1"));
     expect(callback.mock.calls.length).toBeGreaterThanOrEqual(2);
-    expect(clickCallback).toBeCalledTimes(2);
+    expect(clickCallback).toHaveBeenCalledTimes(2);
   });
 
   it("should not rerender when setting state to the same value, even if different objects", async () => {
@@ -280,12 +280,12 @@ describe("useDeepState", () => {
 
     const { unmount } = render(<MyComponent />);
     expect(screen.getByTestId("test").textContent).toEqual("bar");
-    expect(renderCallback).toBeCalledTimes(1);
+    expect(renderCallback).toHaveBeenCalledTimes(1);
     act(() => {
       jest.advanceTimersByTime(10000);
     });
     await waitFor(() => {
-      expect(renderCallback).toBeCalledTimes(2);
+      expect(renderCallback).toHaveBeenCalledTimes(2);
     });
     expect(screen.getByTestId("test").textContent).toEqual("foo");
     unmount();

@@ -9,9 +9,9 @@ import { DependencyList, useEffect, useRef } from "react";
  * This will clear the timeout if the component containing the hook is unmounted.  Unlike `setTimeout` this
  * does not support call back functions that accept arguments.  This is due to the need to pass the
  * useEffect dependency list.
- * @param callback callback
- * @param on when the timeout should fire
- * @param maxIntervalMs maximum amount of time per interval.
+ * @param callback - callback
+ * @param on - when the timeout should fire
+ * @param maxIntervalMs - maximum amount of time per interval.
  */
 export function useTimeoutOnEffect(
   callback: () => void,
@@ -49,8 +49,8 @@ export function useTimeoutOnEffect(
  * This will clear the timeout if the component containing the hook is unmounted.  Unlike `setTimeout` this
  * does not support call back functions that accept arguments.  This is due to the need to pass the
  * useEffect dependency list.
- * @param callback callback
- * @param on when the timeout should fire
+ * @param callback - callback
+ * @param on - when the timeout should fire
  */
 export function useTimeoutOnWithMinuteIntervalEffect(
   callback: () => void,

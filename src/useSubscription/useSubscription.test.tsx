@@ -49,11 +49,11 @@ describe("useSubscription", () => {
     );
     const element = screen.getByTestId("test");
     expect(element.textContent).toEqual("abc");
-    await waitFor(() => expect(callback).toBeCalledTimes(0));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(0));
     element.click();
-    await waitFor(() => expect(callback).toBeCalledTimes(1));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(1));
     element.click();
-    await waitFor(() => expect(callback).toBeCalledTimes(2));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(2));
   });
 
   it("should notify with clicks using generated hook", async () => {
@@ -91,10 +91,10 @@ describe("useSubscription", () => {
     );
     const element = screen.getByTestId("test");
     expect(element.textContent).toEqual("abc");
-    await waitFor(() => expect(callback).toBeCalledTimes(0));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(0));
     element.click();
-    await waitFor(() => expect(callback).toBeCalledTimes(1));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(1));
     element.click();
-    await waitFor(() => expect(callback).toBeCalledTimes(2));
+    await waitFor(() => expect(callback).toHaveBeenCalledTimes(2));
   });
 });

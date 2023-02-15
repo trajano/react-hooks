@@ -50,7 +50,7 @@ describe("Clock update", () => {
         isEqual(prev[prev.length - 1], next) ? prev : [...prev, next],
       []
     );
-    expect(renderCallback).toBeCalledTimes(2);
+    expect(renderCallback).toHaveBeenCalledTimes(2);
     act(() => {
       jest.advanceTimersByTime(60000);
     });
@@ -102,7 +102,7 @@ describe("Clock update", () => {
         new Date("2020-01-01T00:01:00Z").getTime().toString()
       );
     });
-    expect(renderCallback).toBeCalledTimes(0);
+    expect(renderCallback).toHaveBeenCalledTimes(0);
     act(() => jest.advanceTimersByTime(60000 - 12878));
     // clear off duplicate calls
     renderCallback.mock.calls = renderCallback.mock.calls.reduce(
@@ -111,7 +111,7 @@ describe("Clock update", () => {
       []
     );
     await waitFor(() => {
-      expect(renderCallback).toBeCalledTimes(1);
+      expect(renderCallback).toHaveBeenCalledTimes(1);
     });
     expect(screen.getByTestId("test").textContent).toEqual(
       new Date("2020-01-01T00:02:00Z").getTime().toString()

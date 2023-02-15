@@ -21,13 +21,13 @@ describe("usePolling", () => {
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(2);
+      expect(callback).toHaveBeenCalledTimes(2);
     });
     expect(renderCount).toEqual(1);
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(3);
+      expect(callback).toHaveBeenCalledTimes(3);
     });
     expect(renderCount).toEqual(1);
   });
@@ -47,17 +47,17 @@ describe("usePolling", () => {
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(2);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(3);
+    expect(callback).toHaveBeenCalledTimes(3);
   });
 
   it("should not start immediately if specified", async () => {
@@ -75,15 +75,15 @@ describe("usePolling", () => {
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(0);
+    expect(callback).toHaveBeenCalledTimes(0);
     jest.runAllTimers();
     await waitFor(() => {
       expect(renderCount).toEqual(1);
     });
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     jest.runAllTimers();
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(2);
+      expect(callback).toHaveBeenCalledTimes(2);
     });
     expect(renderCount).toEqual(1);
   });

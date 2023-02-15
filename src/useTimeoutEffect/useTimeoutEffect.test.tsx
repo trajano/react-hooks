@@ -16,10 +16,10 @@ describe("useTimeoutEffect", () => {
     const timeoutCallback = jest.fn();
 
     renderHook(() => useTimeoutEffect(timeoutCallback, 1000));
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
     jest.advanceTimersByTime(999);
-    expect(timeoutCallback).toBeCalledTimes(0);
+    expect(timeoutCallback).toHaveBeenCalledTimes(0);
     jest.advanceTimersByTime(1);
-    expect(timeoutCallback).toBeCalledTimes(1);
+    expect(timeoutCallback).toHaveBeenCalledTimes(1);
   });
 });

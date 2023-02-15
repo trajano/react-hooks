@@ -38,7 +38,7 @@ describe("useRef with context", () => {
     expect(screen.getByTestId("test").textContent).toEqual(
       JSON.stringify({ random: x })
     );
-    expect(callback).toBeCalledTimes(1);
+    expect(callback).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId("calls").textContent).toBe("0");
     const d = Date.now();
     expect(jest.getTimerCount()).toBe(1);
@@ -46,7 +46,7 @@ describe("useRef with context", () => {
     expect(jest.getTimerCount()).toBe(0);
     expect(Date.now()).toBe(d + 10000);
     await waitFor(() => {
-      expect(callback).toBeCalledTimes(2);
+      expect(callback).toHaveBeenCalledTimes(2);
     });
     expect(screen.getByTestId("test").textContent).toEqual(
       JSON.stringify({ random: x })
