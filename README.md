@@ -31,3 +31,25 @@ These are fixable using `--fix`
 ## Why lodash?
 
 Instead of [Ramda](https://ramdajs.com/) and [Rambda](https://selfrefactor.github.io/rambda/)? [`debounce`](https://lodash.com/docs/4.17.15#debounce) is only implemented in Lodash.
+
+## Why npm?
+
+This project used Yarn earlier.  However, it has changed to npm again.  Reasons:
+
+* [Facebook still uses Yarn 1 over Yarn Berry](https://shift.infinite.red/yarn-1-vs-yarn-2-vs-npm-a69ccf0229cd) so seems like a contention there.
+* I noted that when I am using a monorepo set up, most things are `nohoist` because ESLint, Jest, Prettier lookup plugins relative to the node_module they are installed in.
+* `npm` is `nohoist` by default, so even if the space is a little bit more, it is predictable.
+* `npm` is installed with NodeJS
+* `npm` has workspace support as well.
+* `npm` has stricter semver checks.
+
+The [2020 article on Yarn 1 vs Yarn 2 vs NPM](https://shift.infinite.red/yarn-1-vs-yarn-2-vs-npm-a69ccf0229cd) gives a bit of insights and priorities though my order is slightly different
+
+1. Broad support — needs to work with React Native, Node CLIs, web — anything we do. We work with a number of clients over a range of technologies and having a package manager that can be used for all our ~~JavaScript~~ TypeScript technologies is a must-have
+2. Predictability — will install the same packages every time. Having different versions on different machines makes debugging quite difficult
+3. Reliability — it’s not flaky nor does it fail randomly. Nothing seems to frustrate developers as fast as flaky tools
+4. Speed — lowered the priority because I prefer predictability and reliability over speed.
+5. Caching — local installs wherever possible. We all work remotely and so less network traffic/bandwidth is critical
+6. Community adoption 
+7. Cost of change
+8. Key value-added features

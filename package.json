@@ -60,7 +60,9 @@
       "plugin:testing-library/react",
       "prettier"
     ],
-    "plugins": ["eslint-plugin-tsdoc"],
+    "plugins": [
+      "eslint-plugin-tsdoc"
+    ],
     "rules": {
       "arrow-body-style": "error",
       "curly": "error",
