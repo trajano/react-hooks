@@ -7,13 +7,13 @@ import { useMounted } from "../useMounted";
  * React state changes if the component is still mounted after the `async`
  * operation completes.  This uses {@link useMounted} for handling the
  * mount logic.
- * @param asyncFunction async function,
+ * @param asyncFunction - async function,
  *   it has a copy of the mounted ref so an await chain can be canceled earlier.
  *   this should ideally be wrapped with useCallback to prevent rerenders
- * @param onSuccess this gets executed after async
+ * @param onSuccess - this gets executed after async
  *   function is resolved and the component is still mounted
  *   this should ideally be wrapped with useCallback to prevent rerenders
- * @param deps dependency list
+ * @param deps - dependency list
  */
 export function useAsyncSetEffect<T>(
   asyncFunction: () => Promise<T>,

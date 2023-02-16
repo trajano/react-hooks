@@ -6,8 +6,8 @@ import { useEffect, useReducer, useRef } from "react";
  * then run intervals at the frequencyMs specified after. This can be overriden
  * so that a different delay till the interval starts.
  *
- * @param frequencyMs Frequency to run the updates defaults to 1000ms.
- * @param delayTillIntervalStart Number of milliseconds to wait before the next
+ * @param frequencyMs - Frequency to run the updates defaults to 1000ms.
+ * @param delayTillIntervalStart - Number of milliseconds to wait before the next
  *   frequency block, defaults to the next block based on the frequency. Note on
  *   Android this should not go past 60 seconds.
  * @returns Current instant

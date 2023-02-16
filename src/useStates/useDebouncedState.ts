@@ -7,9 +7,9 @@ import { Dispatch, useEffect, useState } from "react";
  * for a deep comparison.  Internally this uses
  * [lodash debounce](https://lodash.com/docs/#debounce) to perform
  * the debounce operation.
- * @param initialValue initial value
- * @param waitMillis The number of milliseconds to delay.
- * @param debounceSettings debounce settings.
+ * @param initialValue - initial value
+ * @param waitMillis - The number of milliseconds to delay.
+ * @param debounceSettings - debounce settings.
  * @returns state and setter
  *
  */

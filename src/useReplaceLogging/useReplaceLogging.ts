@@ -4,7 +4,7 @@ import { LoggingReplacements } from "./LoggingReplacements";
 
 /**
  * This replaces console.XXX loggers with custom implementations.  It will restore console log on unmount of the component.
- * @param replacements a map of replacement loggers.  They're all optional and only the functions defined will be replaced.
+ * @param replacements - a map of replacement loggers.  They're all optional and only the functions defined will be replaced.
  */
 export function useReplaceLogging({
   debug,

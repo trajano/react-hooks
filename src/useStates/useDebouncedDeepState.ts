@@ -5,9 +5,9 @@ import { useDeepState } from "./useDeepState";
 
 /**
  *
- * @param initialValue
- * @param waitMillis The number of milliseconds to delay.
- * @param debounceSettings
+ * @param initialValue - initial value
+ * @param waitMillis - The number of milliseconds to delay.
+ * @param debounceSettings - settings passed to the debounce function
  * @returns state, setter
  *
  */

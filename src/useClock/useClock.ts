@@ -4,11 +4,11 @@ import { SubscriptionManager, useSubscription } from "../useSubscription";
 
 /**
  * time to next full minute from the date
- * @param date
+ * @param millisSinceEpoch - millis since epoch time.
  * @returns milliseconds to next full minute from date
  */
-function timeToNextFullMinute(date: number): number {
-  return 60000 - (date % 60000);
+function timeToNextFullMinute(millisSinceEpoch: number): number {
+  return 60000 - (millisSinceEpoch % 60000);
 }
 /**
  * This hook notifies the subscribers with the current date.  This

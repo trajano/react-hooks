@@ -83,7 +83,8 @@
       {
         "files": [
           "*.test.ts",
-          "*.test.tsx"
+          "*.test.tsx",
+          "**/__tests__/**"
         ],
         "rules": {
           "tsdoc/syntax": "off"

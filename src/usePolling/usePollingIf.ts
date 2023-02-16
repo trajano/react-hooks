@@ -40,7 +40,7 @@ export function usePollingIf<T = unknown>(
       }
       timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
     },
-    [asyncFunction, intervalMs, predicate]
+    [asyncFunction, intervalMs, predicate, onError]
   );
 
   useEffect(() => {

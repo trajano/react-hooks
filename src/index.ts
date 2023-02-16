@@ -1,5 +1,4 @@
 /**
- * @module
  */
 export * from "./useAsyncSetEffect";
 export * from "./useClock";

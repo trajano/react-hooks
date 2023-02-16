@@ -1,7 +1,5 @@
 /**
  * Extensions to `useState`.
- * @module
- *
  */
 export { useDebouncedState } from "../useStates/useDebouncedState";
 export { useDateState } from "./useDateState";

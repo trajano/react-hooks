@@ -7,7 +7,7 @@ import { Dispatch, useEffect, useRef, useState } from "react";
  * is advised *NOT* to use this unless there's a specific reason
  * such as a an Axios interceptor that may be used to change state
  * when it is unable to refresh an auth token.
- * @param initialState initisl state
+ * @param initialState - initisl state
  * @returns state, setter
  *
  */
