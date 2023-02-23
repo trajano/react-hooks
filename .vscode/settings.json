@@ -1,3 +1,7 @@
 {
-    "jest.jestCommandLine": "yarn test --ci"
+    "jest.jestCommandLine": "yarn test --ci",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "trajano",
+        "projectKey": "trajano_react-hooks"
+    }
 }
