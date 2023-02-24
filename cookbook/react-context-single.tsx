@@ -19,9 +19,9 @@ const defaultContextValue: ContextValue = {
 
 const Context = createContext<ContextValue>(defaultContextValue);
 
+export const useXyz = () => useContext(Context);
+
 export const XyzProvider = ({ children }: ProviderProps) => {
   const contextValue = useMemo<ContextValue>(() => ({}), []);
   return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }
-
-export const useXyz = () => useContext(Context);
