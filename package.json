@@ -26,7 +26,8 @@
     "deploy": "gh-pages -d doc/",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src/",
     "prepare": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "typedoc": "typedoc"
   },
   "husky": {
     "hooks": {
