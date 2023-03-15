@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { defaultPollingOptions } from "./defaultPollingOptions";
 import { PollingOptions } from "./PollingOptions";
 
 /**
- * This is a different variant of usePollingIf that leverages the useEffect and useState of React.  Using this style removes the need for a function that setTimeout that would called by setTimeout requiring a ref to manage rather than a local variable.
+ * This performs polling while a predicate returns true.
  * @param predicate - an async function that if false will skip the callback, but will still poll.
  * @param asyncFunction - the async function to call.
  * @param options - extra options for polling
@@ -18,42 +18,35 @@ export function usePollingIf<T = unknown>(
     ...options,
   };
 
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const mountedRef = useRef(false);
-  const activeRef = useRef(false);
-
-  const wrappedAsyncFunction = useCallback(
+  useEffect(() => {
+    let timeoutID: ReturnType<typeof setTimeout>;
+    /*
+     * Flag to indicate that the async function is still actively running.  If it is actively running it skips
+     * execution and delays it until the next tick.
+     */
+    let active = false;
+    // the function is built here rather than on the top level so the timeout variable is managed within this function.
     async function wrappedAsyncFunction(): Promise<void> {
-      if (!mountedRef.current || activeRef.current) {
-        // don't process if currently active or the component is unmounted
-        return;
-      }
-      if (await predicate()) {
-        activeRef.current = true;
+      if (!active && (await predicate())) {
+        active = true;
         try {
+          console.log(`fire on ${timeoutID} inside ${active}`)
           await asyncFunction();
+          active = false;
         } catch (e) {
           onError(e);
-        } finally {
-          activeRef.current = false;
+          active = false;
         }
       }
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
-    },
-    [asyncFunction, intervalMs, predicate, onError]
-  );
-
-  useEffect(() => {
-    mountedRef.current = true;
-    if (immediate) {
-      wrappedAsyncFunction();
-    } else {
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
+      timeoutID = setTimeout(wrappedAsyncFunction, active ? 0 : intervalMs);
+      console.log(`set ${timeoutID} inside ${active}`)
     }
+
+    timeoutID = setTimeout(wrappedAsyncFunction, immediate ? 0 : intervalMs);
+    console.log(`set ${timeoutID}`)
     return () => {
-      clearTimeout(timeoutRef.current);
-      mountedRef.current = false;
-      activeRef.current = false;
+      console.log(`clear ${timeoutID}`)
+      clearTimeout(timeoutID);
     };
-  }, [immediate, intervalMs, wrappedAsyncFunction]);
+  }, [immediate, intervalMs]);
 }
