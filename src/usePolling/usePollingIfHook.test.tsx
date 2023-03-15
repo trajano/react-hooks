@@ -48,6 +48,61 @@ describe("usePollingIf hook test", () => {
     expect(func1).toHaveBeenCalledTimes(2);
   });
 
+  it("should handle long running functions", async () => {
+    const predicate = () => Promise.resolve(true);
+    const func1 = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+    const {unmount} = renderHook(() =>
+      usePollingIf(predicate, func1, { intervalMs: 300, immediate: true }), {});
+    expect(jest.getTimerCount()).toBe(1);
+    const start = Date.now();
+    // advance to next tick
+    await act(async () => jest.advanceTimersToNextTimer());
+    expect(func1).toHaveBeenCalledTimes(1);
+    expect(Date.now() - start).toBe(0);
+    jest.advanceTimersByTime(299);
+    expect(func1).toHaveBeenCalledTimes(1);
+    await act(async () => { jest.advanceTimersByTime(1); });
+    expect(Date.now() - start).toBe(300);
+    // still 1 at this point because it hasn't finished
+    expect(func1).toHaveBeenCalledTimes(1);
+
+    await act(async () => { jest.advanceTimersByTime(699); });
+    expect(Date.now() - start).toBe(999);
+    // still 1 at this point because it hasn't finished
+    expect(func1).toHaveBeenCalledTimes(1);
+
+    await act(async () => { jest.advanceTimersByTime(1); });
+    expect(Date.now() - start).toBe(1000);
+    // still 1 at this point because it just finished but the timer has to advance to next tick.
+    expect(func1).toHaveBeenCalledTimes(1);
+    await act(async () => jest.advanceTimersToNextTimer());
+    expect(Date.now() - start).toBe(1300);
+    expect(func1).toHaveBeenCalledTimes(2);
+
+    await act(async () => jest.advanceTimersToNextTimer());
+    expect(Date.now() - start).toBe(2300);
+    expect(func1).toHaveBeenCalledTimes(2);
+
+    await act(async () => jest.advanceTimersToNextTimer());
+    expect(Date.now() - start).toBe(2600);
+    expect(func1).toHaveBeenCalledTimes(3);
+
+    await act(async () => jest.advanceTimersToNextTimer());
+    expect(Date.now() - start).toBe(3600);
+    expect(func1).toHaveBeenCalledTimes(3);
+
+    await act(async () => jest.advanceTimersToNextTimer());
+    expect(Date.now() - start).toBe(3900);
+    expect(func1).toHaveBeenCalledTimes(4);
+
+    unmount();
+
+    expect(func1).toHaveBeenCalledTimes(4);
+    await act(async () => jest.advanceTimersToNextTimer());
+    // there should be no longer be any more calls
+    expect(func1).toHaveBeenCalledTimes(4);
+  });
+
   it("should cancel the current timeout when handle changing functions", async () => {
     const predicate = () => Promise.resolve(true);
     const func1 = jest.fn(() => Promise.resolve());
