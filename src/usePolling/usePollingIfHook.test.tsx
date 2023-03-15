@@ -35,17 +35,19 @@ describe("usePollingIf hook test", () => {
     const func1 = jest.fn(() => Promise.resolve());
     renderHook(() =>
       usePollingIf(predicate, func1, { intervalMs: 300, immediate: true }), {});
-    await act(() => Promise.resolve());
+      expect(jest.getTimerCount()).toBe(1);
     const start = Date.now();
+    // advance to next tick
+    await jest.advanceTimersToNextTimer();
     expect(func1).toHaveBeenCalledTimes(1);
     expect(Date.now() - start).toBe(0);
     jest.advanceTimersByTime(299);
     expect(func1).toHaveBeenCalledTimes(1);
-    await act(async () => jest.advanceTimersByTime(1));
-    expect(func1).toHaveBeenCalledTimes(2);
+    jest.advanceTimersByTime(1);
+    await jest.advanceTimersToNextTimer();
     expect(Date.now() - start).toBe(300);
+    expect(func1).toHaveBeenCalledTimes(2);
   });
-
 
   it("should cancel the current timeout when handle changing functions", async () => {
     const predicate = () => Promise.resolve(true);

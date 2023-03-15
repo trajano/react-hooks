@@ -27,25 +27,26 @@ export function usePollingIf<T = unknown>(
     let active = false;
     // the function is built here rather than on the top level so the timeout variable is managed within this function.
     async function wrappedAsyncFunction(): Promise<void> {
-      if (!active && (await predicate())) {
+      if (!active) {
         active = true;
-        try {
-          console.log(`fire on ${timeoutID} inside ${active}`)
-          await asyncFunction();
-          active = false;
-        } catch (e) {
-          onError(e);
-          active = false;
+        if (await predicate()) {
+          try {
+            console.log(`fire on ${timeoutID} inside ${active}`);
+            await asyncFunction();
+          } catch (e) {
+            onError(e);
+          }
         }
+        active = false;
       }
       timeoutID = setTimeout(wrappedAsyncFunction, active ? 0 : intervalMs);
-      console.log(`set ${timeoutID} inside ${active}`)
+      console.log(`set ${timeoutID} inside ${active}`);
     }
 
     timeoutID = setTimeout(wrappedAsyncFunction, immediate ? 0 : intervalMs);
-    console.log(`set ${timeoutID}`)
+    console.log(`set ${timeoutID}`);
     return () => {
-      console.log(`clear ${timeoutID}`)
+      console.log(`clear ${timeoutID}`);
       clearTimeout(timeoutID);
     };
   }, [immediate, intervalMs]);
