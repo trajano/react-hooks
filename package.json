@@ -26,7 +26,8 @@
     "deploy": "gh-pages -d doc/",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src/",
     "prepare": "microbundle --format modern,cjs --jsx React.createElement --tsconfig tsconfig.build.json",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "typedoc": "typedoc"
   },
   "husky": {
     "hooks": {
@@ -98,7 +99,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/react-native": "^11.5.2",
+    "@testing-library/react-native": "^11.5.4",
     "@types/jest": "^29.2.5",
     "@types/lodash": "^4.14.191",
     "@types/react-test-renderer": "^18.0.0",

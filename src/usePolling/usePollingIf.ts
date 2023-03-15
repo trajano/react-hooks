@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { defaultPollingOptions } from "./defaultPollingOptions";
 import { PollingOptions } from "./PollingOptions";
 
 /**
- * This is a different variant of usePollingIf that leverages the useEffect and useState of React.  Using this style removes the need for a function that setTimeout that would called by setTimeout requiring a ref to manage rather than a local variable.
+ * This performs polling while a predicate returns true.
  * @param predicate - an async function that if false will skip the callback, but will still poll.
  * @param asyncFunction - the async function to call.
  * @param options - extra options for polling
@@ -13,47 +13,44 @@ export function usePollingIf<T = unknown>(
   asyncFunction: () => T | PromiseLike<T>,
   options: Partial<PollingOptions> = {}
 ): void {
-  const { intervalMs, immediate, maxIntervalMs, onError } = {
+  const { intervalMs, immediate, onError } = {
     ...defaultPollingOptions,
     ...options,
   };
 
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const mountedRef = useRef(false);
-  const activeRef = useRef(false);
-
-  const wrappedAsyncFunction = useCallback(
-    async function wrappedAsyncFunction(): Promise<void> {
-      if (!mountedRef.current || activeRef.current) {
-        // don't process if currently active or the component is unmounted
-        return;
-      }
-      if (await predicate()) {
-        activeRef.current = true;
-        try {
-          await asyncFunction();
-        } catch (e) {
-          onError(e);
-        } finally {
-          activeRef.current = false;
-        }
-      }
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
-    },
-    [asyncFunction, intervalMs, predicate, onError]
-  );
-
   useEffect(() => {
-    mountedRef.current = true;
-    if (immediate) {
-      wrappedAsyncFunction();
-    } else {
-      timeoutRef.current = setTimeout(wrappedAsyncFunction, intervalMs);
+    let timeoutID: ReturnType<typeof setTimeout>;
+    /*
+     * Flag to indicate that the async function is still actively running.  If it is actively running it skips
+     * execution and delays it until the next tick.
+     */
+    let active = false;
+    /*
+     * Flag to indicate that the cleanup was invoked so no more executions should be performed.
+     */
+    let cleanupCalled = false;
+    // the function is built here rather than on the top level so the timeout variable is managed within this function.
+    async function wrappedAsyncFunction(): Promise<void> {
+      if (!active && !cleanupCalled) {
+        active = true;
+        if (await predicate()) {
+          try {
+            await asyncFunction();
+          } catch (e) {
+            onError(e);
+          }
+        }
+        active = false;
+      }
+      if (!cleanupCalled) {
+        timeoutID = setTimeout(wrappedAsyncFunction, active ? 0 : intervalMs);
+      }
     }
+
+    timeoutID = setTimeout(wrappedAsyncFunction, immediate ? 0 : intervalMs);
     return () => {
-      clearTimeout(timeoutRef.current);
-      mountedRef.current = false;
-      activeRef.current = false;
+      clearTimeout(timeoutID);
+      cleanupCalled = true;
     };
-  }, [immediate, intervalMs, wrappedAsyncFunction]);
+  }, [immediate, intervalMs, asyncFunction, onError, predicate]);
 }

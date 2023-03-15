@@ -20,11 +20,11 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16.x
-        cache: 'yarn'
+        cache: 'npm'
     - name: Install dependencies
-      run: yarn
-    - run: yarn typedoc --plugin ./hoist-single-typedoc-plugin/index.js
-    - run: yarn test --coverage
+      run: npm ci
+    - run: npm run typedoc -- --plugin ./hoist-single-typedoc-plugin/index.js
+    - run: npm run test -- --coverage
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
