@@ -23,8 +23,8 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
-    - run: npm run typedoc --plugin ./hoist-single-typedoc-plugin/index.js
-    - run: npm run test --coverage
+    - run: npm run typedoc -- --plugin ./hoist-single-typedoc-plugin/index.js
+    - run: npm run test -- --coverage
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
