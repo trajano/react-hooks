@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import { renderHook, act, waitFor } from "@testing-library/react";
-import React, { useEffect, useState } from "react";
+import { renderHook } from "@testing-library/react";
+import { useEffect } from "react";
 
 const useRenderHookWithUseEffectWithTime = (effectCallback: () => void, cleanupEffectCallback: () => void) => {
   useEffect(() => {
