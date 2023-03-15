@@ -21,6 +21,7 @@ describe("useNotifiedPollingIf hook tests", () => {
     expect(func1).toHaveBeenCalledTimes(0);
     expect(notifyMe).toHaveBeenCalledTimes(0);
     await act(() => Promise.resolve());
+    await act(() => jest.advanceTimersToNextTimer());
     expect(func1).toHaveBeenCalledTimes(1);
     expect(notifyMe).toHaveBeenCalledTimes(1);
     expect(notifyMe).toHaveBeenLastCalledWith("one");
@@ -60,10 +61,8 @@ describe("useNotifiedPollingIf hook tests", () => {
 
     // advance by 200 then change functions
     jest.advanceTimersByTime(200);
-    console.log("BEFORE RERENDER")
     rerender({ func: func2 });
     await act(() => Promise.resolve());
-    console.log("AFTER RERENDER")
     expect(func1).toHaveBeenCalledTimes(2);
     expect(func2).toHaveBeenCalledTimes(0);
     expect(notifyMe).toHaveBeenCalledTimes(2);

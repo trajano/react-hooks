@@ -35,7 +35,7 @@ describe("usePollingIf hook test", () => {
     const func1 = jest.fn(() => Promise.resolve());
     renderHook(() =>
       usePollingIf(predicate, func1, { intervalMs: 300, immediate: true }), {});
-      expect(jest.getTimerCount()).toBe(1);
+    expect(jest.getTimerCount()).toBe(1);
     const start = Date.now();
     // advance to next tick
     await act(async () => jest.advanceTimersToNextTimer());
@@ -43,8 +43,7 @@ describe("usePollingIf hook test", () => {
     expect(Date.now() - start).toBe(0);
     jest.advanceTimersByTime(299);
     expect(func1).toHaveBeenCalledTimes(1);
-    jest.advanceTimersByTime(1);
-    await jest.advanceTimersToNextTimer();
+    await act(async () => { jest.advanceTimersByTime(1); });
     expect(Date.now() - start).toBe(300);
     expect(func1).toHaveBeenCalledTimes(2);
   });
@@ -54,7 +53,7 @@ describe("usePollingIf hook test", () => {
     const func1 = jest.fn(() => Promise.resolve());
     const func2 = jest.fn(() => Promise.resolve());
     const startInstant = Date.now();
-    const { rerender } = renderHook(({ func }) =>
+    const { rerender, unmount } = renderHook(({ func }) =>
       usePollingIf(predicate, func, { intervalMs: 300, immediate: true }), { initialProps: { func: func1 } });
     await act(() => Promise.resolve());
     // Should be zero because immediate is still async.
@@ -71,11 +70,8 @@ describe("usePollingIf hook test", () => {
 
     // advance by 200 then change functions
     jest.advanceTimersByTime(200);
-    console.log("BEFORE")
     rerender({ func: func2 });
-    console.log("AFTER1")
     await act(() => Promise.resolve());
-    console.log("AFTER2")
     expect(func1).toHaveBeenCalledTimes(2);
     expect(func2).toHaveBeenCalledTimes(0);
     expect(jest.getTimerCount()).toBe(1);
@@ -88,5 +84,9 @@ describe("usePollingIf hook test", () => {
     expect(func1).toHaveBeenCalledTimes(2);
     expect(func2).toHaveBeenCalledTimes(2);
 
+    unmount();
+
+    expect(func1).toHaveBeenCalledTimes(2);
+    expect(func2).toHaveBeenCalledTimes(2);
   });
 });

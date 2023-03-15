@@ -4,15 +4,11 @@ export interface PollingOptions {
    */
   intervalMs: number;
   /**
-   * milliseconds between polling checks.  This is the maximum time the setTimeout would be set to.
-   */
-  maxIntervalMs: number;
-  /**
-   * if true it will run the asyncFunction immediately before looping.
+   * if true it will run the asyncFunction immediately before looping.  Defaults to true.
    */
   immediate: boolean;
   /**
-   * The error handler.  Defults to console.error
+   * The error handler.  Defaults to console.error
    */
   onError: (err: unknown) => void;
 }

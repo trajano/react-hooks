@@ -13,7 +13,7 @@ export function usePollingIf<T = unknown>(
   asyncFunction: () => T | PromiseLike<T>,
   options: Partial<PollingOptions> = {}
 ): void {
-  const { intervalMs, immediate, maxIntervalMs, onError } = {
+  const { intervalMs, immediate, onError } = {
     ...defaultPollingOptions,
     ...options,
   };
@@ -31,7 +31,6 @@ export function usePollingIf<T = unknown>(
         active = true;
         if (await predicate()) {
           try {
-            console.log(`fire on ${timeoutID} inside ${active}`);
             await asyncFunction();
           } catch (e) {
             onError(e);
@@ -40,13 +39,10 @@ export function usePollingIf<T = unknown>(
         active = false;
       }
       timeoutID = setTimeout(wrappedAsyncFunction, active ? 0 : intervalMs);
-      console.log(`set ${timeoutID} inside ${active}`);
     }
 
     timeoutID = setTimeout(wrappedAsyncFunction, immediate ? 0 : intervalMs);
-    console.log(`set ${timeoutID}`);
     return () => {
-      console.log(`clear ${timeoutID}`);
       clearTimeout(timeoutID);
     };
   }, [immediate, intervalMs, asyncFunction, onError, predicate]);
