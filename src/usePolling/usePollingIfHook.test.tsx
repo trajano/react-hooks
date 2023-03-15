@@ -38,7 +38,7 @@ describe("usePollingIf hook test", () => {
       expect(jest.getTimerCount()).toBe(1);
     const start = Date.now();
     // advance to next tick
-    await jest.advanceTimersToNextTimer();
+    await act(async () => jest.advanceTimersToNextTimer());
     expect(func1).toHaveBeenCalledTimes(1);
     expect(Date.now() - start).toBe(0);
     jest.advanceTimersByTime(299);

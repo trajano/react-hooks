@@ -49,5 +49,5 @@ export function usePollingIf<T = unknown>(
       console.log(`clear ${timeoutID}`);
       clearTimeout(timeoutID);
     };
-  }, [immediate, intervalMs]);
+  }, [immediate, intervalMs, asyncFunction, onError, predicate]);
 }

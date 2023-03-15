@@ -4,11 +4,11 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
 
-const renderHookWithUseEffectWithTime = (effectCallback: () => void, cleanupEffectCallback: () => void) => {
+const useRenderHookWithUseEffectWithTime = (effectCallback: () => void, cleanupEffectCallback: () => void) => {
   useEffect(() => {
     const timeoutID = setTimeout(effectCallback, 100);
     return () => { cleanupEffectCallback(); clearTimeout(timeoutID) }
-  })
+  }, [effectCallback, cleanupEffectCallback])
 };
 describe("renderHook with useEffect", () => {
   beforeEach(() => { jest.useFakeTimers() });
@@ -21,7 +21,7 @@ describe("renderHook with useEffect", () => {
         effectCallback: () => void,
         cleanupEffectCallback: () => void
       }) =>
-        renderHookWithUseEffectWithTime(effectCallback, cleanupEffectCallback)
+        useRenderHookWithUseEffectWithTime(effectCallback, cleanupEffectCallback)
       , { initialProps: { effectCallback: effect1, cleanupEffectCallback: cleanup1 } });
     expect(effect1).toBeCalledTimes(0);
     jest.advanceTimersByTime(100);
@@ -42,7 +42,7 @@ describe("renderHook with useEffect", () => {
         effectCallback: () => void,
         cleanupEffectCallback: () => void
       }) =>
-        renderHookWithUseEffectWithTime(effectCallback, cleanupEffectCallback)
+        useRenderHookWithUseEffectWithTime(effectCallback, cleanupEffectCallback)
       , { initialProps: { effectCallback: effect1, cleanupEffectCallback: cleanup1 } });
     expect(effect1).toBeCalledTimes(0);
     jest.advanceTimersByTime(100);

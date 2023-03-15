@@ -4,8 +4,8 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
 
-const renderHookWithUseEffect = (effectCallback: () => void, cleanupEffectCallback: () => void) => {
-  useEffect(() => { effectCallback(); return () => { cleanupEffectCallback(); } })
+const useRenderHookWithUseEffect = (effectCallback: () => void, cleanupEffectCallback: () => void) => {
+  useEffect(() => { effectCallback(); return () => { cleanupEffectCallback(); } }, [effectCallback, cleanupEffectCallback])
 };
 describe("renderHook with useEffect", () => {
   it("should fire effect and cleanup", () => {
@@ -16,7 +16,7 @@ describe("renderHook with useEffect", () => {
         effectCallback: () => void,
         cleanupEffectCallback: () => void
       }) =>
-        renderHookWithUseEffect(effectCallback, cleanupEffectCallback)
+        useRenderHookWithUseEffect(effectCallback, cleanupEffectCallback)
       , { initialProps: { effectCallback: effect1, cleanupEffectCallback: cleanup1 } });
     expect(effect1).toBeCalledTimes(1);
     expect(cleanup1).toBeCalledTimes(0);
@@ -35,7 +35,7 @@ describe("renderHook with useEffect", () => {
         effectCallback: () => void,
         cleanupEffectCallback: () => void
       }) =>
-        renderHookWithUseEffect(effectCallback, cleanupEffectCallback)
+        useRenderHookWithUseEffect(effectCallback, cleanupEffectCallback)
       , { initialProps: { effectCallback: effect1, cleanupEffectCallback: cleanup1 } });
     expect(effect1).toBeCalledTimes(1);
     expect(cleanup1).toBeCalledTimes(0);
