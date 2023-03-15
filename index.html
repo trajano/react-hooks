@@ -1,0 +1,108 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@trajano/react-hooks</title><meta name="description" content="Documentation for @trajano/react-hooks"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@trajano/react-hooks</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>@trajano/react-hooks</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#react-hooks" id="react-hooks" style="color: inherit; text-decoration: none;">
+  <h1>React Hooks</h1>
+</a>
+<p>A collection of general purpose, side-effect free, hooks that can be used in React apps.  It is tested with React and React Native.</p>
+<p>This targets React 18 to make it work with Expo 47.</p>
+
+<a href="#origin" id="origin" style="color: inherit; text-decoration: none;">
+  <h2>Origin</h2>
+</a>
+<p>Originally this was <em>React Hook Tests</em> which is a bunch of hooks I wrote to learn how to use React hooks and have associated jest tests with it and attempt to get a <a href="https://trajano.github.io/react-hooks/lcov-report/">good test coverage</a>.</p>
+
+<a href="#explicit-linting-rules" id="explicit-linting-rules" style="color: inherit; text-decoration: none;">
+  <h2>Explicit linting rules</h2>
+</a>
+<p>These are fixable using <code>--fix</code></p>
+<ul>
+<li><a href="https://eslint.org/docs/latest/rules/arrow-body-style">arrow-body-style</a></li>
+<li><a href="https://eslint.org/docs/latest/rules/curly">curly</a></li>
+<li><a href="https://eslint.org/docs/latest/rules/eqeqeq">eqeqeq</a></li>
+<li><a href="https://eslint.org/docs/latest/rules/logical-assignment-operators">logical-assignment-operators</a></li>
+<li><a href="https://eslint.org/docs/latest/rules/multiline-comment-style">multiline-comment-style</a></li>
+<li><a href="https://eslint.org/docs/latest/rules/no-floating-decimal">no-floating-decimal</a></li>
+<li><a href="https://eslint.org/docs/latest/rules/prefer-arrow-callback">prefer-arrow-callback</a> since the naming is done automatically by babel<ul>
+<li><a href="https://stackoverflow.com/questions/49306148/why-is-arrow-syntax-preferred-over-function-declaration-for-functional-react-com">https://stackoverflow.com/questions/49306148/why-is-arrow-syntax-preferred-over-function-declaration-for-functional-react-com</a></li>
+<li><a href="https://stackoverflow.com/questions/32828698/difference-between-anonymous-function-vs-named-function-as-value-for-an-object-k/32830772#32830772">https://stackoverflow.com/questions/32828698/difference-between-anonymous-function-vs-named-function-as-value-for-an-object-k/32830772#32830772</a></li>
+</ul>
+</li>
+<li><a href="https://eslint.org/docs/latest/rules/prefer-const">prefer-const</a></li>
+<li>&quot;prefer-numeric-literals&quot;: &quot;error&quot;,</li>
+<li>&quot;prefer-object-spread&quot;: &quot;error&quot;,</li>
+<li>&quot;prefer-template&quot;: &quot;error&quot;,</li>
+<li>&quot;yoda&quot;: &quot;error&quot;,</li>
+<li><a href="https://typescript-eslint.io/rules/ban-types">@typescript-eslint/ban-types</a> is ignored becaues React uses <code>{}</code> as the prop type default.</li>
+</ul>
+
+<a href="#why-lodash" id="why-lodash" style="color: inherit; text-decoration: none;">
+  <h2>Why lodash?</h2>
+</a>
+<p>Instead of <a href="https://ramdajs.com/">Ramda</a> and <a href="https://selfrefactor.github.io/rambda/">Rambda</a>? <a href="https://lodash.com/docs/4.17.15#debounce"><code>debounce</code></a> is only implemented in Lodash.</p>
+
+<a href="#why-npm" id="why-npm" style="color: inherit; text-decoration: none;">
+  <h2>Why npm?</h2>
+</a>
+<p>This project used Yarn earlier.  However, it has changed to npm again.  Reasons:</p>
+<ul>
+<li><a href="https://shift.infinite.red/yarn-1-vs-yarn-2-vs-npm-a69ccf0229cd">Facebook still uses Yarn 1 over Yarn Berry</a> so seems like a contention there.</li>
+<li>Since this this a stand alone project, I&#39;d rather reduce the complexity of the setup.  For my <a href="https://github.com/trajano/spring-cloud-demo">monorepo</a> that is using this Yarn works with it.</li>
+<li><code>npm</code> is installed with NodeJS</li>
+<li><code>npm</code> has workspace support as well.</li>
+<li><code>npm</code> has stricter semver checks.</li>
+</ul>
+<p>The <a href="https://shift.infinite.red/yarn-1-vs-yarn-2-vs-npm-a69ccf0229cd">2020 article on Yarn 1 vs Yarn 2 vs NPM</a> gives a bit of insights and priorities though my order is slightly different</p>
+<ol>
+<li>Broad support — needs to work with React Native, Node CLIs, web — anything we do. We work with a number of clients over a range of technologies and having a package manager that can be used for all our <del>JavaScript</del> TypeScript technologies is a must-have</li>
+<li>Predictability — will install the same packages every time. Having different versions on different machines makes debugging quite difficult</li>
+<li>Reliability — it’s not flaky nor does it fail randomly. Nothing seems to frustrate developers as fast as flaky tools</li>
+<li>Speed — lowered the priority because I prefer predictability and reliability over speed.</li>
+<li>Caching — local installs wherever possible. We all work remotely and so less network traffic/bandwidth is critical</li>
+<li>Community adoption </li>
+<li>Cost of change</li>
+<li>Key value-added features</li>
+</ol>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">@trajano/react-<wbr/>hooks</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/useClock.html">use<wbr/>Clock</a></li>
+<li class="tsd-kind-module"><a href="modules/useMounted.html">use<wbr/>Mounted</a></li>
+<li class="tsd-kind-module"><a href="modules/usePolling.html">use<wbr/>Polling</a></li>
+<li class="tsd-kind-module"><a href="modules/useReplaceLogging.html">use<wbr/>Replace<wbr/>Logging</a></li>
+<li class="tsd-kind-module"><a href="modules/useStates.html">use<wbr/>States</a></li>
+<li class="tsd-kind-module"><a href="modules/useSubscription.html">use<wbr/>Subscription</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>
