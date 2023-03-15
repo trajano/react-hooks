@@ -51,7 +51,7 @@ describe("usePollingIf hook test", () => {
   it("should handle long running functions", async () => {
     const predicate = () => Promise.resolve(true);
     const func1 = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
-    const {unmount} = renderHook(() =>
+    const { unmount } = renderHook(() =>
       usePollingIf(predicate, func1, { intervalMs: 300, immediate: true }), {});
     expect(jest.getTimerCount()).toBe(1);
     const start = Date.now();
@@ -98,9 +98,12 @@ describe("usePollingIf hook test", () => {
     unmount();
 
     expect(func1).toHaveBeenCalledTimes(4);
+    // it has to finish up the delay timer in the func1.
+    expect(jest.getTimerCount()).toBe(1);
     await act(async () => jest.advanceTimersToNextTimer());
     // there should be no longer be any more calls
     expect(func1).toHaveBeenCalledTimes(4);
+    expect(jest.getTimerCount()).toBe(0);
   });
 
   it("should cancel the current timeout when handle changing functions", async () => {

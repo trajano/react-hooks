@@ -25,9 +25,13 @@ export function usePollingIf<T = unknown>(
      * execution and delays it until the next tick.
      */
     let active = false;
+    /*
+     * Flag to indicate that the cleanup was invoked so no more executions should be performed.
+     */
+    let cleanupCalled = false;
     // the function is built here rather than on the top level so the timeout variable is managed within this function.
     async function wrappedAsyncFunction(): Promise<void> {
-      if (!active) {
+      if (!active && !cleanupCalled) {
         active = true;
         if (await predicate()) {
           try {
@@ -38,12 +42,15 @@ export function usePollingIf<T = unknown>(
         }
         active = false;
       }
-      timeoutID = setTimeout(wrappedAsyncFunction, active ? 0 : intervalMs);
+      if (!cleanupCalled) {
+        timeoutID = setTimeout(wrappedAsyncFunction, active ? 0 : intervalMs);
+      }
     }
 
     timeoutID = setTimeout(wrappedAsyncFunction, immediate ? 0 : intervalMs);
     return () => {
       clearTimeout(timeoutID);
+      cleanupCalled = true;
     };
   }, [immediate, intervalMs, asyncFunction, onError, predicate]);
 }
